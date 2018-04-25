@@ -10490,7 +10490,6 @@ a.text-dark:focus {
 
 .inventoryMenu {
   display: none;
-  margin-top: -2px;
   overflow: hidden;
   margin-left: 25px;
 }
