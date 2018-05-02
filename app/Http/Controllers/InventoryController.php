@@ -19,34 +19,38 @@ class InventoryController extends Controller{
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct()
+
+    public function index()
     {
-        $this->middleware('auth');
-    }
-
-
-    public function index(){
         $user_id = auth()->user()->id;
         $users_id = User::find($user_id);
-        $products = Products::All();
+        // $products = Products::All();
      
         return view('inventory.index')->with('users_id',$users_id)->with('products',$products);
     }
-  /**
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function create()
+    {
+        //
+    }
 
-     public function create(){
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
 
-
-     }
-public function store(Request $request)
-{
-//
-}
-/**
+    /**
      * Display the specified resource.
      *
      * @param  int  $id

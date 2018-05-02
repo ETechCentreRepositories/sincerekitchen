@@ -26,7 +26,7 @@ Route::get('/addemployee', 'PagesController@addemployee');
 Route::get('/editemployee', 'PagesController@editemployee');
 Route::get('/salesorder', 'PagesController@salesorder');
 
-Route::resource('products', 'ProductsController');
+Route::resource('product', 'ProductsController');
 // Route::get('/', function () {
 //     return view('welcome');
 // });

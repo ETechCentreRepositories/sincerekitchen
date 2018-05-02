@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Products;
+use App\Models\Product;
 use App\User;
-
-use db;
 
 class ProductsController extends Controller
 {
@@ -19,9 +17,9 @@ class ProductsController extends Controller
     {
         $user_id = auth()->user()->id;
         $users_id = User::find($user_id);
-        $products = Products::All();
+        $products = Product::all();
      
-        return view('inventory.product')->with('users_id',$users_id)->with('products',$products);
+        return view('inventory.product')->with('users_id',$users_id)->with('products', $products);
     }
 
     /**
