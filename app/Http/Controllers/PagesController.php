@@ -8,7 +8,7 @@ class PagesController extends Controller
 {
     public function dashboard(){
         $title = 'Dashboard';
-        return view('dashboard')->with('title', $title);
+        return view('home')->with('title', $title);
     }
 
     public function inventory(){
