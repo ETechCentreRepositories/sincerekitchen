@@ -38,7 +38,7 @@ class PagesController extends Controller
 
     public function addproduct(){
         $title = 'Add Product';
-        return view('inventory.create')->with('title', $title);
+        return view('inventory.addproduct')->with('title', $title);
     }
 
     public function addemployee(){

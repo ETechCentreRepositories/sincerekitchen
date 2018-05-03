@@ -30,7 +30,13 @@ class ProductsController extends Controller
     public function create()
     {
         //
+        $user_id = auth()->user()->id;
+        $users_id = User::find($user_id);
+        $products = Product::find($id);
+        return view('inventory.edit')->with('users_id',$users_id)->with('products', $products);
     }
+     
+    
 
     /**
      * Store a newly created resource in storage.
@@ -62,6 +68,7 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
+     
         //
     }
 
@@ -74,7 +81,13 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user_id = auth()->user()->id;
+        $users_id = User::find($user_id);
+       $products = Product::find($id);
+       $products->product_name = $request-> input('product_name');
+       $products->save();
+
+       return view('inventory.product')->with('users_id',$users_id)->with('products', $products);
     }
 
     /**

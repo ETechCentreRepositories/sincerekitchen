@@ -8,6 +8,7 @@
         <div class="d-flex">
             <h3 class="title mr-auto p-2">Products</h3>
             <div class="p-2">
+            <!-- move to another page -->
                 <a href="/addproduct">
                     <button type="button" class="btn btn-warning yellowButton">
                         <svg class="addIcon" xmlns="http://www.w3.org/2000/svg" viewBox="4813 -139 24 24">
@@ -30,8 +31,11 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>Name</th>
-                    <th></th>
+                    <th>Item Name</th>
+                    <th>Quantity</th>
+                    <th>Dimension</th>
+                    <th>Model No.</th>
+                    <th>Serial No.</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,7 +60,10 @@
                     <td>201708000051</td> -->
 
                     <td>{{$product->product_name}}</td>
-                    
+                    <td>{{$product->quantity}}</td>
+                    <td>{{$product->dimension}}</td>
+                    <td>{{$product->serial_no}}</td>
+                    <td>{{$product->model_no}}</td>
                     <td>
                         <a href="/editproduct">
                             <button type="button" class="btn btn-warning yellowButton">

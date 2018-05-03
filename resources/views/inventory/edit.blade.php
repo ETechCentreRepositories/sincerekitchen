@@ -3,6 +3,8 @@
 @section('content')
 @include('inc.sidebar')
 
+
+
 <div class="container-fluid">
     <div class="pageContent">
         <h3 class="title">Edit Item</h3>
@@ -15,6 +17,8 @@
         </div>
         <hr>
         <div class="ProductDetails">
+            {!!Form::open(['action' => ['ProductsController@update',$products->id],'method' => 'POST'])!!}
+            {{csrf_field()}}
             <h3 class="title">Product Details</h3>
             <div class="row">
                 <div class="col-md-9">
@@ -22,8 +26,9 @@
                         <div class="col-md-3">
                             {{Form::label('productname', 'Product Name', ['class' => 'formLabel'])}}
                         </div>
+                     
                         <div class="col-md-9">
-                            {{Form::text('productname', '', ['class' => 'form-control'])}}
+                            {{Form::text('productname', $products->product_name, ['class' => 'form-control'])}}
                         </div>
                     </div>
                     <div class="row">
