@@ -83,11 +83,17 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
+<<<<<<< HEAD
        
      $product = Product::find($id);
      return view('inventory.edit')-> with('product',$product);
 
         //
+=======
+     $product = Product::find($id);
+
+     return view ('inventory.edit')->with('product', $product);
+>>>>>>> 45b908c71624edf9a33dc32198252460c977a394
     }
 
     /**
@@ -99,6 +105,7 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
+<<<<<<< HEAD
        $product = Product::find($id);
        $product->product_name = $request-> input('productname');
        $product->serial_no = $request -> input('sku');
@@ -108,6 +115,17 @@ class ProductsController extends Controller
        $product->save();
 
        return redirect('/product');
+=======
+        $this->validate($request, [
+            'product_name' => 'required'
+        ]);
+
+        $products = Product::find($id);
+        $products->product_name = $request-> input('product_name');
+        $products->save();
+
+        return redirect('/product')->with('success', 'Post Updated');
+>>>>>>> 45b908c71624edf9a33dc32198252460c977a394
     }
 
     /**

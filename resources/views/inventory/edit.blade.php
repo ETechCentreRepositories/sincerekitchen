@@ -26,7 +26,6 @@
                         <div class="col-md-3">
                             {{Form::label('productname', 'Product Name', ['class' => 'formLabel'])}}
                         </div>
-                     
                         <div class="col-md-9">
                             {{Form::text('productname', $product->product_name, ['class' => 'form-control'])}}
                         </div>
