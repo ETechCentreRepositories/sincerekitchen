@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Hash;
 use App\Models\Users;
+use Illuminate\Support\Facades\Input;
 use App\User;
 use DB;
 
@@ -50,6 +51,18 @@ class UserController extends Controller{
     public function store(Request $request)
     {
         //
+
+        $users = new Users;
+        $users->name= Input::get('name');
+        $users->email = Input::get('email');
+        $users->username = Input::get('username');
+        $users->password = Hash:: make(Input::get('password'));
+        $users->phone_number = Input::get('phone_number');
+        $users-> save();
+
+        return redirect('/employee');
+
+
     }
 
     /**
@@ -74,7 +87,9 @@ class UserController extends Controller{
      */
     public function edit($id)
     {
-        //
+        // 
+        $Users = Users::find($id);
+     return view('employee.edit')-> with('users',$Users);
     }
 
     /**
@@ -96,6 +111,7 @@ class UserController extends Controller{
         $users->phone_number = $request-> input('phone_number');
         $users->save();
 
+
         return redirect('/employee');
 
 
@@ -110,6 +126,10 @@ class UserController extends Controller{
     public function destroy($id)
     {
         //
+
+        $users= Users::find($id);
+        $users->delete();
+        return redirect('/employee')->with('success','Post Removed');
     }
 
        /**

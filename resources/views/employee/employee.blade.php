@@ -68,12 +68,20 @@
                     <td></td>
                     <td></td>
                     <td>
+
+                    
                         <a href="/employee/{{$user->id}}/edit">
                             <button type="button" class="btn btn-warning yellowButton">
                                 <label class="addLabel">Edit</label>
                             </button>
+
+                              {!!Form::open(['action' => ['UserController@destroy', $user->id], 'method' => 'POST'])!!}
+                                    {{Form::hidden('_method', 'DELETE')}}
+                                    {{Form::submit('Delete', ['class' => 'btn btn-danger action-buttons'])}}
+                                {!!Form::close()!!}
                         <a>
                     </td>
+                   
                 </tr>
                 @endforeach
             </tbody>

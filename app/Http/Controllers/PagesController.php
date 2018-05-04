@@ -43,7 +43,7 @@ class PagesController extends Controller
 
     public function addemployee(){
         $title = 'Add Employee';
-        return view('employee.create')->with('title', $title);
+        return view('employee.addemployee')->with('title', $title);
     }
 
     public function editproduct(){
