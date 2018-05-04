@@ -68,8 +68,9 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-     
-        //
+     $product = Product::find($id);
+
+     return view ('inventory.edit')->with('product', $product);
     }
 
     /**
@@ -81,13 +82,15 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user_id = auth()->user()->id;
-        $users_id = User::find($user_id);
-       $products = Product::find($id);
-       $products->product_name = $request-> input('product_name');
-       $products->save();
+        $this->validate($request, [
+            'product_name' => 'required'
+        ]);
 
-       return view('inventory.product')->with('users_id',$users_id)->with('products', $products);
+        $products = Product::find($id);
+        $products->product_name = $request-> input('product_name');
+        $products->save();
+
+        return redirect('/product')->with('success', 'Post Updated');
     }
 
     /**

@@ -26,7 +26,7 @@
         <br>
         <a href="/product" class="w3-bar-item w3-button">Products</a>
     </div>
-    {{-- <button onclick="window.location.href='/customer'" class="pushDown">
+    <button onclick="window.location.href='/customer'" class="pushDown">
         <svg class="tabIcons" xmlns="http://www.w3.org/2000/svg" viewBox="5218 -1457 200 200.659">
             <defs>
               <style>
@@ -44,7 +44,7 @@
           </svg>                
         <p id="tabLabels" class="tabLabels">Customers</p>
     </button>
-    <br><br> --}}
+    <br><br>
     <button onclick="window.location.href='/employee'">
         <svg class="tabIcons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="5340 -1468 200 205.001">
             <defs>
