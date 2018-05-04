@@ -10,13 +10,15 @@
         <div class="ProductDetails">
             <h3 class="title">User Details</h3>
             <div class="row">
+            {!! Form::open(['action' =>['UserController@update',$users->id],'method'=> 'POST']) !!}
+            {{csrf_field()}}  
                 <div class="col-md-9">
                     <div class="row">
                         <div class="col-md-3">
-                            {{Form::label('name', 'Name', ['class' => 'formLabel'])}}
+                         {{Form::label('name', 'Name', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('name', '', ['class' => 'form-control'])}}
+                            {{Form::text('name', $users-> name, ['class' => 'form-control'])}}
                         </div>
                     </div>
                     <div class="row">
@@ -24,7 +26,7 @@
                             {{Form::label('email', 'Email', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('email', '', ['class' => 'form-control'])}}
+                            {{Form::text('email', $users-> email, ['class' => 'form-control'])}}
                         </div>
                     </div>
                     <div class="row">
@@ -32,7 +34,7 @@
                             {{Form::label('username', 'Username', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('username', '', ['class' => 'form-control'])}}
+                            {{Form::text('username', $users->username, ['class' => 'form-control'])}}
                         </div>
                     </div>
                     <div class="row">
@@ -48,7 +50,7 @@
                             {{Form::label('phonenumber', 'Phone Number', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('phonenumber', '', ['class' => 'form-control'])}}
+                            {{Form::text('phonenumber', $users-> phone_number, ['class' => 'form-control'])}}
                         </div>
                     </div>
                     <div class="row">
@@ -78,9 +80,14 @@
                 </div>
                 <div class="col-md-3"></div>
             </div>
+
+            {{Form::hidden('_method','PUT')}}
             <div class="centerButton">
-                <button type="button" class="btn btn-warning btn-lg yellowButton">Add User</button>
+                <button type="submit" class="btn btn-warning btn-lg yellowButton">Saved</button>
             </div>
         </div>
+        {{!! Form:: close()!!}}
     </div>
 </div>
+
+@endsection

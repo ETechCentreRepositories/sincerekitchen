@@ -65,7 +65,7 @@
                     <td>{{$product->serial_no}}</td>
                     <td>{{$product->model_no}}</td>
                     <td>
-                        <a href="/editproduct">
+                        <a href="/product/{{$product->id}}/edit">
                             <button type="button" class="btn btn-warning yellowButton">
                                 <label class="addLabel">Edit</label>
                             </button>

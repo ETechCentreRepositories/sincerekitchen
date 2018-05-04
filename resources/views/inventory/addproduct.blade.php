@@ -16,14 +16,18 @@
         <hr>
         <div class="ProductDetails">
             <h3 class="title">Product Details</h3>
+        
             <div class="row">
+                {!!Form:: open(['action'=>['ProductsController@store'],'method'=>'POST'])!!}
+                {{csrf_field()}}
+                
                 <div class="col-md-9">
                     <div class="row">
                         <div class="col-md-3">
                             {{Form::label('productname', 'Product Name', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('productname', '', ['class' => 'form-control'])}}
+                            {{Form::text('productname','', ['class' => 'form-control'])}}
                         </div>
                     </div>
                     <div class="row">
@@ -31,7 +35,7 @@
                             {{Form::label('sku', 'SKU', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('sku', '', ['class' => 'form-control'])}}
+                            {{Form::text('sku','' , ['class' => 'form-control'])}}
                         </div>
                     </div>
                     <div class="row">
@@ -159,7 +163,8 @@
         </div>
         <hr>
         <div class="centerButton">
-            <button type="button" class="btn btn-warning btn-lg yellowButton">Add Product</button>
+            <button type="submit" class="btn btn-warning btn-lg yellowButton">Add Product</button>
         </div>
+        {!! Form::close() !!}
     </div>
 </div>

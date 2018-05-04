@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
-use App\Models\Products;
+use App\Models\Product;
 use App\Models\Inventory;
 use App\User;
 use Auth;
@@ -24,7 +24,7 @@ class InventoryController extends Controller{
     {
         $user_id = auth()->user()->id;
         $users_id = User::find($user_id);
-        // $products = Products::All();
+        $products = Product::All();
      
         return view('inventory.index')->with('users_id',$users_id)->with('products',$products);
     }
@@ -36,7 +36,11 @@ class InventoryController extends Controller{
      */
     public function create()
     {
-        //
+        
+        $products = DB::table('Inventory')->join('inventory','product.id','=','inventory.product_id')->
+        select('product_name','serial_no','model_no')->get(); 
+
+        return redirect('/inventory');
     }
 
     /**
@@ -58,7 +62,10 @@ class InventoryController extends Controller{
      */
     public function show($id)
     {
-        
+        $data = DB::table('inventory')->join('inventory','inventory.product_id','=','products.product_id')
+        -> select ('product_name','serial_no','model_no')-> get();
+        return redirect('/Inventory');
+
     }
 
     /**
@@ -106,15 +113,15 @@ class InventoryController extends Controller{
      */
 
 
-public function getInventory(){
+// public function getInventory(){
 
-    $inventory = Inventory:: 
-    select('product_name','serial_no','model_no','stock_in','stock_out','image')->get()->toArray();
+//     $inventory = Inventory:: 
+//     select('product_name','serial_no','model_no','stock_in','stock_out','image')->get()->toArray();
 
-    return response($inventory);
+//     return response($inventory);
 
 
-}
+// }
 
 
 

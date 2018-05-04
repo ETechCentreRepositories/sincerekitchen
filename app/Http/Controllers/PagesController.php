@@ -51,8 +51,8 @@ class PagesController extends Controller
         return view('inventory.edit')->with('title', $title);
     }
 
-    public function editemployee(){
-        $title = 'Add Employee';
-        return view('employee.edit')->with('title', $title);
-    }
+    // public function editemployee(){
+    //     $title = 'Add Employee';
+    //     return view('employee.edit')->with('title', $title);
+    // }
 }

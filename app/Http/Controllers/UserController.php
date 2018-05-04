@@ -1,28 +1,31 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-use App\Models\Product;
-use App\User;
-use Illuminate\Support\Facades\Input;
 
+use App\Models\Users;
+use App\User;
 use DB;
 
-class ProductsController extends Controller
-{
-    /**
+
+
+class UserController extends Controller{
+
+
+      /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
         $user_id = auth()->user()->id;
         $users_id = User::find($user_id);
-        $products = Product::All();
+        $users = Users::All();
      
-        return view('inventory.product')->with('users_id',$users_id)->with('products', $products);
+        return view('employee.employee')->with('users_id',$users_id)->with('users',$users);
     }
 
     /**
@@ -32,14 +35,11 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        //
         $user_id = auth()->user()->id;
-        $users_id = User::find($user_id);
-        $products = Product::find($product_id);
-        return view('inventory.edit')->with('users_id',$users_id)->with('products', $products);
+        $users_id = User::find($users_id);
+        $users = Users::find($id);
+        return view('employee.edit')-> with('users_id',$users_id)-> with('users',$users);
     }
-     
-    
 
     /**
      * Store a newly created resource in storage.
@@ -50,18 +50,6 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         //
-         $product = new Product;
-        $product->product_name= Input::get('productname');
-        $product->serial_no = Input::get('sku');
-        $product->dimension = Input::get('dimension');
-        $product->model_no = Input::get('modelno');
-        $product->unit_price = Input::get('sellingprice');
-        $product-> save();
-
-        return redirect('/product');
-
-
-
     }
 
     /**
@@ -72,7 +60,10 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = DB::table('inventory')->join('inventory','inventory.product_id','=','products.product_id')
+        -> select ('product_name','serial_no','model_no')-> get();
+        return redirect('/Inventory');
+
     }
 
     /**
@@ -83,10 +74,6 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-       
-     $product = Product::find($id);
-     return view('inventory.edit')-> with('product',$product);
-
         //
     }
 
@@ -99,15 +86,19 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-       $product = Product::find($id);
-       $product->product_name = $request-> input('productname');
-       $product->serial_no = $request -> input('sku');
-       $product->dimension = $request -> input('dimension');
-       $product->model_no = $request -> input('modelno');
-       $product->unit_price = $request -> input('sellingprice');
-       $product->save();
+        //
 
-       return redirect('/product');
+        $users = Users::find($id);
+        $users->name = $request-> input('name');
+        $users->email = $request-> input('email');
+        $users->department = $request-> input('department');
+        $users->username = $request-> input('username');
+        $users->phone_number = $request-> input('phone_number');
+        $users->save();
+
+        return redirect('/employee');
+
+
     }
 
     /**
@@ -120,4 +111,29 @@ class ProductsController extends Controller
     {
         //
     }
+
+       /**
+
+     * Create a new controller instance.
+
+     *
+
+     * @return void
+
+     */
+
+
+// public function getInventory(){
+
+//     $inventory = Inventory:: 
+//     select('product_name','serial_no','model_no','stock_in','stock_out','image')->get()->toArray();
+
+//     return response($inventory);
+
+
+// }
+
+
+
 }
+

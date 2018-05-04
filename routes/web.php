@@ -23,10 +23,13 @@ Route::get('/editproduct', 'PagesController@editproduct');
 Route::get('/customer', 'PagesController@customer');
 Route::get('/employee', 'PagesController@employee');
 Route::get('/addemployee', 'PagesController@addemployee');
-Route::get('/editemployee', 'PagesController@editemployee');
+// Route::get('/editemployee', 'PagesController@editemployee');
 Route::get('/salesorder', 'PagesController@salesorder');
 
 Route::resource('product', 'ProductsController');
+
+Route::resource('employee','UserController');
+// Route::get('/','InventoryController');
 // Route::get('/', function () {
 //     return view('welcome');
 // });

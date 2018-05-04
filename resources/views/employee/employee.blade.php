@@ -25,6 +25,7 @@
                 </a>
             </div>
         </div>
+        @if(count($users) >0)
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -39,6 +40,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
+            @foreach($users as $user)
             <tbody>
                 <tr>
                     <td>
@@ -46,64 +48,36 @@
                             <label><input type="checkbox" value=""></label>
                         </div>
                     </td>
-                    <td>Queeny</td>
+                
+
+
+                    <!-- <td>Queeny</td>
                     <td>9451 1958</td>
                     <td>admin@sincerekitchen.com</td>
                     <td>Executive team</td>
                     <td>queeny123</td>
                     <td>104-4-001988</td>
-                    <td>Administrator</td>
+                    <td>Administrator</td> -->
+
+                    <td>{{$user ->name}}</td>
+                    <td>{{$user ->email}}</td>
+                    <td>{{$user ->phone_number}}</td>
+                    <td>{{$user ->department}}</td>
+                    <td>{{$user ->username}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td>
-                        <a href="/editemployee">
+                        <a href="/employee/{{$user->id}}/edit">
                             <button type="button" class="btn btn-warning yellowButton">
                                 <label class="addLabel">Edit</label>
                             </button>
                         <a>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <div class="checkbox">
-                            <label><input type="checkbox" value=""></label>
-                        </div>
-                    </td>
-                    <td>Queeny</td>
-                    <td>9451 1958</td>
-                    <td>admin@sincerekitchen.com</td>
-                    <td>Executive team</td>
-                    <td>queeny123</td>
-                    <td>104-4-001988</td>
-                    <td>Administrator</td>
-                    <td>
-                        <a href="/editemployee">
-                            <button type="button" class="btn btn-warning yellowButton">
-                                <label class="addLabel">Edit</label>
-                            </button>
-                        <a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="checkbox">
-                            <label><input type="checkbox" value=""></label>
-                        </div>
-                    </td>
-                    <td>Queeny</td>
-                    <td>9451 1958</td>
-                    <td>admin@sincerekitchen.com</td>
-                    <td>Executive team</td>
-                    <td>queeny123</td>
-                    <td>104-4-001988</td>
-                    <td>Administrator</td>
-                    <td>
-                        <a href="/editemployee">
-                            <button type="button" class="btn btn-warning yellowButton">
-                                <label class="addLabel">Edit</label>
-                            </button>
-                        <a>
-                    </td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
+        @endif
     </div>
 </div>

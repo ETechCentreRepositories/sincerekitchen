@@ -17,7 +17,7 @@
         </div>
         <hr>
         <div class="ProductDetails">
-            {!!Form::open(['action' => ['ProductsController@update',$products->id],'method' => 'POST'])!!}
+            {!!Form::open(['action' => ['ProductsController@update',$product->id],'method' => 'POST']) !!}
             {{csrf_field()}}
             <h3 class="title">Product Details</h3>
             <div class="row">
@@ -28,7 +28,7 @@
                         </div>
                      
                         <div class="col-md-9">
-                            {{Form::text('productname', $products->product_name, ['class' => 'form-control'])}}
+                            {{Form::text('productname', $product->product_name, ['class' => 'form-control'])}}
                         </div>
                     </div>
                     <div class="row">
@@ -36,7 +36,7 @@
                             {{Form::label('sku', 'SKU', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('sku', '', ['class' => 'form-control'])}}
+                            {{Form::text('sku', $product->serial_no, ['class' => 'form-control'])}}
                         </div>
                     </div>
                     <div class="row">
@@ -44,7 +44,7 @@
                             {{Form::label('dimension', 'Dimension (mm)', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('dimension', '', ['class' => 'form-control'])}}
+                            {{Form::text('dimension', $product->dimension, ['class' => 'form-control'])}}
                         </div>
                     </div>
                     <div class="row">
@@ -95,7 +95,7 @@
                             {{Form::label('modelno', 'Model No', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('modelno', '', ['class' => 'form-control'])}}
+                            {{Form::text('modelno', $product->model_no, ['class' => 'form-control'])}}
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                             {{Form::label('sellingprice', 'Selling Price', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('sellingprice', '', ['class' => 'form-control'])}}
+                            {{Form::text('sellingprice', $product->unit_price, ['class' => 'form-control'])}}
                         </div>
                     </div>
                     <div class="row">
@@ -142,8 +142,10 @@
             </div>
         </div>
         <hr>
+        {{Form::hidden('_method','PUT')}}
         <div class="centerButton">
-            <button type="button" class="btn btn-warning btn-lg yellowButton">Add Product</button>
+            <button type="submit" class="btn btn-warning btn-lg yellowButton">Add Product</button>
         </div>
+        {!! Form::close() !!}
     </div>
 </div>
