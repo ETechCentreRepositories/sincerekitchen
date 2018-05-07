@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 @include('inc.navbar')
 @section('content')
@@ -8,19 +9,17 @@
         <h3 class="title">Edit User</h3>
         <hr>
         <div class="ProductDetails">
-
-  {!! Form::open(['action' =>['UserController@update',$users->id],'method'=> 'POST'])!!}
-
-{{csrf_field()}}        
             <h3 class="title">User Details</h3>
             <div class="row">
+            {!! Form::open(['action' =>['CustomersController@store'],'method'=> 'POST']) !!}
+            {{csrf_field()}}  
                 <div class="col-md-9">
                     <div class="row">
                         <div class="col-md-3">
                          {{Form::label('name', 'Name', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('name', $users-> name, ['class' => 'form-control'])}}
+                            {{Form::text('name', '', ['class' => 'form-control'])}}
                         </div>
                     </div>
                     <div class="row">
@@ -28,42 +27,35 @@
                             {{Form::label('email', 'Email', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('email', $users-> email, ['class' => 'form-control'])}}
+                            {{Form::text('email', '', ['class' => 'form-control'])}}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            {{Form::label('username', 'Username', ['class' => 'formLabel'])}}
+                            {{Form::label('phone', 'Phone Number', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('username', $users->username, ['class' => 'form-control'])}}
+                            {{Form::text('phone', '', ['class' => 'form-control'])}}
+                        </div>
+                    </div>
+                  
+                    <div class="row">
+                        <div class="col-md-3">
+                            {{Form::label('ba', 'Billing Address', ['class' => 'formLabel'])}}
+                        </div>
+                        <div class="col-md-9">
+                            {{Form::text('ba', '', ['class' => 'form-control'])}}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            {{Form::label('password', 'Password', ['class' => 'formLabel'])}}
+                            {{Form::label('sa', 'Shipping Address', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('password', '', ['class' => 'form-control'])}}
+                            {{Form::text('sa', '', ['class' => 'form-control'])}}
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            {{Form::label('phonenumber', 'Phone Number', ['class' => 'formLabel'])}}
-                        </div>
-                        <div class="col-md-9">
-                            {{Form::text('phonenumber', $users-> phone_number, ['class' => 'form-control'])}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            {{Form::label('bankdetails', 'Bank Details', ['class' => 'formLabel'])}}
-                        </div>
-                        <div class="col-md-9">
-                            {{Form::text('bankdetails', '', ['class' => 'form-control'])}}
-                        </div>
-                    </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-md-3">
                             {{Form::label('department', 'Department', ['class' => 'formLabel'])}}
                         </div>
@@ -79,17 +71,16 @@
                             {{Form::select('role', array('Role' => 'Role'), null, ['class' => 'fieldDropDown'])}}
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-md-3"></div>
             </div>
 
-            {{Form::hidden('_method','PUT')}}
+          
             <div class="centerButton">
                 <button type="submit" class="btn btn-warning btn-lg yellowButton">Saved</button>
             </div>
         </div>
-        {{!! Form:: close()!!}}
+       
     </div>
 </div>
-
-@endsection
+{{!! Form:: close()!!}}

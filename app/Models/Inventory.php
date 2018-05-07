@@ -9,10 +9,10 @@ class Inventory extends Model
     protected $table = 'inventory';
 
     public $timestamps = false;
+    public function products() 
+    {
+        return $this-> belongsTo('App\Models\Inventory');
 
-// public function products(){
-//     return $this -> belongsTo('\App\Models\Products');
-//     }
-
+    }
 }
 

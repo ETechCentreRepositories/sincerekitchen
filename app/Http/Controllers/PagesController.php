@@ -23,7 +23,7 @@ class PagesController extends Controller
 
     public function customer(){
         $title = 'Customer';
-        return view('customer.index')->with('title', $title);
+        return view('customer.customer')->with('title', $title);
     }
 
     public function employee(){
@@ -49,6 +49,11 @@ class PagesController extends Controller
     public function editproduct(){
         $title = 'Add Product';
         return view('inventory.edit')->with('title', $title);
+    }
+
+    public function addcustomer(){
+        $title = 'Add Customer';
+        return view('customer.addcustomer')->with('title', $title);
     }
 
     // public function editemployee(){
