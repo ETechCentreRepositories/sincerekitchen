@@ -26,7 +26,7 @@ class InventoryController extends Controller{
         $user_id = auth()->user()->id;
         $users_id = User::find($user_id);
          $products = Product::All();
-        $inventory= Inventory::All();
+        $inventory= Inventory::leftJoin('products','inventory.product_id','=','products.id')->get();
         return view('inventory.index')->with('users_id',$users_id)->with('products',$products)-> with('inventorys',$inventory);
     }
 
@@ -101,6 +101,15 @@ class InventoryController extends Controller{
     public function destroy($id)
     {
         //
+
+        // $inventory = Inventory::where('id',$id)->first();
+        $inventory = Inventory::find($id);
+
+        // if($inventory != null){
+            $inventory->delete();
+            return redirect('/inventory');
+        // }
+        // return redirect('/inventory');
     }
 
        /**

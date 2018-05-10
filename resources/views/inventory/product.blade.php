@@ -65,19 +65,21 @@
                     <td>{{$product->serial_no}}</td>
                     <td>{{$product->model_no}}</td>
                     <td>
-                    
-                        <a href="/product/{{$product->id}}/edit">
-                            <button type="button" class="btn btn-warning yellowButton">
-                                <label class="addLabel">Edit</label>
-                            </button>
-
-                             {!!Form::open(['action' => ['ProductsController@destroy', $product->id], 'method' => 'POST'])!!}
+                    <div class="d-flex flex-row user-buttons">
+                        <div class="p-2">
+                            <a href="/product/{{$product->id}}/edit">
+                                <button type="button" class="btn btn-warning yellowButton">
+                                    <label class="addLabel">Edit</label>
+                                </button>
+                            </a>
+                        </div>
+                        <div class="p-2">
+                        {!!Form::open(['action' => ['ProductsController@destroy', $product->id], 'method' => 'POST'])!!}
                                     {{Form::hidden('_method', 'DELETE')}}
                                     {{Form::submit('Delete', ['class' => 'btn btn-danger action-buttons'])}}
                                 {!!Form::close()!!}
-                            
-                            </a>
-
+                        </div>
+                    </div>
                            
                     </td>
                 </tr>

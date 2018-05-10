@@ -11,7 +11,7 @@ class Inventory extends Model
     public $timestamps = false;
     public function products() 
     {
-        return $this-> belongsTo('App\Models\Inventory');
+        return $this-> belongsTo('App\Models\Product');
 
     }
 }
