@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Customers;
 use App\Models\SalesOrder;
+use App\Models\Customers;
 use App\User;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
+use Auth;
 
 use DB;
 
-class CustomersController extends Controller
+class SalesOrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,9 +23,10 @@ class CustomersController extends Controller
     {
         $user_id = auth()->user()->id;
         $users_id = User::find($user_id);
-        $customers = Customers::All();
+        $customer = Customers::All();
+        $sales = SalesOrder::leftJoin('customers','salesorder.customers_id','=','customers.id')->get();
      
-        return view('customer.customer')->with('users_id',$users_id)->with('customers', $customers);
+        return view('salesorder.index')->with('users_id',$users_id)->with('customers', $customer)-> with('salesorders',$sales);
     }
 
     /**
@@ -36,8 +39,8 @@ class CustomersController extends Controller
         //
         // $user_id = auth()->user()->id;
         // $users_id = User::find($user_id);
-        // $products = Product::find($product_id);
-        // return view('inventory.edit')->with('users_id',$users_id)->with('products', $products);
+        // $sales = Sales::find($sales_id);
+        // return view('product.edit')->with('users_id',$users_id)->with('products', $products);
     }
      
     
@@ -50,22 +53,21 @@ class CustomersController extends Controller
      */
     public function store(Request $request)
     {
-
-        $customers = new Customers;
-        $customers->name =Input::get('name');;
-        $customers->phone_no = Input::get('phone');;
-        $customers->email = Input::get('email');
-        $customers->ba = Input::get('ba');
-    $customers->sa = Input::get('sa');
-        $customers->save();
-        return redirect('/customer');
         //
-        //  $product = new Product;
+
+        // $imageName = time().' . '.$request->file('image')->getClientOriginalExtension(); 
+        // $path = $request->file('image_add')->storeAs(public_path('image'),$imageName);
+         
+        $sales = new SalesOrder;
+        
         // $product->product_name= Input::get('productname');
+        // $product->image = Input::get($path);
         // $product->serial_no = Input::get('sku');
         // $product->dimension = Input::get('dimension');
         // $product->model_no = Input::get('modelno');
         // $product->unit_price = Input::get('sellingprice');
+
+      
         // $product-> save();
 
         // return redirect('/product');
@@ -93,9 +95,9 @@ class CustomersController extends Controller
      */
     public function edit($id)
     {
-        
-     $customers =Customers::find($id);
-     return view('customer.edit')->with('customer',$customers);
+       
+    //  $product = Product::find($id);
+    //  return view('product.edit')->with('product',$product);
     }
 
     /**
@@ -107,18 +109,15 @@ class CustomersController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $customers = Customers::find($id);
-     $customers->name = $request-> input('name');
-     $customers->phone_no = $request-> input('phone');
-     $customers->email = $request-> input('email');
-     $customers->ba = $request-> input('ba');
-     $customers->sa = $request-> input('sa');
-     $customers->save();
-     return redirect('/customer');
+    //    $product = Product::find($id);
+    //    $product->image = $request->input('image');
+    //    $product->product_name = $request-> input('productname');
+    //    $product->serial_no = $request -> input('sku');
     //    $product->dimension = $request -> input('dimension');
     //    $product->model_no = $request -> input('modelno');
     //    $product->unit_price = $request -> input('sellingprice');
     //    $product->save();
+    
 
     //    return redirect('/product');
     }
@@ -131,10 +130,18 @@ class CustomersController extends Controller
      */
     public function destroy($id)
     {
+
         
-        $customers= Customers::find($id);
-         $customers->delete();
-        return redirect('/customer');
+        //
+        // $products= Product::find($id);
+        // $products->delete();
+        // return redirect('/product');
 
     }
+    // public function getProductImage($filename)
+    // {
+    //     $myfile = Storage::disk('public')->get($filename);
+
+    //     return view('product.addproduct',['myFile' =>$myfile]);
+    // }
 }

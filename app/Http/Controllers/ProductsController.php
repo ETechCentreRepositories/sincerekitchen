@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\User;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 
 use DB;
 
@@ -22,7 +23,7 @@ class ProductsController extends Controller
         $users_id = User::find($user_id);
         $products = Product::All();
      
-        return view('inventory.product')->with('users_id',$users_id)->with('products', $products);
+        return view('product.product')->with('users_id',$users_id)->with('products', $products);
     }
 
     /**
@@ -36,7 +37,7 @@ class ProductsController extends Controller
         $user_id = auth()->user()->id;
         $users_id = User::find($user_id);
         $products = Product::find($product_id);
-        return view('inventory.edit')->with('users_id',$users_id)->with('products', $products);
+        return view('product.edit')->with('users_id',$users_id)->with('products', $products);
     }
      
     
@@ -50,12 +51,19 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         //
-         $product = new Product;
+
+        $imageName = time().' . '.$request->file('image')->getClientOriginalExtension(); 
+        $path = $request->file('image_add')->storeAs(public_path('image'),$imageName);
+         
+        $product = new Product;
         $product->product_name= Input::get('productname');
+        $product->image = Input::get($path);
         $product->serial_no = Input::get('sku');
         $product->dimension = Input::get('dimension');
         $product->model_no = Input::get('modelno');
         $product->unit_price = Input::get('sellingprice');
+
+      
         $product-> save();
 
         return redirect('/product');
@@ -85,7 +93,7 @@ class ProductsController extends Controller
     {
        
      $product = Product::find($id);
-     return view('inventory.edit')->with('product',$product);
+     return view('product.edit')->with('product',$product);
     }
 
     /**
@@ -98,12 +106,14 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
        $product = Product::find($id);
+       $product->image = $request->input('image');
        $product->product_name = $request-> input('productname');
        $product->serial_no = $request -> input('sku');
        $product->dimension = $request -> input('dimension');
        $product->model_no = $request -> input('modelno');
        $product->unit_price = $request -> input('sellingprice');
        $product->save();
+    
 
        return redirect('/product');
     }
@@ -116,10 +126,18 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
+
+        
         //
         $products= Product::find($id);
         $products->delete();
         return redirect('/product');
 
+    }
+    public function getProductImage($filename)
+    {
+        $myfile = Storage::disk('public')->get($filename);
+
+        return view('product.addproduct',['myFile' =>$myfile]);
     }
 }

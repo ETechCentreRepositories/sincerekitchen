@@ -10665,3 +10665,18 @@ a.text-dark:focus {
   padding: 0.375rem 0.75rem;
 }
 
+
+table#salesordertable th{
+background-color: lightgrey;
+color: black;
+border: 1px solid black;
+
+}
+table#salesorertable td{
+  border: 1px solid black;
+}
+
+
+.containerforaddsalesorder{
+  margin-left: 600px;
+}

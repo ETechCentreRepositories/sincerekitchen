@@ -99,17 +99,14 @@ class InventoryController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
-
-        // $inventory = Inventory::where('id',$id)->first();
-        $inventory = Inventory::find($id);
-
-        // if($inventory != null){
-            $inventory->delete();
-            return redirect('/inventory');
-        // }
-        // return redirect('/inventory');
+    { 
+    //     DB::table('deadline', 'job')
+    // ->leftJoin('job', 'deadline.id', '=', 'job.deadline_id')
+    // ->where('deadline.id', $id)
+    // ->delete();
+      $inventory= Inventory::leftJoin('products','inventory.product_id','=','product_id')->where('inventory.product_id',$id)->delete();
+      
+      return redirect('/inventory');
     }
 
        /**

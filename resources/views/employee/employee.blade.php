@@ -66,7 +66,7 @@
                     <td>{{$user ->username}}</td>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    
                     <td>
 
                     

@@ -4,7 +4,7 @@
 @include('inc.sidebar')
 
 <script>
- ('#btnDelete').hide();
+//  ('#btnDelete').hide();
 
 $(document).ready(function(){
    
@@ -47,9 +47,6 @@ $(document).ready(function(){
                 </a> -->
                 </div>
                 </div>
-
-
-
         @if(count($inventorys) > 0)
         <table class="table table-striped">
             <thead>
@@ -95,13 +92,13 @@ $(document).ready(function(){
                     <td>{{$inventory->stock_out}}</td>
                     <td></td>
                     <td></td>
+        
                     <td>{!!Form::open(['action' => ['InventoryController@destroy', $inventory->id], 'method' => 'POST'])!!}
                                     {{Form::hidden('_method', 'DELETE')}}
                                     {{Form::submit('Delete', ['class' => 'btn btn-danger action-buttons'])}}
                                 {!!Form::close()!!}
                             </td>
                 </tr>
-
                 @endforeach
             </tbody>
            

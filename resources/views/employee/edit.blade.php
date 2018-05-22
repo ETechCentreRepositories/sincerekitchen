@@ -3,15 +3,16 @@
 @section('content')
 @include('inc.sidebar')
 
+ {!! Form::open(['action' =>['UserController@update',$users->id],'method'=> 'POST'])!!}
+
+{{csrf_field()}}   
 <div class="container-fluid">
     <div class="pageContent">
         <h3 class="title">Edit User</h3>
         <hr>
         <div class="ProductDetails">
 
-  {!! Form::open(['action' =>['UserController@update',$users->id],'method'=> 'POST'])!!}
-
-{{csrf_field()}}        
+      
             <h3 class="title">User Details</h3>
             <div class="row">
                 <div class="col-md-9">
@@ -88,8 +89,8 @@
                 <button type="submit" class="btn btn-warning btn-lg yellowButton">Saved</button>
             </div>
         </div>
-        {{!! Form:: close()!!}}
+        
     </div>
 </div>
-
+{{!! Form:: close()!!}}
 @endsection

@@ -3,6 +3,9 @@
 @section('content')
 @include('inc.sidebar')
 
+
+@if(count($customers) >0)
+
 <div class="container-fluid">
     <div class="pageContent">
         <div class="d-flex">
@@ -25,12 +28,10 @@
                 </a>
             </div>
         </div>
-        @if(count($customers) >0)
+       
         <table class="table table-striped">
             <thead>
                 <tr>
-                
-                
                 <th></th>
 
                     <th>Name</th>
@@ -62,12 +63,17 @@
                         <a href="/customer/{{$customer->id}}/edit">
                             <button type="button" class="btn btn-warning yellowButton">
                                 <label class="addLabel">Edit</label>
-                            </button>
+                            </button> 
+                       
 
-                             
-                        <a>
-                    </td>
-                   
+                    {!!Form::open(['action' => ['CustomersController@destroy', $customer->id], 'method' => 'POST'])!!}
+                                    {{Form::hidden('_method', 'DELETE')}}
+                                    {{Form::submit('Delete', ['class' => 'btn btn-danger action-buttons'])}}
+                                {!!Form::close()!!}
+                                </a>
+
+                                </td>
+                            
                 </tr>
                 @endforeach
             </tbody>
