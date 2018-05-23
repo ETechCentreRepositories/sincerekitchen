@@ -51,17 +51,18 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         //
-
-        $imageName = time().' . '.$request->file('image')->getClientOriginalExtension(); 
-        $path = $request->file('image_add')->storeAs(public_path('image'),$imageName);
-         
         $product = new Product;
         $product->product_name= Input::get('productname');
-        $product->image = Input::get($path);
-        $product->serial_no = Input::get('sku');
+        $product->image = Input::get('image_add');
+        $product->serial_no = Input::get('serialno');
+        $product->quantity = Input::get('quantity');
         $product->dimension = Input::get('dimension');
         $product->model_no = Input::get('modelno');
-        $product->unit_price = Input::get('sellingprice');
+        $product->manufacturer= Input::get('manufacturer');
+        $product->selling_price = Input::get('sellingprice');
+        $product->descriptions= Input::get('descriptions');
+    
+
 
       
         $product-> save();
@@ -106,12 +107,15 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
        $product = Product::find($id);
-       $product->image = $request->input('image');
+       $product->image = $request->input('image_add');
+       $product->quantity = $request->input('quantity');
        $product->product_name = $request-> input('productname');
-       $product->serial_no = $request -> input('sku');
+       $product->serial_no = $request -> input('serialno');
        $product->dimension = $request -> input('dimension');
        $product->model_no = $request -> input('modelno');
-       $product->unit_price = $request -> input('sellingprice');
+       $product->selling_price = $request -> input('sellingprice');
+       $product->manufacturer= $request->input('manufacturer');
+       $product->descriptions= $request->input('descriptions');
        $product->save();
     
 
@@ -128,7 +132,7 @@ class ProductsController extends Controller
     {
 
         
-        //
+        
         $products= Product::find($id);
         $products->delete();
         return redirect('/product');

@@ -25,9 +25,11 @@ class SalesOrdersController extends Controller
         $users_id = User::find($user_id);
         $customer = Customers::All();
         $sales = SalesOrder::leftJoin('customers','salesorder.customers_id','=','customers.id')->get();
-     
-        return view('salesorder.index')->with('users_id',$users_id)->with('customers', $customer)-> with('salesorders',$sales);
+        return view ('salesorder.index')->with('users_id',$users_id)->with('customers',$customer)->with('salesorders',$sales);
+       
     }
+    
+    
 
     /**
      * Show the form for creating a new resource.
@@ -144,4 +146,16 @@ class SalesOrdersController extends Controller
 
     //     return view('product.addproduct',['myFile' =>$myfile]);
     // }
+
+public function getCustomerName(){
+    $customers = Customers::all();
+    $select=[];
+    
+    foreach($customers as $customer){
+        $select[$customer->id] = $customer->name;
+    }
+
+    return view('/addsalesorder',compact('select'));
 }
+}
+

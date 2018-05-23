@@ -3,6 +3,7 @@
 @section('content')
 @include('inc.sidebar')
 
+{{!!Form::open(['action'=>'SalesOrdersController@getCustomerName','method'=>'GET'])!!}}
 <div class="container-fluid">
     <div class="pageContent">
         <h3 class="title">New Sales Order</h3>
@@ -14,11 +15,16 @@
                  
                  <div class="row">
                     <div class="col-md-3">
-                     {{Form::label('customername','Customer Name',['class'=>'formLabel'])}}
+                    
+                    {{Form::label('customername','Customer Name',['class'=>'formLabel'])}}
                 </div>
-                <div class="col-md-9">
+               
+                <div class="col-md-9"> 
+               
+               
+
+                 {!! Form::select('customername', $select, null, ['class'=>'form-control']) !!}
                 
-                {{Form::select('customername',array('customername'=>'customername'),null,['class'=>'fieldDropDown'])}}
                 </div>
                 </div>
                 <br/>
@@ -235,18 +241,9 @@
             </div>
         </div>
            </div> 
-
-
-
-       
-
-    
-
-
-
       </div>  
 </div>
 
-
+ {!! Form::close() !!}
 
 

@@ -33,10 +33,20 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            {{Form::label('sku', 'SKU', ['class' => 'formLabel'])}}
+                            {{Form::label('quantity', 'Quantity', ['class' => 'formLabel'])}}
+                        </div>
+                        <div class="col-md-3">
+                        
+                            {{Form::selectRange('quantity',1,20)}}
+                    </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            {{Form::label('serialno', 'SerialNo.', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('sku','' , ['class' => 'form-control'])}}
+                            {{Form::text('serialno','' , ['class' => 'form-control'])}}
                         </div>
                     </div>
                     <div class="row">
@@ -65,9 +75,10 @@
                     </div>
                 </div>
                 <div class="centerImage col-md-3">
+               
                 <img src = ""  id="addImage" width="300px"/>
                 <br>
-
+                
             {{Form::file('image_add',array('id'=>'image_add'))}}
 
              

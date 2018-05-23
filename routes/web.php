@@ -33,6 +33,7 @@ Route::get('/addsalesorder','PagesController@addsalesorder');
 Route::resource('product', 'ProductsController');
 Route::resource('customer','CustomersController');
 
+
 Route::resource('employee','UserController');
 Route::resource('inventory','InventoryController');
 Route::resource('salesorder','SalesOrdersController');
