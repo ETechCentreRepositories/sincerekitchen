@@ -11,10 +11,11 @@ class SalesOrder extends Model
     public $timestamps = false;
 
 
-    public function salesorder(){
+    public function customers(){
 
-        return $this-> belongsToMany('App\Models\Customers');
+        return $this-> belongsTo('App\Models\Customers');
     }
+
 
 
    

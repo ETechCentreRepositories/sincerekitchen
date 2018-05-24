@@ -79,6 +79,13 @@ class PagesController extends Controller
 
     }
     
+    public function editsalesorder(){
+        $title = 'Edit Sales Order';
+        return view('salesorder.edit')->with('title',$title);
+
+    }
+    
+
 
 
 

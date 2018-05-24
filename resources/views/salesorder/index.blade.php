@@ -3,6 +3,8 @@
 @section('content')
 @include('inc.sidebar')
 
+
+  
 <div class="container-fluid">
     <div class="pageContent">
         <div class="d-flex">
@@ -23,10 +25,12 @@
                         <label class="addLabel">New</label>
                     </button>
                 </a>
-            </div>
+             </div>
         </div>
-   @if(count($salesorders)>0)
+        
+        </div>
         <table class="table table-striped">
+        @if(count($salesorders)>0)
             <thead>
                 <tr>
                     <th></th>
@@ -52,55 +56,37 @@
                         </div>
                     </td>
 
-                     <td>{{$salesorder-> date}}</td>
-                     <td>{{$salesorder-> order_name}}</td>
+                     <td>{{$salesorder-> salesorder_date}}</td>
+                     <td>{{$salesorder-> salesorder_name}}</td>
                      <td>{{$salesorder-> references}}</td>
-                     <td>{{$salesorder-> name}}</td>
+                     <td>{{$salesorder-> customers['name']}}</td>
                      <td></td>
                      <td></td>     
                      <td></td>
                      <td></td>     
                      <td></td>
-                
-                    <!-- <td>935*645*65</td>
-                    <td>TR-T36</td>
-                    <td>201708000051</td>
-                    <td>Thor - Stand 36"</td>
-                    <td>1</td>
-                    <td>935*645*65</td>
-                    <td>1</td> --> -->
-                   
-                    <!-- <td>Thor - Stand 36"</td>
-                    <td>1</td>
-                    <td>935*645*65</td>
-                    <td>TR-T36</td>
-                    <td>201708000051</td>
-                    <td>Thor - Stand 36"</td>
-                    <td>1</td>
-                    <td>935*645*65</td>
-                    <td>1</td> -->
-
-    
-                 <td>   
-                 <div class="d-flex flex-row user-buttons">
-                        <div class="p-2">
-                        <a href="/salesorder/{{$salesorder->id}}/edit">
-                        <button type="button" class="btn btn-warning yellowButton">
-                         <label class="addLabel">Edit</label>
-                      </button>
-                            </a>
-                        </div>
-                        </td>
-                        <div class="p-2">
                      
+                    <td>   
+                        <div class="d-flex flex-row user-buttons">
+                            <div class="p-2">
+                                <a href="/salesorder/{{$salesorder->id}}/edit">
+                                    <button type="button" class="btn btn-warning yellowButton">
+                                        <label class="addLabel">Edit</label>
+                                    </button>
+
+                                    {!!Form::open(['action' => ['SalesOrdersController@destroy', $salesorder->id], 'method' => 'POST'])!!}
+                                    {{Form::hidden('_method', 'DELETE')}}
+                                    {{Form::submit('Delete', ['class' => 'btn btn-danger action-buttons'])}}
+                                {!!Form::close()!!}
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                           
                     </td>
                 </tr>
             @endforeach
             </tbody>
+           
         </table>
-       @endif
+        @endif
     </div>
 </div>

@@ -4,22 +4,22 @@
 @include('inc.sidebar')
 
 
-  {!!Form::open(['action'=>['SalesOrdersController@store'],'method'=>'POST'])!!}
-                {{csrf_field()}}  
+  
+ 
 <div class="container-fluid">
 
     <div class="pageContent">
      <h3 class="title">New Sales Order</h3>
 
         <hr>
-
+     
        
         <div class="SalesDetails">  
+        {!!Form::open(['action'=>['SalesOrdersController@update',$salesorders->id],'method'=>'POST'])!!}
+                {{csrf_field()}}  
        
         <div class="row">
              <div class="col-md-9">
-            
-             {!!Form::open(['action'=>'SalesOrdersController@getData','method'=>'GET'])!!}
                  <div class="row">
                     <div class="col-md-3">
                     
@@ -27,7 +27,7 @@
                 </div>
                
                 <div class="col-md-9"> 
-                 {!! Form::select('customername', $select, null, ['class'=>'form-control']) !!}
+                 {{Form::text('customername', $salesorders->customers['name'],['class'=>'form-control'])}}
                 
                 </div>
                 </div>
@@ -40,7 +40,7 @@
                      {{Form::label('salesorder','Sales Order#',['class'=>'formLabel'])}}
                 </div>
                 <div class="col-md-5">
-                {{Form::text('salesorder','',['class'=>'form-control'])}}
+                {{Form::text('salesorder',$salesorders->salesorder_name,['class'=>'form-control'])}}
                 </div>
                 </div>
 
@@ -49,7 +49,7 @@
                      {{Form::label('references','References#',['class'=>'formLabel'])}}
                 </div>
                 <div class="col-md-5">
-                {{Form::text('references','',['class'=>'form-control'])}}
+                {{Form::text('references',$salesorders->references,['class'=>'form-control'])}}
                 </div>
                 </div>
 
@@ -62,15 +62,14 @@
                 </div>
                
                 <div class="col-md-3">
-                {{Form::date('salesorderdate',\Carbon\Carbon::now(),['class'=>'form-control'])}}
+                {{Form::date('salesorderdate',$salesorders->salesorder_date,['class'=>'form-control'])}}
                 </div>
 
                  <div class="col-md-3">
              {{Form::label('expecteddate','Expected Shippment Date',['class'=>'formLabel'])}}
                 </div>
                 <div class="col-md-3">
-                {{Form::date('expecteddate',\Carbon\Carbon::now(),['class'=>'form-control'])}}
-    
+                {{Form::date('expecteddate',$salesorders->expected_date,['class'=>'form-control'])}}
                 </div>
                 </div>
                 
@@ -107,7 +106,6 @@
 
         <table id="salesordertable" style='width:100%'>
         <tr>
-        <th>Image</th>
         <th>Item Details</th>
         <th>Quantity</th>
         <th>Rate</th>
@@ -115,9 +113,7 @@
         <th>Amount</th>
         </tr>
         <tr>
-        <td>Image</t>
-        <!-- for Getting Items -->
-        <td> {!! Form::select('productname', $select2, null, ['class'=>'form-control']) !!}</td>
+        <td> image</td>
         <td> image</td> 
         <td> image</td>
         <td> image</td>
@@ -227,7 +223,7 @@
          <hr>
 
          <div style=""class="row">
-
+{{Form::hidden('_method','PUT')}}
          <div class="col-md-3">
         <div class="btnsubmit">
             <button type="submit" class="btn btn-warning btn-lg">Save and Send </button>
@@ -235,18 +231,7 @@
             </div>
         </div>
         {!! Form::close() !!}
-        {!! Form::close() !!}
-        {!! Form::close() !!}
-
-        <div class="col-md-3">
-            <div class="btnsavedraft">
-            <button type="submit" class=" btn-lg">Save to Draft</button>
-            
-            </div>
-</div>   
-<div class="col-md-3">
-
-              <div class="btncancel">
+         <div class="btncancel">
             <button type="cancel" class="btn btn-danger btn-lg">Cancel</button>
             
             </div>

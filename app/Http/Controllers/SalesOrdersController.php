@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SalesOrder;
 use App\Models\Customers;
+use App\Models\Product;
 use App\User;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
@@ -23,10 +24,12 @@ class SalesOrdersController extends Controller
     {
         $user_id = auth()->user()->id;
         $users_id = User::find($user_id);
-        $customer = Customers::All();
-        $sales = SalesOrder::leftJoin('customers','salesorder.customers_id','=','customers.id')->get();
-        return view ('salesorder.index')->with('users_id',$users_id)->with('customers',$customer)->with('salesorders',$sales);
-       
+        $customers = Customers::All();
+        // $sales = SalesOrder::leftJoin('customers','salesorder.customers_id','=','customers.id')->get();
+        $salesorders = SalesOrder::All();
+   
+    return view('salesorder.index')->with('users_id',$users_id)->with('customers',$customers)->with('salesorders',$salesorders);
+    
     }
     
     
@@ -38,11 +41,11 @@ class SalesOrdersController extends Controller
      */
     public function create()
     {
-        //
-        // $user_id = auth()->user()->id;
-        // $users_id = User::find($user_id);
-        // $sales = Sales::find($sales_id);
-        // return view('product.edit')->with('users_id',$users_id)->with('products', $products);
+        
+         $user_id = auth()->user()->id;
+        $users_id = User::find($user_id);
+         $salesorders = SalesOrder::find($id);
+        return view('salesorder.edit')->with('users_id',$users_id)->with('salesorders', $salesorders);
     }
      
     
@@ -61,8 +64,17 @@ class SalesOrdersController extends Controller
         // $path = $request->file('image_add')->storeAs(public_path('image'),$imageName);
          
         $sales = new SalesOrder;
+        $sales->customers_id= Input::get('customername');
+        $sales->salesorder_name= Input::get('salesorder');
+        $sales->references= Input::get('references');
+        $sales->salesorder_date= Input::get('salesorderdate');
+        $sales->expected_date= Input::get('expecteddate');
+        $sales->save();
+
+        return redirect('/salesorder');
+
+
         
-        // $product->product_name= Input::get('productname');
         // $product->image = Input::get($path);
         // $product->serial_no = Input::get('sku');
         // $product->dimension = Input::get('dimension');
@@ -97,7 +109,8 @@ class SalesOrdersController extends Controller
      */
     public function edit($id)
     {
-       
+       $salesorders = SalesOrder::find($id);
+       return view('salesorder.edit')->with('salesorders',$salesorders);
     //  $product = Product::find($id);
     //  return view('product.edit')->with('product',$product);
     }
@@ -111,6 +124,13 @@ class SalesOrdersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $sales =SalesOrder::find($id);
+        $sales->customers_id= $request->input('customername');
+        $sales->salesorder_name=$request->input('salesorder');
+        $sales->references= $request->input('references');
+        $sales->salesorder_date= $request->input('salesorderdate');
+        $sales->expected_date= $request->input('expecteddate');
+        $sales->save();
     //    $product = Product::find($id);
     //    $product->image = $request->input('image');
     //    $product->product_name = $request-> input('productname');
@@ -122,6 +142,8 @@ class SalesOrdersController extends Controller
     
 
     //    return redirect('/product');
+
+    return redirect('/salesorder');
     }
 
     /**
@@ -132,12 +154,9 @@ class SalesOrdersController extends Controller
      */
     public function destroy($id)
     {
-
-        
-        //
-        // $products= Product::find($id);
-        // $products->delete();
-        // return redirect('/product');
+         $salesorders= SalesOrder::find($id);
+        $salesorders->delete();
+        return redirect('/salesorder');
 
     }
     // public function getProductImage($filename)
@@ -147,15 +166,38 @@ class SalesOrdersController extends Controller
     //     return view('product.addproduct',['myFile' =>$myfile]);
     // }
 
-public function getCustomerName(){
+
+    protected function getAllData(){
+        $this->getCustomerName();
+        $this->getAllProducts();
+
+
+    }
+public function getData(){
+
     $customers = Customers::all();
+    $products = Product::all();
+    $select2 = [];
     $select=[];
     
     foreach($customers as $customer){
         $select[$customer->id] = $customer->name;
     }
-
-    return view('/addsalesorder',compact('select'));
+    foreach ($products as $product){
+        $select2[$product->id] =$product->product_name; 
+    }
+    return view('salesorder.addsalesorder',compact('select','select2'));
 }
+// public function getAllProducts(){
+//     $products = Product::All();
+//     $select=[];
+    
+//     foreach($products as $product){
+//         $select[$product->id] = $product->product_name;
+//     }
+
+//     return view('salesorder.addsalesorder',compact('select'));
+// }
+
 }
 
