@@ -26,8 +26,9 @@
                     {{Form::label('customername','Customer Name',['class'=>'formLabel'])}}
                 </div>
                
+                
                 <div class="col-md-9"> 
-                 {!! Form::select('customername', $select, null, ['class'=>'form-control']) !!}
+                 {!! Form::select('customername',$valuecust, null, ['class'=>'form-control']) !!}
                 
                 </div>
                 </div>
@@ -56,24 +57,23 @@
                 <br/>
                 <br/>
 
-                <div class="row">
-                    <div class="col-md-3">
-                     {{Form::label('salesorderdate','Sales Order Date',['class'=>'formLabel'])}}
-                </div>
-               
-                <div class="col-md-3">
-                {{Form::date('salesorderdate',\Carbon\Carbon::now(),['class'=>'form-control'])}}
-                </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            {{Form::label('salesorderdate','Sales Order Date',['class'=>'formLabel'])}}
+                            </div>
+                            <div class="col-md-4">
+                        {{Form::date('salesorderdate',\Carbon\Carbon::now(),['class'=>'form-control'])}}
+                        </div>
 
-                 <div class="col-md-3">
-             {{Form::label('expecteddate','Expected Shippment Date',['class'=>'formLabel'])}}
-                </div>
-                <div class="col-md-3">
-                {{Form::date('expecteddate',\Carbon\Carbon::now(),['class'=>'form-control'])}}
-    
-                </div>
-                </div>
-                
+                        <div class="col-md-2">
+                    {{Form::label('expecteddate','Expected Shippment Date',['class'=>'formLabel'])}}
+                        </div>
+                        <div class="col-md-4">
+                        {{Form::date('expecteddate',\Carbon\Carbon::now(),['class'=>'form-control'])}}
+            
+                        </div>
+                        </div>
+                        
 
 
          </div>
@@ -91,38 +91,42 @@
 
         </div>
         </div>
-        <div class="row">   
+    <div class="row">   
         <div class="col-md-2">
         {{Form::label('delivery','Delivery Method',['class'=>'formLabel'])}}
         </div>
-
         <div class="col-md-3">
         {{Form::select('delivery',array('Select'),null,['class'=>'fieldDropDown'])}}
 
         </div>
         </div>
 
-        <br>
-        <br>
+        <br/>
+        <br/>
 
-        <table id="salesordertable" style='width:100%'>
-        <tr>
-        <th>Image</th>
-        <th>Item Details</th>
-        <th>Quantity</th>
-        <th>Rate</th>
-        <th>Tax</th>
-        <th>Amount</th>
+        <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Item Details</th>
+                <th>Quantity</th>
+                <th>Rate</th>
+                <th>Tax</th>
+                <th>Amount</th>
         </tr>
-        <tr>
-        <td>Image</t>
-        <!-- for Getting Items -->
-        <td> {!! Form::select('productname', $select2, null, ['class'=>'form-control']) !!}</td>
-        <td> image</td> 
-        <td> image</td>
-        <td> image</td>
-        <td> image</td>
-        </tr>
+
+        </thead>
+        <tbody>
+      
+            <tr>
+                <td>Image</t>
+                <td>{!! Form::select('productname',$valueprod, null, ['class'=>'form-control']) !!} </td> 
+                <td>{!! Form::selectRange('quantity',1,1000,['class'=>'form-control']) !!} </td>
+                <td>{!! Form::text('rate','' ,['class'=>'form-control']) !!} </td>
+                <td>{!! Form::text('tax','', ['class'=>'form-control']) !!} </td>
+                <td>{!! Form::text('amount', '', ['class'=>'form-control']) !!} </td>
+            </tr>
+        </tbody>
 
         </table>
         <hr>

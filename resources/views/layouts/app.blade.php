@@ -23,6 +23,25 @@
 
 
 <script type="text/javascript">
+$(document).ready(function(){
+    $("#productname").change(function() {
+        var productName = $("#productname").val();
+        $.ajax({
+                type: "GET",
+                url: "{{URL::TO('/retrieve-product-info')}}/" + productname,
+                // data: "outlet=" + outlet,
+                cache: false,
+                dataType: "JSON",
+                success: function (response) {
+                    $("sellingprice").html($response.sellingprice);
+                },
+                
+                error: function (obj, textStatus, errorThrown) {
+                    console.log("Error " + textStatus + ": " + errorThrown);
+                }
+            });
+    });
+});
 function readURL(input){
     if(input.files && input.files[0]){
         var reader = new FileReader();
@@ -40,8 +59,6 @@ function readURL(input){
 
 
 </script>
-
-
 </head>
 <body>
     <div id="app">

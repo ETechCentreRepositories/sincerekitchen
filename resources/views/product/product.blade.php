@@ -37,6 +37,7 @@
                     <th>Dimension</th>
                     <th>Model No.</th>
                     <th>Serial No.</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,14 +48,6 @@
                             <label><input type="checkbox" value=""></label>
                         </div>
                     </td>
-
-                    
-                   
-                    <!-- <td>Thor - Stand 36"</td>
-                    <td>1</td>
-                    <td>935*645*65</td>
-                    <td>TR-T36</td>
-                    <td>201708000051</td> -->
                   
           <td> <img src="{{$product->image}}"></td>
                     <td>{{$product->product_name}}</td>

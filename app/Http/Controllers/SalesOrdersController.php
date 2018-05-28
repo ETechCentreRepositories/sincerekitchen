@@ -159,34 +159,24 @@ class SalesOrdersController extends Controller
         return redirect('/salesorder');
 
     }
-    // public function getProductImage($filename)
-    // {
-    //     $myfile = Storage::disk('public')->get($filename);
-
-    //     return view('product.addproduct',['myFile' =>$myfile]);
-    // }
 
 
-    protected function getAllData(){
-        $this->getCustomerName();
-        $this->getAllProducts();
-
-
-    }
-public function getData(){
-
-    $customers = Customers::all();
-    $products = Product::all();
-    $select2 = [];
-    $select=[];
     
+    public function getData(){
+
+        $products = Product::All();
+         $valueprod=[];
+            foreach($products as $product){
+                   $valueprod[$product->id] = $product->product_name;
+             }
+    $customers = Customers::all();
+    $valuecust = [];
     foreach($customers as $customer){
-        $select[$customer->id] = $customer->name;
+        $valuecust[$customer->id] = $customer->name;
     }
-    foreach ($products as $product){
-        $select2[$product->id] =$product->product_name; 
-    }
-    return view('salesorder.addsalesorder',compact('select','select2'));
+
+   
+    return view('salesorder.addsalesorder',compact('valuecust','valueprod'));
 }
 // public function getAllProducts(){
 //     $products = Product::All();
