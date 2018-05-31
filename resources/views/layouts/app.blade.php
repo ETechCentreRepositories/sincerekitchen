@@ -33,7 +33,7 @@ calculate =function(){
    var quantity = document.getElementById('quantity').value;
    console.log(quantity,price);
 
-   var total = parseInt(price)*parseInt(quantity);
+   var total = parseFloat(price)*parseFloat(quantity);
    console.log(total);
    
    $("#amount").html(total);
