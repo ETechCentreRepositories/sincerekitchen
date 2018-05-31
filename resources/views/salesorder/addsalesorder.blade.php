@@ -120,9 +120,25 @@
             <tr>
                 <td>Image</t>
                 <td>{!! Form::select('productname',$valueprod, null, ['class'=>'form-control']) !!} </td>
-                 <td>{!! Form::selectRange('quantity',1,1000,['class'=>'form-control','id'=>'quantity','onblur'=>'calculation()']) !!}pc </td>
+                
+               <td> 
+               <select id="quantity" onblur="calculate()">
+
+               <?php 
+               for($i=1;$i<=100;$i++){
+                   ?> <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                   <?php
+               }
+              
+              ?>
+
+               
+               </select>
+               PC
+               </td>
+            
                 <td>{!! Form::text('price','', ['class'=>'form-control','id'=>'price']) !!} </td>
-                <td>{!! Form::text('amount', '' ,['class'=>'form-control','id'=>'quantity']) !!} </td>
+                <td>S$<h4 style="text-align='center'" id="amount"></h4></td>
             </tr>
         </tbody>
 

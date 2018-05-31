@@ -28,19 +28,16 @@
 
 
 calculate =function(){
-    
+   
+    var quantity = document.getElementById('quantity').value;
    var price = document.getElementById('price').value;
-   var quantity = document.getElementById('quantity').value;
+  
    console.log(quantity,price);
 
-   var total = parseFloat(price)*parseFloat(quantity);
+   var total = parseFloat(quantity)*parseFloat(price);
    console.log(total);
    
    $("#amount").html(total);
-
-
-
-
 
 
 
