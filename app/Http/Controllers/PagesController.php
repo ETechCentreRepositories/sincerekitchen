@@ -84,6 +84,13 @@ class PagesController extends Controller
         return view('salesorder.edit')->with('title',$title);
 
     }
+       
+     public function viewsalesorder(){
+        $title = 'View Sales Order';
+     return view('salesorder.viewsalesorder')->with('title',$title);
+
+     }
+    
     
 
 

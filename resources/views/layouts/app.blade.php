@@ -12,36 +12,50 @@
     
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="http://localhost:8000/js/jquery.min.js"></script>
     
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 
 <script type="text/javascript">
-$(document).ready(function(){
-    $("#productname").change(function() {
-        var productName = $("#productname").val();
-        $.ajax({
-                type: "GET",
-                url: "{{URL::TO('/retrieve-product-info')}}/" + productname,
-                // data: "outlet=" + outlet,
-                cache: false,
-                dataType: "JSON",
-                success: function (response) {
-                    $("sellingprice").html($response.sellingprice);
-                },
-                
-                error: function (obj, textStatus, errorThrown) {
-                    console.log("Error " + textStatus + ": " + errorThrown);
-                }
-            });
-    });
-});
+
+
+
+calculate =function(){
+    
+   var price = document.getElementById('price').value;
+   var quantity = document.getElementById('quantity').value;
+   console.log(quantity,price);
+
+   var total = parseInt(price)*parseInt(quantity);
+   console.log(total);
+   
+   $("#amount").html(total);
+
+
+
+
+
+
+
+}
+
+
+    // var price = document.getElementById('price').value;
+    // var quantity = document.getElementById('quantity');
+    // var selectedquantity = quantity.options[quantity.selectedIndex].value;
+
+    // // console.log(selectedquantity);
+
+
+    // document.getElementById('amount').value = parseInt(price)*parseInt(selectedquantity);
+
 function readURL(input){
     if(input.files && input.files[0]){
         var reader = new FileReader();
@@ -52,12 +66,11 @@ function readURL(input){
         reader.readAsDataURL(input.files[0]);
     }
 }
-    $("#image_add").change(function(){
+    
+$("#image_add").change(function(){
         readURL(this);
 
     });
-
-
 </script>
 </head>
 <body>

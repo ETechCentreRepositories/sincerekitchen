@@ -24,17 +24,15 @@ Route::get('/customer', 'PagesController@customer');
 Route::get('/employee', 'PagesController@employee');
 Route::get('/addemployee', 'PagesController@addemployee');
 Route::get('/addcustomer', 'PagesController@addcustomer'); 
-//Route::get('/editemployee', 'PagesController@editemployee');
 Route::get('/salesorder', 'PagesController@salesorder');
-Route::get('/editsalesorder','PagesController@editsalesorder');
 Route::get('/addsalesorder','PagesController@addsalesorder');
 Route::get('/addsalesorder','SalesOrdersController@getData');
+
 
 
 // Route::resource('inventorys@index'.'InventoryController');
 Route::resource('product', 'ProductsController');
 Route::resource('customer','CustomersController');
-
 Route::resource('employee','UserController');
 Route::resource('inventory','InventoryController');
 Route::resource('salesorder','SalesOrdersController');

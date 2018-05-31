@@ -29,7 +29,7 @@
         </div>
         
         </div>
-        <table class="table table-striped">
+        <table class="table table-striped"> 
         @if(count($salesorders)>0)
             <thead>
                 <tr>
@@ -57,7 +57,8 @@
                     </td>
 
                      <td>{{$salesorder-> salesorder_date}}</td>
-                     <td>{{$salesorder-> salesorder_name}}</td>
+                     <td> <a href="/salesorder/{{$salesorder->id}}/">
+                      {{$salesorder-> salesorder_name}}</a> </td>
                      <td>{{$salesorder-> references}}</td>
                      <td>{{$salesorder-> customers['name']}}</td>
                      <td></td>

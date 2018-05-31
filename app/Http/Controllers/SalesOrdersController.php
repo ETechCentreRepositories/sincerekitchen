@@ -69,6 +69,23 @@ class SalesOrdersController extends Controller
         $sales->references= Input::get('references');
         $sales->salesorder_date= Input::get('salesorderdate');
         $sales->expected_date= Input::get('expecteddate');
+        
+        
+        $productname=Input::get('productname');
+        $quantity = Input::get('quantity');
+        $discount = Input::get('discount');
+        $amount = Input::get('amount');
+        $subtotal =Input::get('subtotal');
+        $gst = Input::get('gst');
+
+        
+        $sales->grandtotal = Input::get('grandtotal');
+        $subtotal =$amount;
+
+
+
+
+        
         $sales->save();
 
         return redirect('/salesorder');
@@ -98,6 +115,8 @@ class SalesOrdersController extends Controller
      */
     public function show($id)
     {
+        $salesorders =SalesOrder::find($id);
+        return view('salesorder.viewsalesorder')->with('salesorders',$salesorders); 
         //
     }
 
@@ -188,6 +207,10 @@ class SalesOrdersController extends Controller
 
 //     return view('salesorder.addsalesorder',compact('select'));
 // }
+
+public function viewsalesorder(){
+    return view('salesorder.viewsalesorder');
+}
 
 }
 

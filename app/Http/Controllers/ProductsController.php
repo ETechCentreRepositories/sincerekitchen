@@ -61,10 +61,7 @@ class ProductsController extends Controller
         $product->manufacturer= Input::get('manufacturer');
         $product->selling_price = Input::get('sellingprice');
         $product->descriptions= Input::get('descriptions');
-    
 
-
-      
         $product-> save();
 
         return redirect('/product');

@@ -104,15 +104,14 @@
         <br/>
         <br/>
 
-        <table class="table table-striped">
+        <table class="table table-striped" id="table">
         <thead>
             <tr>
                 <th>Image</th>
                 <th>Item Details</th>
                 <th>Quantity</th>
-                <th>Rate</th>
-                <th>Tax</th>
-                <th>Amount</th>
+                <th>Price(S$)</th>
+                <th>Amount(S$)</th>
         </tr>
 
         </thead>
@@ -120,11 +119,10 @@
       
             <tr>
                 <td>Image</t>
-                <td>{!! Form::select('productname',$valueprod, null, ['class'=>'form-control']) !!} </td> 
-                <td>{!! Form::selectRange('quantity',1,1000,['class'=>'form-control']) !!} </td>
-                <td>{!! Form::text('rate','' ,['class'=>'form-control']) !!} </td>
-                <td>{!! Form::text('tax','', ['class'=>'form-control']) !!} </td>
-                <td>{!! Form::text('amount', '', ['class'=>'form-control']) !!} </td>
+                <td>{!! Form::select('productname',$valueprod, null, ['class'=>'form-control']) !!} </td>
+                 <td>{!! Form::selectRange('quantity',1,1000,['class'=>'form-control','id'=>'quantity','onblur'=>'calculation()']) !!}pc </td>
+                <td>{!! Form::text('price','', ['class'=>'form-control','id'=>'price']) !!} </td>
+                <td>{!! Form::text('amount', '' ,['class'=>'form-control','id'=>'quantity']) !!} </td>
             </tr>
         </tbody>
 
@@ -154,26 +152,16 @@
                  {{Form::text('diskon','',['class'=>'form-control '])}}
 
              </div>
-            </div>
-             <div class="row">
-            <div class="col-md-3">
-                {{Form::label('adjustment','Adjustment',['class'=>'formLabel'])}}
-            </div>
-             <div class="col-md-9">
-                 {{Form::text('adjustment','',['class'=>'form-control '])}}
-
-             </div>
-            
-            
-            </div>
+            </div>            
+           
 
 <hr>
              <div class="row">
             <div style="background:black; color: white" class="col-md-3">
-                {{Form::label('total','Total (SGD)',['class'=>'formLabel'])}}
+                {{Form::label('grandtotal','Grand Total (SGD)',['class'=>'formLabel'])}}
             </div>
              <div class="col-md-9">
-                 {{Form::text('total','',['class'=>'form-control '])}}
+                 {{Form::text('grandtotal','',['class'=>'form-control '])}}
 
              </div>
         </div>
@@ -183,54 +171,26 @@
 
         </div>
 <hr>
-
- <div class="AttachFile">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="d-flex">
-                        <h3 class="title mr-auto p-2">Attach File</h3>
-        
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            {{Form::label('attachfile', 'Attach File', ['class' => 'formLabel'])}}
-                        </div>
-                        <div class="col-md-9">
-                            {{Form::file('attachfile')}}<br/><br/>
-                           <p style="color: red">Note: you can upload a maximum of 5 files,5MB each.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="verticalLineWidth col-md-1">
-                    <div class="verticalLinePadding">
-                        <div class="grayVerticalLine"></div>
-                    </div>
-                </div>
-                <div class="col-md-7">
-                    <div class="row">
-                            <div class="col-md-4">
-                            {{Form::label('customernote','Customer Notes',['class'=>'formLabel'])}}
-                                </div>
-                            <div class="col-md-12">
-                            {{Form::text('customernote','',['class'=>'form-control'])}}
-                        </div>
-                    </div> 
+ <div class="row">
+     <div class="col-md-4">
+        {{Form::label('customernote','Customer Notes',['class'=>'formLabel'])}}
+     </div>
+    <div class="col-md-12">
+        {{Form::text('customernote','',['class'=>'form-control'])}}
+    </div>
+</div> 
                     
-                    <div class="row">
-                        <div class="col-md-5">
-                            {{Form::label('termcondition', 'Term and Condition', ['class' => 'formLabel'])}}
-                        </div>
-                        <div class="col-md-12">
-                            {{Form::textarea('termcondition', '', ['class' => 'field'])}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-md-5">
+    {{Form::label('termcondition', 'Term and Condition', ['class' => 'formLabel'])}}
+    </div>
+    <div class="col-md-12">
+    {{Form::textarea('termcondition', '', ['class' => 'field'])}}
+    </div>
+</div>   
+<hr>
 
-         <hr>
-
-         <div style=""class="row">
+         <div style="margin-left:auto;margin-right:auto" class="row">
 
          <div class="col-md-3">
         <div class="btnsubmit">
@@ -245,9 +205,8 @@
         <div class="col-md-3">
             <div class="btnsavedraft">
             <button type="submit" class=" btn-lg">Save to Draft</button>
-            
-            </div>
-</div>   
+             </div>
+            </div>   
 <div class="col-md-3">
 
               <div class="btncancel">
