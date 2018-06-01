@@ -12,8 +12,6 @@
      <h3 class="title">New Sales Order</h3>
 
         <hr>
-
-       
         <div class="SalesDetails">  
        
         <div class="row">
@@ -104,7 +102,7 @@
         <br/>
         <br/>
 
-        <table class="table table-striped" id="table">
+        <table class="table table-striped" id="tableitem">
         <thead>
             <tr>
                 <th>Image</th>
@@ -117,12 +115,12 @@
         </thead>
         <tbody>
       
-            <tr>
-                <td>Image</t>
+            <tr id="row_0">
+                <td>Image</td>
                 <td>{!! Form::select('productname',$valueprod, null, ['class'=>'form-control']) !!} </td>
                 
                <td> 
-               <select id="quantity" onblur="calculate()">
+               <select id="quantity" name="quantity" onchange="calculation('row_0')">
 
                <?php 
                for($i=1;$i<=100;$i++){
@@ -137,9 +135,22 @@
                PC
                </td>
             
-                <td>{!! Form::text('price','', ['class'=>'form-control','id'=>'price']) !!} </td>
-                <td>S$<h4 style="text-align='center'" id="amount"></h4></td>
+                <td  oninput="calculation('row_0')">{!! Form::text('price','', ['class'=>'form-control','id'=>'price']) !!} </td>
+             <td oninput="calculation('row_0')">{!! Form::text('amount','', ['class'=>'form-control']) !!}</td>
+
+                <td>
+            
+                </td>
+                
+                <div class="d-flex flex-row user-buttons">
+                <button onClick="cloneRow('tableitem')" type="button" class="btn btn-warning yellowButton">
+                <label class="addLabel">Add Item </label>
+                </div>
             </tr>
+            
+
+
+
         </tbody>
 
         </table>
@@ -152,8 +163,8 @@
             <div class="col-md-3">
                 {{Form::label('subtotal','Subtotal',['class'=>'formLabel'])}}
             </div>
-             <div class="col-md-9">
-                 {{Form::text('subtotal','',['class'=>'form-control '])}}
+             <div id="subtotal" class="col-md-9  ">
+                 {{Form::text('subtotal','',['class'=>'form-control','id'=> 'subtotal'])}}
 
              </div>
            
@@ -162,13 +173,22 @@
     
         <div class="row">
             <div class="col-md-3">
-                {{Form::label('diskon','Discount',['class'=>'formLabel'])}}
+                {{Form::label('discount','Discount',['class'=>'formLabel'])}}
             </div>
              <div class="col-md-9">
-                 {{Form::text('diskon','',['class'=>'form-control '])}}
+                 {{Form::text('discount','',['class'=>'form-control '])}}
 
              </div>
-            </div>            
+            </div>   
+            <div class="row">
+            <div class="col-md-3">
+                {{Form::label('gst','GST',['class'=>'formLabel'])}}
+            </div>
+             <div class="col-md-9">
+                 {{Form::text('gst','',['class'=>'form-control '])}}
+
+             </div>
+            </div>                     
            
 
 <hr>

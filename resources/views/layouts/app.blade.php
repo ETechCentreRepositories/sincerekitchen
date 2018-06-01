@@ -24,34 +24,69 @@
 
 
 <script type="text/javascript">
+function calculation(elementID){
+    var totalamount=0;
+
+    var mainRow = document.getElementById(elementID);
+    var quantity = mainRow.querySelectorAll('#quantity')[0].value;
+    var price = mainRow.querySelectorAll('[name=price]')[0].value;
+    var amount = mainRow.querySelectorAll('[name=amount]')[0];
+    var totalamount = parseFloat(quantity)*parseFloat(price);
+    amount.value = parseFloat(totalamount);
+    $('#subtotal').html(totalamount++);
+
+    
+    console.log(quantity,price,amount,totalamount);
+}
 
 
-
-calculate =function(){
+function cloneRow(tableitem){
    
-    var quantity = document.getElementById('quantity').value;
-   var price = document.getElementById('price').value;
-  
-   console.log(quantity,price);
+    var table = document.getElementById(tableitem);
+    var rowCount = table.rows.length;
 
-   var total = parseFloat(quantity)*parseFloat(price);
-   console.log(total);
-   
-   $("#amount").html(total);
+    var row =table.insertRow(rowCount);
 
+    var colCount = table.rows[0].cells.length;
+    row.id = 'row_'+rowCount;
+    for(var i =0;i<colCount;i++){
+        var newcell = row.insertCell(i);
+        newcell.outerHTML =   table.rows[1].cells[i].outerHTML;
+    }
 
+    var listitems = row.getElementsByTagName("input")
+    for(i=0;i<listitems.length;i++){
+        listitems[i].setAttribute("oninput","calculation('"+row.id+"')");
+        listitems[i].setAttribute("onchange","calculation('"+row.id+"')");
+
+    }
 
 }
 
 
-    // var price = document.getElementById('price').value;
-    // var quantity = document.getElementById('quantity');
-    // var selectedquantity = quantity.options[quantity.selectedIndex].value;
-
-    // // console.log(selectedquantity);
 
 
-    // document.getElementById('amount').value = parseInt(price)*parseInt(selectedquantity);
+
+// calculate =function(){
+   
+//     var quantity = document.getElementById('quantity').value;
+//    var price = document.getElementById('price').value;
+  
+//    console.log(quantity,price);
+
+//    var total = parseFloat(quantity)*parseFloat(price);
+//    console.log(total);
+   
+//    $("#amount").html(total);
+   
+//    $("#subtotal").html(total);
+
+
+//    var discount = document.getElementById('discount');
+
+// }
+
+
 
 function readURL(input){
     if(input.files && input.files[0]){
