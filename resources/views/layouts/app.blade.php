@@ -24,19 +24,59 @@
 
 
 <script type="text/javascript">
-function calculation(elementID){
-    var totalamount=0;
 
+
+
+
+function calculation(elementID){
     var mainRow = document.getElementById(elementID);
     var quantity = mainRow.querySelectorAll('#quantity')[0].value;
     var price = mainRow.querySelectorAll('[name=price]')[0].value;
     var amount = mainRow.querySelectorAll('[name=amount]')[0];
     var totalamount = parseFloat(quantity)*parseFloat(price);
-    amount.value = parseFloat(totalamount);
-    $('#subtotal').html(totalamount++);
+    amount.value  = parseFloat(totalamount);
+    var takeamount = document.getElementsByName('amount');
+   
 
+
+var tot = 0;
+
+
+for(var i=0;i<takeamount.length;i++){
+    if(parseFloat(takeamount[i].value))
+    tot +=parseFloat(takeamount[i].value);
+}
+    $('#subtotal').html("S$ "+tot);
+    subtotal.value = parseFloat(tot);
+
+    // $('#grandtotal').html(aftdisc);
+
+
+    console.log(quantity,price,takeamount,totalamount,tot,aftdisc);
+}
+
+
+
+function grandtotcalculation(){
+    var afterdisc = 0;
+    var subtotal = 0;
+    var discount = 0;
+
+    subtotal = document.getElementById('subtotal').value;
+     discount = document.getElementById('discount').value;
+     grandtotal = document.getElementById('grandtotal');
     
-    console.log(quantity,price,amount,totalamount);
+
+
+    afterdisc= subtotal-(subtotal*discount/100);
+    grandtotal.value = parseFloat(afterdisc);
+
+    $("#grandtotal").html(afterdisc);
+
+
+
+    console.log(subtotal,discount,afterdisc);
+
 }
 
 

@@ -138,9 +138,7 @@
                 <td  oninput="calculation('row_0')">{!! Form::text('price','', ['class'=>'form-control','id'=>'price']) !!} </td>
              <td oninput="calculation('row_0')">{!! Form::text('amount','', ['class'=>'form-control']) !!}</td>
 
-                <td>
-            
-                </td>
+               
                 
                 <div class="d-flex flex-row user-buttons">
                 <button onClick="cloneRow('tableitem')" type="button" class="btn btn-warning yellowButton">
@@ -163,10 +161,10 @@
             <div class="col-md-3">
                 {{Form::label('subtotal','Subtotal',['class'=>'formLabel'])}}
             </div>
-             <div id="subtotal" class="col-md-9  ">
-                 {{Form::text('subtotal','',['class'=>'form-control','id'=> 'subtotal'])}}
+             <div id="subtotal" class="col-md-9">
+                 {!! Form::text('subtotal','',['class'=>'form-control','id'=>'subtotal'])!!}
 
-             </div>
+             </div> 
            
         </div>
         <hr>
@@ -175,8 +173,8 @@
             <div class="col-md-3">
                 {{Form::label('discount','Discount',['class'=>'formLabel'])}}
             </div>
-             <div class="col-md-9">
-                 {{Form::text('discount','',['class'=>'form-control '])}}
+        <div class="col-md-9" onchange="grandtotcalculation()">
+                 {!!Form::text('discount','',['class'=>'form-control','id'=>'discount'])!!}
 
              </div>
             </div>   
@@ -184,7 +182,7 @@
             <div class="col-md-3">
                 {{Form::label('gst','GST',['class'=>'formLabel'])}}
             </div>
-             <div class="col-md-9">
+             <div class="col-md-9" onchange="grandtotcalculation()">
                  {{Form::text('gst','',['class'=>'form-control '])}}
 
              </div>
@@ -196,8 +194,8 @@
             <div style="background:black; color: white" class="col-md-3">
                 {{Form::label('grandtotal','Grand Total (SGD)',['class'=>'formLabel'])}}
             </div>
-             <div class="col-md-9">
-                 {{Form::text('grandtotal','',['class'=>'form-control '])}}
+             <div class="col-md-9" onchanget="grandtotcalculation()">
+                 {!!Form::text('grandtotal','',['class'=>'form-control','id'=>'grandtotal'])!!}
 
              </div>
         </div>
