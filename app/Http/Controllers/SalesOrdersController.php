@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SalesOrder;
+use App\Models\SalesOrderLists;
 use App\Models\Customers;
 use App\Models\Product;
 use App\User;
@@ -27,6 +28,8 @@ class SalesOrdersController extends Controller
         $customers = Customers::All();
         // $sales = SalesOrder::leftJoin('customers','salesorder.customers_id','=','customers.id')->get();
         $salesorders = SalesOrder::All();
+
+
    
     return view('salesorder.index')->with('users_id',$users_id)->with('customers',$customers)->with('salesorders',$salesorders);
     
@@ -116,7 +119,9 @@ class SalesOrdersController extends Controller
     public function show($id)
     {
         $salesorders =SalesOrder::find($id);
-        return view('salesorder.viewsalesorder')->with('salesorders',$salesorders); 
+        $salesOrderId = SalesOrder::find($id)->id;
+        $salesorderlists = SalesOrderLists::where('salesorder_id','=',$salesOrderId)->get();
+        return view('salesorder.viewsalesorder')->with('salesorders',$salesorders)->with('salesorderlists',$salesorderlists); 
         //
     }
 

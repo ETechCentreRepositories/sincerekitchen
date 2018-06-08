@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SalesOrder extends Model
+class SalesOrderLists extends Model
 {
-    protected $table = 'salesorder';
+    protected $table = 'salesorder_list';
 
     public $timestamps = false;
 
@@ -15,11 +15,9 @@ class SalesOrder extends Model
 
         return $this-> belongsTo('App\Models\Customers');
     }
+
     public function products(){
         return $this->belongsTo('App\Models\Product');
     }
 
-
-
-   
 }

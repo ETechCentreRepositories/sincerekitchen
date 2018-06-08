@@ -29,6 +29,8 @@ Route::get('/addsalesorder','PagesController@addsalesorder');
 Route::get('/addsalesorder','SalesOrdersController@getData');
 
 
+Route::get('/retrieve-product-by-product-name/{productName}','ProductsController@getProductsbyProductName');
+Route::get('/autocomplete-search', 'InventoryController@search');
 
 // Route::resource('inventorys@index'.'InventoryController');
 Route::resource('product', 'ProductsController');

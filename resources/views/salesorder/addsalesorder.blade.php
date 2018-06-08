@@ -101,8 +101,19 @@
 
         <br/>
         <br/>
+        <div class="row">
+            <div class="col-md-10">
+                {{-- <div class="input-group"> --}}
+                <input type="text" id="itemSearchField" class="form-control" style="background:transparent">
+            </div>
+            <div class="col-md-2">
+                <button id="addItem" type="button" class="btn btn-warning yellowButton">Add Item</button>
+            </div>
+        </div>
 
-        <table class="table table-striped" id="tableitem">
+        <br>
+
+        <table class="table table-striped" id="createTableItem">
         <thead>
             <tr>
                 <th>Image</th>
@@ -113,41 +124,8 @@
         </tr>
 
         </thead>
-        <tbody>
-      
-            <tr id="row_0">
-                <td>Image</td>
-                <td>{!! Form::select('productname',$valueprod, null, ['class'=>'form-control']) !!} </td>
-                
-               <td> 
-               <select id="quantity" name="quantity" onchange="calculation('row_0')">
-
-               <?php 
-               for($i=1;$i<=100;$i++){
-                   ?> <option value="<?php echo $i;?>"><?php echo $i;?></option>
-                   <?php
-               }
-              
-              ?>
-
-               
-               </select>
-               PC
-               </td>
+        <tbody id="addTableItemContent">
             
-                <td  oninput="calculation('row_0')">{!! Form::text('price','', ['class'=>'form-control','id'=>'price']) !!} </td>
-             <td oninput="calculation('row_0')">{!! Form::text('amount','', ['class'=>'form-control']) !!}</td>
-
-               
-                
-                <div class="d-flex flex-row user-buttons">
-                <button onClick="cloneRow('tableitem')" type="button" class="btn btn-warning yellowButton">
-                <label class="addLabel">Add Item </label>
-                </div>
-            </tr>
-            
-
-
 
         </tbody>
 
@@ -251,7 +229,3 @@
            </div> 
       </div>  
 </div>
-
- 
-
-
