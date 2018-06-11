@@ -1,6 +1,7 @@
 @extends('layouts.app')
-@include('inc.navbar')
 @section('content')
+@include('inc.navbar')
+
 @include('inc.sidebar')
 
 {!! Form::open(['action' =>['UserController@store'],'method'=> 'POST']) !!}
@@ -90,3 +91,4 @@
     </div>
 </div>
 {{!! Form:: close()!!}}
+@endsection

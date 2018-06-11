@@ -1,6 +1,7 @@
 @extends('layouts.app')
-@include('inc.navbar')
 @section('content')
+@include('inc.navbar')
+
 @include('inc.sidebar')
 
  {!! Form::open(['action' =>['CustomersController@update',$customer->id],'method'=> 'POST']) !!}
@@ -66,3 +67,4 @@
     </div>
 </div>
 {{!! Form:: close()!!}}
+@endsection

@@ -1,6 +1,7 @@
 @extends('layouts.app')
-@include('inc.navbar')
 @section('content')
+@include('inc.navbar')
+
 @include('inc.sidebar')
 
 <script>
@@ -107,3 +108,4 @@ $(document).ready(function(){
     
     </div>
 </div>
+@endsection

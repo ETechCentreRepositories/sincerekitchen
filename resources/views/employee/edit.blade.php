@@ -1,6 +1,7 @@
 @extends('layouts.app')
-@include('inc.navbar')
 @section('content')
+@include('inc.navbar')
+
 @include('inc.sidebar')
 
  {!! Form::open(['action' =>['UserController@update',$users->id],'method'=> 'POST'])!!}
