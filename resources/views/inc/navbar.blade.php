@@ -1,7 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light navbar-laravel" style="background-color:#F8F7F7;" >
     <div class="container">
         <a class="nav navbar-left" href="{{ url('/') }}">
-            {{-- {{ config('app.name', 'Hebeloft') }} --}}
             
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

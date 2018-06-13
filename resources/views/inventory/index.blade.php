@@ -1,11 +1,53 @@
 @extends('layouts.app')
-@include('inc.navbar')
 @section('content')
+@include('inc.navbar')
+
 @include('inc.sidebar')
+
+<script>
+//  ('#btnDelete').hide();
+
+$(document).ready(function(){
+   
+    function myFunction(){
+
+        $('#myCheck').click(function(){
+        if($('#myCheck').is(':checked')){
+            ('#btnDelete').show();
+         }
+        else{
+            ('#btnDelete').hide(); }
+    });
+};
+   
+});
+
+</script>
 
 <div class="container-fluid">
     <div class="pageContent">
-        <label class="tableLabel">Inventory</label>
+    <div class='d-flex'>
+        <h3 class="title mr-auto p-2">Inventory</h3>
+
+        <!-- <div class="p-2" id='btnDelete'>
+        <a href="">
+        <button type="button" class="btn btn-danger">
+       
+        <defs>
+        <style>
+              .cls-3 {
+                   fill: #fff;
+                                }
+                                </style>
+                            </defs>
+                    
+                            <path id="Path_6" data-name="Path 6" class="cls-3" d="M22.286,10.286H13.714V1.714A1.62,1.62,0,0,0,12,0a1.62,1.62,0,0,0-1.714,1.714v8.571H1.714A1.62,1.62,0,0,0,0,12a1.62,1.62,0,0,0,1.714,1.714h8.571v8.571A1.62,1.62,0,0,0,12,24a1.62,1.62,0,0,0,1.714-1.714V13.714h8.571A1.62,1.62,0,0,0,24,12,1.62,1.62,0,0,0,22.286,10.286Z" transform="translate(4813 -139)"/>
+                    
+                        <label class="deleteLabel">Delete</label>
+                    </button>
+                </a> -->
+                </div>
+                </div>
         @if(count($inventorys) > 0)
         <table class="table table-striped">
             <thead>
@@ -26,7 +68,7 @@
                 <tr>
                     <td>
                         <div class="checkbox">
-                            <label><input type="checkbox" value=""></label>
+                            <label><input type="checkbox" id="myCheck" onclick="myFunction()"></label>
                         </div>
                     </td>
                     <td>
@@ -44,15 +86,20 @@
                     <td>#20-29</td>
                     <td>1</td> -->
 
-                    <td>{{$inventory->products['product_name']}}</td>
-                    <td>{{$inventory->products['serial_no']}}</td>
-                    <td>{{$inventory->products['model_no']}}</td>
+                    <td>{{$inventory->product_name}}</td>
+                    <td>{{$inventory->serial_no}}</td>
+                    <td>{{$inventory->model_no}}</td>
                     <td>{{$inventory->stock_in}}</td>
                     <td>{{$inventory->stock_out}}</td>
                     <td></td>
                     <td></td>
+        
+                    <td>{!!Form::open(['action' => ['InventoryController@destroy', $inventory->id], 'method' => 'POST'])!!}
+                                    {{Form::hidden('_method', 'DELETE')}}
+                                    {{Form::submit('Delete', ['class' => 'btn btn-danger action-buttons'])}}
+                                {!!Form::close()!!}
+                            </td>
                 </tr>
-
                 @endforeach
             </tbody>
            
@@ -61,3 +108,4 @@
     
     </div>
 </div>
+@endsection

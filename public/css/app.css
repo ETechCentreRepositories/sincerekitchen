@@ -1,3 +1,21 @@
+Skip to content
+ 
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ @ETechCentreRepo Sign out
+1
+0 0 ETechCentreRepositories/sincerekitchen
+ Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights  Settings
+sincerekitchen/public/css/app.css
+8492512  8 days ago
+@ETechCentreRepo ETechCentreRepo calculation added
+@truenoong86 @ETechCentreRepo
+     
+10682 lines (8871 sloc)  195 KB
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);/*!
  * Bootstrap v4.1.0 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
@@ -10632,8 +10650,8 @@ a.text-dark:focus {
 }
 
 .grayVerticalLine {
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
-  height: 162.5px;
+  border-left: 2px solid rgba(0, 0, 0, 0.1);
+  height: 100%;
   margin: -15px 0;
 }
 
@@ -10665,3 +10683,31 @@ a.text-dark:focus {
   padding: 0.375rem 0.75rem;
 }
 
+
+table#salesordertable th{
+background-color: lightgrey;
+color: black;
+border: 1px solid black;
+
+}
+table#salesorertable td{
+  border: 1px solid black;
+}
+
+
+.containerforaddsalesorder{
+  margin-left: 500px;
+}
+© 2018 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+API
+Training
+Shop
+Blog
+About
+Press h to open a hovercard with more details.

@@ -23,20 +23,25 @@ Route::get('/editproduct', 'PagesController@editproduct');
 Route::get('/customer', 'PagesController@customer');
 Route::get('/employee', 'PagesController@employee');
 Route::get('/addemployee', 'PagesController@addemployee');
-Route::get('/addcustomer', 'PagesController@addcustomer');
-// Route::get('/editemployee', 'PagesController@editemployee');
+Route::get('/addcustomer', 'PagesController@addcustomer'); 
 Route::get('/salesorder', 'PagesController@salesorder');
+Route::get('/addsalesorder','PagesController@addsalesorder');
+Route::get('/addsalesorder','SalesOrdersController@getData');
+
+Route::post('/salesorder/addtodatabase/{productID}/{quantity}/{price}/{amount}','SalesOrdersController@storetoDatabase');
+
+
+Route::get('/retrieve-product-by-product-name/{productName}','ProductsController@getProductsbyProductName');
+Route::get('/autocomplete-search', 'InventoryController@search');
+
+
 
 // Route::resource('inventorys@index'.'InventoryController');
 Route::resource('product', 'ProductsController');
 Route::resource('customer','CustomersController');
-
 Route::resource('employee','UserController');
 Route::resource('inventory','InventoryController');
-// Route::get('/','InventoryController');
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::resource('salesorder','SalesOrdersController');
 
 Auth::routes();
 

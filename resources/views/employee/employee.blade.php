@@ -1,6 +1,7 @@
 @extends('layouts.app')
-@include('inc.navbar')
 @section('content')
+@include('inc.navbar')
+
 @include('inc.sidebar')
 
 <div class="container-fluid">
@@ -66,7 +67,7 @@
                     <td>{{$user ->username}}</td>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    
                     <td>
 
                     
@@ -89,3 +90,4 @@
         @endif
     </div>
 </div>
+@endsection

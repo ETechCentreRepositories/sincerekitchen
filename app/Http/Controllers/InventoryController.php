@@ -26,7 +26,7 @@ class InventoryController extends Controller{
         $user_id = auth()->user()->id;
         $users_id = User::find($user_id);
          $products = Product::All();
-        $inventory= Inventory::All();
+        $inventory= Inventory::leftJoin('products','inventory.product_id','=','products.id')->get();
         return view('inventory.index')->with('users_id',$users_id)->with('products',$products)-> with('inventorys',$inventory);
     }
 
@@ -99,8 +99,14 @@ class InventoryController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    { 
+    //     DB::table('deadline', 'job')
+    // ->leftJoin('job', 'deadline.id', '=', 'job.deadline_id')
+    // ->where('deadline.id', $id)
+    // ->delete();
+      $inventory= Inventory::leftJoin('products','inventory.product_id','=','product_id')->where('inventory.product_id',$id)->delete();
+      
+      return redirect('/inventory');
     }
 
        /**
@@ -131,6 +137,17 @@ public function getInventoryByProductId($product_id){
     ->get()->toArray();
 
     return response($product_id); 
+}
+
+public function search(Request $request){
+    $search = $request->keyword;
+    $products = Product::all();
+    $data = [];
+
+    foreach($products as $key => $value){
+        $data [] = ['id' => $value->id, 'value'=>$value->product_name];
+    }
+    return response($data);    
 }
 
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customers;
+use App\Models\SalesOrder;
 use App\User;
 use Illuminate\Support\Facades\Input;
 
@@ -52,7 +53,7 @@ class CustomersController extends Controller
 
         $customers = new Customers;
         $customers->name =Input::get('name');;
-        $customers->phone_no = Input::get('phone_no');;
+        $customers->phone_no = Input::get('phone');;
         $customers->email = Input::get('email');
         $customers->ba = Input::get('ba');
     $customers->sa = Input::get('sa');
@@ -92,7 +93,7 @@ class CustomersController extends Controller
      */
     public function edit($id)
     {
-       
+        
      $customers =Customers::find($id);
      return view('customer.edit')->with('customer',$customers);
     }
@@ -108,7 +109,7 @@ class CustomersController extends Controller
     {
          $customers = Customers::find($id);
      $customers->name = $request-> input('name');
-     $customers->phone_no = $request-> input('phone_no');
+     $customers->phone_no = $request-> input('phone');
      $customers->email = $request-> input('email');
      $customers->ba = $request-> input('ba');
      $customers->sa = $request-> input('sa');
@@ -130,10 +131,10 @@ class CustomersController extends Controller
      */
     public function destroy($id)
     {
-        // //
-        // $products= Product::find($id);
-        // $products->delete();
-        // return redirect('/product');
+        
+        $customers= Customers::find($id);
+         $customers->delete();
+        return redirect('/customer');
 
     }
 }

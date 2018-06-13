@@ -1,12 +1,17 @@
 @extends('layouts.app')
-@include('inc.navbar')
 @section('content')
+@include('inc.navbar')
+
 @include('inc.sidebar')
+
+
+
 
 <div class="container-fluid">
     <div class="pageContent">
         <div class="d-flex">
             <h3 class="title mr-auto p-2">Customers</h3>
+         
             <div class="p-2">
                 <a href="/addcustomer">
                     <button type="button" class="btn btn-warning yellowButton">
@@ -29,8 +34,6 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                
-                
                 <th></th>
 
                     <th>Name</th>
@@ -62,12 +65,17 @@
                         <a href="/customer/{{$customer->id}}/edit">
                             <button type="button" class="btn btn-warning yellowButton">
                                 <label class="addLabel">Edit</label>
-                            </button>
+                            </button> 
+                       
 
-                             
-                        <a>
-                    </td>
-                   
+                    {!!Form::open(['action' => ['CustomersController@destroy', $customer->id], 'method' => 'POST'])!!}
+                                    {{Form::hidden('_method', 'DELETE')}}
+                                    {{Form::submit('Delete', ['class' => 'btn btn-danger action-buttons'])}}
+                                {!!Form::close()!!}
+                                </a>
+
+                                </td>
+                            
                 </tr>
                 @endforeach
             </tbody>
@@ -75,3 +83,4 @@
         @endif
     </div>
 </div>
+@endsection

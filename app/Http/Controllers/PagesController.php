@@ -18,7 +18,7 @@ class PagesController extends Controller
 
     public function product(){
         $title = 'Product';
-        return view('inventory.product')->with('title', $title);
+        return view('product.product')->with('title', $title);
     }
 
     public function customer(){
@@ -38,7 +38,7 @@ class PagesController extends Controller
 
     public function addproduct(){
         $title = 'Add Product';
-        return view('inventory.addproduct')->with('title', $title);
+        return view('product.addproduct')->with('title', $title);
     }
 
     public function addemployee(){
@@ -47,14 +47,54 @@ class PagesController extends Controller
     }
 
     public function editproduct(){
-        $title = 'Add Product';
-        return view('inventory.edit')->with('title', $title);
+        $title = 'Edit Product';
+        return view('product.edit')->with('title', $title);
     }
 
     public function addcustomer(){
         $title = 'Add Customer';
         return view('customer.addcustomer')->with('title', $title);
     }
+
+
+    public function addinventory(){
+        $title = 'Add Inventory';
+        return view('inventory.addinventory')->with('title',$title);
+
+    }
+    public function editinventory(){
+        $title = 'Edit Inventory';
+        return view('inventory.edit')->with('title',$title);
+
+    }
+    public function addsalesorder(){
+        $title = 'Add Sales Order';
+        return view('salesorder.addsalesorder')->with('title',$title);
+
+    }
+  
+    public function editemployee(){
+        $title = 'Edit Employee';
+        return view('employee.edit')->with('title',$title);
+
+    }
+    
+    public function editsalesorder(){
+        $title = 'Edit Sales Order';
+        return view('salesorder.edit')->with('title',$title);
+
+    }
+       
+     public function viewsalesorder(){
+        $title = 'View Sales Order';
+     return view('salesorder.viewsalesorder')->with('title',$title);
+
+     }
+    
+    
+
+
+
 
     // public function editemployee(){
     //     $title = 'Add Employee';

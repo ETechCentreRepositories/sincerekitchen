@@ -1,6 +1,7 @@
 @extends('layouts.app')
-@include('inc.navbar')
 @section('content')
+@include('inc.navbar')
+
 @include('inc.sidebar')
 
 <div class="container-fluid">
@@ -31,11 +32,13 @@
             <thead>
                 <tr>
                     <th></th>
+                    <th>Product Image</th>
                     <th>Item Name</th>
                     <th>Quantity</th>
                     <th>Dimension</th>
                     <th>Model No.</th>
                     <th>Serial No.</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,38 +49,29 @@
                             <label><input type="checkbox" value=""></label>
                         </div>
                     </td>
-
-                    
-                    {{-- <td>
-                        <div class="centerImage col-md-3">
-                            <svg class="image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 46"><title>image</title><g id="Layer_2" data-name="Layer 2"><g id="Livello_1" data-name="Livello 1"><path d="M42,0H4A4,4,0,0,0,0,4V42a4,4,0,0,0,4,4H42a4,4,0,0,0,4-4V4A4,4,0,0,0,42,0ZM4,2H42a2,2,0,0,1,2,2V26.65L33.23,15.87,23,26.1,17.89,21,2,36.87V4A2,2,0,0,1,4,2ZM42,44H4a2,2,0,0,1-2-2V39.68l.06,0L17.89,23.81,23,28.93,33.23,18.7,43.62,29.09a.8.8,0,0,0,.38.23V42A2,2,0,0,1,42,44Z"/><path d="M12.77,17.89a5.12,5.12,0,1,0-5.11-5.12A5.12,5.12,0,0,0,12.77,17.89Zm0-8.23a3.12,3.12,0,1,1-3.11,3.11A3.12,3.12,0,0,1,12.77,9.66Z"/></g></g></svg>
-                        </div>
-                    </td> --}}
-                    <!-- <td>Thor - Stand 36"</td>
-                    <td>1</td>
-                    <td>935*645*65</td>
-                    <td>TR-T36</td>
-                    <td>201708000051</td> -->
-
+                  
+          <td> <img src="{{$product->image}}"></td>
                     <td>{{$product->product_name}}</td>
                     <td>{{$product->quantity}}</td>
                     <td>{{$product->dimension}}</td>
                     <td>{{$product->serial_no}}</td>
                     <td>{{$product->model_no}}</td>
                     <td>
-                    
-                        <a href="/product/{{$product->id}}/edit">
-                            <button type="button" class="btn btn-warning yellowButton">
-                                <label class="addLabel">Edit</label>
-                            </button>
-
-                             {!!Form::open(['action' => ['ProductsController@destroy', $product->id], 'method' => 'POST'])!!}
+                    <div class="d-flex flex-row user-buttons">
+                        <div class="p-2">
+                            <a href="/product/{{$product->id}}/edit">
+                                <button type="button" class="btn btn-warning yellowButton">
+                                    <label class="addLabel">Edit</label>
+                                </button>
+                            </a>
+                        </div>
+                        <div class="p-2">
+                        {!!Form::open(['action' => ['ProductsController@destroy', $product->id], 'method' => 'POST'])!!}
                                     {{Form::hidden('_method', 'DELETE')}}
                                     {{Form::submit('Delete', ['class' => 'btn btn-danger action-buttons'])}}
                                 {!!Form::close()!!}
-                            
-                            </a>
-
+                        </div>
+                    </div>
                            
                     </td>
                 </tr>
@@ -87,3 +81,4 @@
         @endif
     </div>
 </div>
+@endsection
