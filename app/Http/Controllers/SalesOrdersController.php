@@ -98,10 +98,11 @@ class SalesOrdersController extends Controller
      */
     public function show($id)
     {
-        $salesorders =SalesOrder::find($id);
+        $salesorder =SalesOrder::find($id);
         $salesOrderId = SalesOrder::find($id)->id;
+        $salesorders = SalesOrder::orderBy('id','desc')->get();
         $salesorderlists = SalesOrderLists::where('salesorder_id','=',$salesOrderId)->get();
-        return view('salesorder.viewsalesorder')->with('salesorders',$salesorders)->with('salesorderlists',$salesorderlists); 
+        return view('salesorder.viewsalesorder')->with('salesorder',$salesorder)->with('salesorders',$salesorders)->with('salesorderlists',$salesorderlists); 
         //
     }   
 
