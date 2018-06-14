@@ -41,14 +41,7 @@
                             {{Form::text('username', $users->username, ['class' => 'form-control'])}}
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            {{Form::label('password', 'Password', ['class' => 'formLabel'])}}
-                        </div>
-                        <div class="col-md-9">
-                            {{Form::text('password', '', ['class' => 'form-control'])}}
-                        </div>
-                    </div>
+                 
                     <div class="row">
                         <div class="col-md-3">
                             {{Form::label('phonenumber', 'Phone Number', ['class' => 'formLabel'])}}
@@ -62,7 +55,7 @@
                             {{Form::label('bankdetails', 'Bank Details', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('bankdetails', '', ['class' => 'form-control'])}}
+                            {{Form::text('bankdetails',$users->bankdetails, ['class' => 'form-control'])}}
                         </div>
                     </div>
                     <div class="row">
@@ -70,15 +63,7 @@
                             {{Form::label('department', 'Department', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::select('department', array('Department' => 'Department'), null, ['class' => 'fieldDropDown'])}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            {{Form::label('role', 'Role', ['class' => 'formLabel'])}}
-                        </div>
-                        <div class="col-md-9">
-                            {{Form::select('role', array('Role' => 'Role'), null, ['class' => 'fieldDropDown'])}}
+                            {{Form::text('department',$users->department , ['class' => 'form-control'])}}
                         </div>
                     </div>
                 </div>

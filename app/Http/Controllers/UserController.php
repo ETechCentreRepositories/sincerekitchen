@@ -57,7 +57,8 @@ class UserController extends Controller{
         $users->email = Input::get('email');
         $users->username = Input::get('username');
         $users->password = Hash:: make(Input::get('password'));
-        $users->phone_number = Input::get('phone_number');
+        $users->phone_number = Input::get('phonenumber');
+        $users->bankdetails = Input::get('bankdetails');
         $users-> save();
 
         return redirect('/employee');
@@ -108,7 +109,8 @@ class UserController extends Controller{
         $users->email = $request-> input('email');
         $users->department = $request-> input('department');
         $users->username = $request-> input('username');
-        $users->phone_number = $request-> input('phone_number');
+        $users->phone_number = $request-> input('phonenumber');
+        $users->bankdetails = $request->input('bankdetails');
         $users->save();
 
 

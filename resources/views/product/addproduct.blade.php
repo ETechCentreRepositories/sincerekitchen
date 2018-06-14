@@ -77,12 +77,9 @@
                 </div>
                 <div class="centerImage col-md-3">
                
-                <img src = ""  id="addImage" width="300px"/>
+                <img src= ""  id="addImage" width="300px"/>
                 <br>
-                
-            {{Form::file('image_add',array('id'=>'image_add'))}}
-
-             
+                {{Form::file('image_add',array('id'=>'image_add'))}}
                 </div>
             </div>
         </div>
@@ -183,7 +180,8 @@
         <div class="centerButton">
             <button type="submit" class="btn btn-warning btn-lg yellowButton">Add Product</button>
         </div>
-        {!! Form::close() !!}
+       
     </div>
+    {!! Form::close() !!}
+
 </div>
-@endsection

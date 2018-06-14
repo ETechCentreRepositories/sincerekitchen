@@ -37,7 +37,6 @@
                     <th>Department</th>
                     <th>Username</th>
                     <th>Bank Details</th>
-                    <th>Role</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -49,28 +48,13 @@
                             <label><input type="checkbox" value=""></label>
                         </div>
                     </td>
-                
-
-
-                    <!-- <td>Queeny</td>
-                    <td>9451 1958</td>
-                    <td>admin@sincerekitchen.com</td>
-                    <td>Executive team</td>
-                    <td>queeny123</td>
-                    <td>104-4-001988</td>
-                    <td>Administrator</td> -->
-
                     <td>{{$user ->name}}</td>
                     <td>{{$user ->email}}</td>
                     <td>{{$user ->phone_number}}</td>
                     <td>{{$user ->department}}</td>
                     <td>{{$user ->username}}</td>
-                    <td></td>
-                    <td></td>
-                    
+                    <td>{{$user-> bankdetails}}</td>    
                     <td>
-
-                    
                         <a href="/employee/{{$user->id}}/edit">
                             <button type="button" class="btn btn-warning yellowButton">
                                 <label class="addLabel">Edit</label>
@@ -79,8 +63,8 @@
                               {!!Form::open(['action' => ['UserController@destroy', $user->id], 'method' => 'POST'])!!}
                                     {{Form::hidden('_method', 'DELETE')}}
                                     {{Form::submit('Delete', ['class' => 'btn btn-danger action-buttons'])}}
-                                {!!Form::close()!!}
-                        <a>
+                                {!!Form::close()!!} 
+                                </a>
                     </td>
                    
                 </tr>
