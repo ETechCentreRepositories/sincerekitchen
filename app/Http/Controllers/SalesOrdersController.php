@@ -104,7 +104,7 @@ class SalesOrdersController extends Controller
         $salesorderlists = SalesOrderLists::where('salesorder_id','=',$salesOrderId)->get();
         return view('salesorder.viewsalesorder')->with('salesorder',$salesorder)->with('salesorders',$salesorders)->with('salesorderlists',$salesorderlists); 
         //
-    }
+    }   
 
     /**
      * Show the form for editing the specified resource.

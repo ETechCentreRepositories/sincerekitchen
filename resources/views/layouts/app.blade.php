@@ -4,13 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<<<<<<< HEAD
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-=======
     <script src="http://localhost:8000/js/jquery.min.js"></script>
     <!-- <script src="http://localhost:8000/js/sorttable.js"></script> -->
->>>>>>> 1812c40c52719abb1a8c9ec6246df4d20be84866
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
