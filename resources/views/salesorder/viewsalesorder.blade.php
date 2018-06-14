@@ -100,7 +100,72 @@
                         </table>  
                     </div>
                     <div class="tab-pane fade" id="quotation" role="tabpanel" aria-labelledby="quotation-tab">
-                        Quotation
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="http://localhost:8000/storage/logo/singapore_brands.png" style="width: 70%;">
+                            </div>
+                            <div class="col-md-6" style="text-align:center;">
+                                <img src="http://localhost:8000/storage/logo/sincerekitchen_logo.png" style="width: 30%;"><br>
+                                10 Ubi Crescent<br>
+                                #03-07 Ubi Techpark, Singapore 408564<br>
+                                Tel: (65) 6280 8893   Fax: (65) 6280 9093<br>
+                                Company & GST Reg. No.: 201007086E
+                            </div>
+                            <div class="col-md-3" style="text-align:right;">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="http://localhost:8000/storage/logo/promising.png" style="width: 130%;">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img src="http://localhost:8000/storage/logo/bizsafe.png" style="width: 130%;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div style="text-align:center; text-decoration: underline;">
+                            <b>QUOTATION</b>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-9">
+                                {{$salesorder->customers['ba']}}
+                            </div>
+                            <div class="col-md-3">
+                                Date: {{$salesorder->salesorder_date}}
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-1">
+                            </div>
+                            <div class="col-md-11" style="text-decoration: underline;">
+                                <b>RE: Kitchen Equipment @ #02-318/319/320 Downtown East</b>
+                            </div>
+                        </div>
+                        <br>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="noBottomBorder noTopBorder">S/N</th>
+                                    <th class="noBottomBorder noTopBorder">Description</th>
+                                    <th class="noBottomBorder noTopBorder">Quantity</th>
+                                    <th class="noBottomBorder noTopBorder">Price (S$)</th>
+                                    <th class="noBottomBorder noTopBorder">Amount (S$)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($salesorderlists as $salesorderlist)
+                                <tr>
+                                    <td class="noTopBorder">{{$salesorderlist->products['serial_no']}}</td>
+                                    <td class="noTopBorder">{{$salesorderlist->products['description']}}</td>
+                                    <td class="noTopBorder">{{$salesorderlist->quantity}}</td>
+                                    <td class="noTopBorder">{{$salesorderlist->price}}</td>
+                                    <td class="noTopBorder">{{$salesorderlist->amount}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>  
                     </div>
                     <div class="tab-pane fade" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
                         Invoice
@@ -139,5 +204,13 @@
 
     .coloredHeader {
         background: lightgrey;
+    }
+
+    .noTopBorder {
+        border-top:none !important;
+    }
+
+    .noBottomBorder {
+        border-bottom:none !important;
     }
 </style>
