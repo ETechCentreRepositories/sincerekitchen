@@ -18,7 +18,7 @@
                  <div class="row">
                     <div class="col-md-3">
                     
-                    {{Form::label('customername','Customer Name',['class'=>'formLabel'])}}
+                    {{Form::label('customername','Customer Name',['class'=>'formLabel','id' =>'customername'])}}
                 </div>
                
                 
@@ -113,8 +113,8 @@
         <table class="table table-striped" id="createTableItem">
         <thead>
             <tr>
-                <th>Image</th>
-                <th>Item Details</th>
+            <th>Number</th>
+                <th>Product Name</th>
                 <th>Quantity</th>
                 <th>Price(S$)</th>
                 <th>Amount(S$)</th>
@@ -122,6 +122,8 @@
 
         </thead>
         <tbody id="addTableItemContent">
+
+
         </tbody>
 
         </table>
@@ -142,7 +144,7 @@
     
         <div class="row">
             <div class="col-md-3">
-                {{Form::label('discount','Discount',['class'=>'formLabel'])}}
+                {{Form::label('discount','Discount %',['class'=>'formLabel'])}}
             </div>
         <div class="col-md-9">
         <input type="text" id="discount" onchange="findgrandtotal()" class="form-control discount" name="discount" >
@@ -187,22 +189,14 @@
 
          <div class="col-md-3">
         <div class="btnsubmit">
-            <button type="submit" class="btn btn-warning btn-lg">Save and Send </button>
+            <button id="btnSave" type="submit" class="btn btn-warning btn-lg">Save and Send </button>
             
             </div>
         </div>
+        {!!Form::hidden('_token',csrf_token())!!}
         {!! Form::close() !!}
         {!! Form::close() !!}
-    
-
-        <div class="col-md-3">
-            <div class="btnsavedraft">
-            <button type="submit" class=" btn-lg">Save to Draft</button>
-             </div>
-            </div>   
-<div class="col-md-3">
-
-              <div class="btncancel">
+            <div class="btncancel">
             <button type="cancel" class="btn btn-danger btn-lg">Cancel</button>
             
             </div>
@@ -210,6 +204,9 @@
            </div> 
       </div>  
 </div>
+
+
+
 <script>
 $(document).ready(function(){    
     $("#itemSearchField").autocomplete({
@@ -223,7 +220,6 @@ $(document).ready(function(){
     });
 
     var trProducts=[];
-  
         $("#addItem").click(function(){
             console.log("distinct");
             var productName = $("#itemSearchField").val();
@@ -237,17 +233,17 @@ $(document).ready(function(){
                     console.log(response); 
                 for(i= 0;i<response.length;i++){
                     console.log(response[i]);
-                    var productId = parseInt(response[i].products_id);
+                    var productId = parseInt(response[i].id);
+                    console.log(productId);
                     trProducts.push(productId);
                     $("#addTableItemContent").append(
-                        "<tr id='newRow_"+productId+"'>"
-                        +"<td>Image</td>"
-                        +"<td>"+response[i].product_name+"</td>"
-                        +"<td><input class='quantity' name='quantity' type='number' id='qty' type='text' style='width:60px;'value='1'/></td>"
-                        +"<td><input class='price' name='price' id='price' type='text'></td>"
-                        +"<td><input class='amount' id='amount' name='amount' type='text'></td>"
+                        "<tr id='rows["+productId+"]'>"
+                        +"<td><input id='number' name='rows["+productId+"][productId]' type='hidden' value='"+productId+"'/></td>"
+                        +"<td><input type='text' value='"+response[i].product_name+"'/></td>"
+                        +"<td><input class='quantity' name='rows["+productId+"][quantity]' type='number' id='qty' type='text' style='width:60px;'value='1'/></td>"
+                        +"<td><input class='price' name='rows["+productId+"][price]' id='price' type='text'></td>"
+                        +"<td><input class='amount' id='amount' name='rows["+productId+"][amount]' type='text'></td>"
                         +"<td><button type='button' class='btn btn-danger action-buttons' id='removeTR'> Remove</button></td></tr>"
-
                     );
                 }
                 
@@ -265,7 +261,11 @@ $(document).ready(function(){
             var qty = parseFloat(row.find('#qty').val()).toFixed(2);
             var price = parseFloat(row.find('#price').val()).toFixed(2);
             var totalamount = qty * price;
-            row.find("#amount").val(isNaN(totalamount) ? "" : totalamount);            
+
+            if(isNaN(totalamount)){
+                alert("Please enter only numbers");
+            }
+            row.find("#amount").val(totalamount);            
             console.log(qty);
             console.log(price);
             console.log(amount);
@@ -284,30 +284,20 @@ $(document).ready(function(){
 
     console.log(totalamount);
 });
+$(document).on('click','#removeTR',function(){
+    var id = $('#removeTR').closest('tr').attr('id');
+    for(var i =0;i<trProducts.length;i++){
+        if(trProducts[i]==id){
+            trProducts.splice(i,1);
+        }
+    }
+    $('#removeTR').closest('tr').remove();
+    console.log(id);
+});
  });
 
-
-
-
-    // (function(){
-    //     "use strict";
-
-    //     $("table").on("change","input",function(){
-    //         var row =$(this).closest("tr");
-    //          var quantity = parseFloat(row.find("input:eq(2)").val());
-    //          console.log(quantity);
-    //          var price = parseFloat(row.find("input:eq(3)").val());
-    //          console.log(price);
-    //          var total = quantity *price;
-    //          console.log(total);
-    //          row.find("input:eq(4)").val(isNaN(total)? "":total);
-    //     });
-
-
-    // })();
-
 function findgrandtotal(){
-    var grandtotal = 0;
+     var grandtotal = 0;
     var afterdisc = 0;
     var gst = 0.07;
 var subtotal = document.getElementById('subtotal').value;
@@ -328,25 +318,7 @@ console.log(grandtotal);
 
 }   
 
-    //     var price = document.getElementById('price').value;
-    //     var amount = document.getElementById('quantity');
-
-    //     totalamount = quantity* price;
-    //     if(isNaN(totalamount)){
-    //         alert('Please enter only numbers');
-    //     } 
-    //     document.getElementById('amount').value = totalamount;
-    //     console.log(quantity);
-    //     console.log(price);
-    //     console.log(amount);
-    //     console.log(totalamount);
-    // }
-
-    // function findgrandtotal(){
-        
-
-    // }
-    </script>
+</script>
 @endsection
   
 

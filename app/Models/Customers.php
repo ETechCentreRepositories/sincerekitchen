@@ -12,8 +12,10 @@ class Customers extends Model
 
 
     public function customers(){
-        return $this -> belongsTo('App\Models\SalesOrderLists');
+        return $this -> belongsTo('App\Models\SalesOrder');
+
     }
+
 
 }
 

@@ -10,6 +10,7 @@
         <div class="col-md-4"> 
         <div class="d-flex">        
             <h3 class="title mr-auto p-2">All Sales Orders</h3>
+            <hr>
             <div class="p-2">
                 <a href="/addsalesorder">
                 <button type="button" class="btn btn-warning yellowButton">
@@ -29,9 +30,10 @@
                 </div>
             </div>
             <!-- <h1> Adding the list</h1> -->
-            <h1> TRY</h1>
-            <h1> TRY</h1>
-            <h1> TRY</h1>
+            <div>{{$salesorders->customers['name']}}</div>
+            <div>{{$salesorders->salesorder_name}}</div>
+            <div> {{$salesorders->salesorder_date}}</div>
+            
         </div>
             <div class="verticalLineWidth col-md-1">
                     <div class="verticalLinePadding">
@@ -57,11 +59,7 @@
 
         </div>
     </div>
-   
     </div>
-
-
-
 
 </div>
 @endsection

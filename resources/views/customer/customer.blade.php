@@ -5,12 +5,13 @@
 @include('inc.sidebar')
 
 
-@if(count($customers) >0)
+
 
 <div class="container-fluid">
     <div class="pageContent">
         <div class="d-flex">
             <h3 class="title mr-auto p-2">Customers</h3>
+         
             <div class="p-2">
                 <a href="/addcustomer">
                     <button type="button" class="btn btn-warning yellowButton">
@@ -29,7 +30,7 @@
                 </a>
             </div>
         </div>
-       
+        @if(count($customers) >0)
         <table class="table table-striped">
             <thead>
                 <tr>

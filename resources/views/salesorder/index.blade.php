@@ -71,17 +71,12 @@
                     <td>   
                         <div class="d-flex flex-row user-buttons">
                             <div class="p-2">
-                                <a href="/salesorder/{{$salesorder->id}}/edit">
-                                    <button type="button" class="btn btn-warning yellowButton">
-                                        <label class="addLabel">Edit</label>
-                                    </button>
-
-                                    {!!Form::open(['action' => ['SalesOrdersController@destroy', $salesorder->id], 'method' => 'POST'])!!}
+                                {!!Form::open(['action' => ['SalesOrdersController@destroy', $salesorder->id], 'method' => 'POST'])!!}
                                     {{Form::hidden('_method', 'DELETE')}}
                                     {{Form::submit('Delete', ['class' => 'btn btn-danger action-buttons'])}}
-                                {!!Form::close()!!}
-                                </a>
-                            </div>
+                                {!!Form::close()!!}                          
+                                
+                             </div>
                         </div>
                     </td>
                 </tr>

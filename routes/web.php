@@ -28,9 +28,13 @@ Route::get('/salesorder', 'PagesController@salesorder');
 Route::get('/addsalesorder','PagesController@addsalesorder');
 Route::get('/addsalesorder','SalesOrdersController@getData');
 
+Route::post('/salesorder/addtodatabase/{productID}/{quantity}/{price}/{amount}','SalesOrdersController@storetoDatabase');
+
 
 Route::get('/retrieve-product-by-product-name/{productName}','ProductsController@getProductsbyProductName');
 Route::get('/autocomplete-search', 'InventoryController@search');
+
+
 
 // Route::resource('inventorys@index'.'InventoryController');
 Route::resource('product', 'ProductsController');
@@ -38,10 +42,6 @@ Route::resource('customer','CustomersController');
 Route::resource('employee','UserController');
 Route::resource('inventory','InventoryController');
 Route::resource('salesorder','SalesOrdersController');
-// Route::get('/','InventoryController');
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Auth::routes();
 

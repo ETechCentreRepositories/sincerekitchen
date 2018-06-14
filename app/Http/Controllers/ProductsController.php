@@ -144,7 +144,8 @@ class ProductsController extends Controller
 
 
     public function getProductsbyProductName($productName){
-        $Products = Product::select('product_name')->where('product_name','=',$productName)->distinct()->get()->toArray();
-        return response($Products);
+
+        $products = Product::select('id','product_name')->where('product_name','=',$productName)->distinct()->get()->toArray();
+        return response($products);
     }
 }

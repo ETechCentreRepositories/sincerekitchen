@@ -28,9 +28,6 @@ class SalesOrdersController extends Controller
         $customers = Customers::All();
         // $sales = SalesOrder::leftJoin('customers','salesorder.customers_id','=','customers.id')->get();
         $salesorders = SalesOrder::All();
-
-
-   
     return view('salesorder.index')->with('users_id',$users_id)->with('customers',$customers)->with('salesorders',$salesorders);
     
     }
@@ -50,9 +47,6 @@ class SalesOrdersController extends Controller
          $salesorders = SalesOrder::find($id);
         return view('salesorder.edit')->with('users_id',$users_id)->with('salesorders', $salesorders);
     }
-     
-    
-
     /**
      * Store a newly created resource in storage.
      *
@@ -60,54 +54,40 @@ class SalesOrdersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-
-        // $imageName = time().' . '.$request->file('image')->getClientOriginalExtension(); 
-        // $path = $request->file('image_add')->storeAs(public_path('image'),$imageName);
-         
+    {    
+        
         $sales = new SalesOrder;
-        $sales->customers_id= Input::get('customername');
-        $sales->salesorder_name= Input::get('salesorder');
+      $sales->salesorder_name= Input::get('salesorder');
         $sales->references= Input::get('references');
         $sales->salesorder_date= Input::get('salesorderdate');
-        $sales->expected_date= Input::get('expecteddate');
-        
-        
-        $productname=Input::get('productname');
-        $quantity = Input::get('quantity');
-        $discount = Input::get('discount');
-        $amount = Input::get('amount');
-        $subtotal =Input::get('subtotal');
-        $gst = Input::get('gst');
-
-        
+        $sales->expected_date = Input::get('expecteddate');
+        $sales->customers_id = Input::get('customername');    
+        $sales->subtotal = Input::get('subtotal');
+        $sales->discount = Input::get('discount');
         $sales->grandtotal = Input::get('grandtotal');
-        $subtotal =$amount;
-
-
-
-
+        $id = $sales->save();
         
-        $sales->save();
+        
+        //create new task
+        $rows = $request->input('rows');
+        // $productname = $request->get('#number');
+        // $productId = $request->get('number');
 
+        // $myArray = explode('_', $productname);
+
+        foreach($rows as $row){
+            $data[]= [
+                'salesorder_id'=> $sales['id'],
+                'products_id'=> $row['productId'],
+                'quantity'=> $row['quantity'],
+                'price'=> $row['price'],
+                'amount'=>$row['amount'], 
+            ];
+        }
+     
+
+        SalesOrderLists::insert($data);
         return redirect('/salesorder');
-
-
-        
-        // $product->image = Input::get($path);
-        // $product->serial_no = Input::get('sku');
-        // $product->dimension = Input::get('dimension');
-        // $product->model_no = Input::get('modelno');
-        // $product->unit_price = Input::get('sellingprice');
-
-      
-        // $product-> save();
-
-        // return redirect('/product');
-
-
-
     }
 
     /**
@@ -133,10 +113,9 @@ class SalesOrdersController extends Controller
      */
     public function edit($id)
     {
-       $salesorders = SalesOrder::find($id);
-       return view('salesorder.edit')->with('salesorders',$salesorders);
-    //  $product = Product::find($id);
-    //  return view('product.edit')->with('product',$product);
+       $salesorder = SalesOrder::find($id);
+       $salesorderlists = SalesOrderLists::where('salesorder_id','=',$salesorders)->get();
+       return view('salesorder.edit')->with('salesorders',$salesorders)->with('salesorderlists', $salesorderlists);
     }
 
     /**
@@ -187,12 +166,6 @@ class SalesOrdersController extends Controller
 
     
     public function getData(){
-
-        $products = Product::All();
-         $valueprod=[];
-            foreach($products as $product){
-                   $valueprod[$product->id] = $product->product_name;
-             }
     $customers = Customers::all();
     $valuecust = [];
     foreach($customers as $customer){
@@ -200,7 +173,7 @@ class SalesOrdersController extends Controller
     }
 
    
-    return view('salesorder.addsalesorder',compact('valuecust','valueprod'));
+    return view('salesorder.addsalesorder',compact('valuecust'));
 }
 // public function getAllProducts(){
 //     $products = Product::All();
@@ -212,10 +185,16 @@ class SalesOrdersController extends Controller
 
 //     return view('salesorder.addsalesorder',compact('select'));
 // }
+// public function storetoDatabase(Request $request, $id, $quantity, $price, $amount){
+//     $user_id = auth()->user()->id;
+//     $users_id = User::find($user_id);
+//     $product = Product::find($id);
 
-public function viewsalesorder(){
-    return view('salesorder.viewsalesorder');
-}
+//     $salesorderlists = new SalesOrderLists;
+//     $salesorderlist->add($product, $product->id,$quantity,$price, $amount);
+
+//     return redirect('/salesorder');
+// }
 
 }
 
