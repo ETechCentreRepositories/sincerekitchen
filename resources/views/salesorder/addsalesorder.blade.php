@@ -113,7 +113,7 @@
         <table class="table table-striped" id="createTableItem">
         <thead>
             <tr>
-            <th>Number</th>
+           <th></th>
                 <th>Product Name</th>
                 <th>Quantity</th>
                 <th>Price(S$)</th>

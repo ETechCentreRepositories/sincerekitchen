@@ -8,8 +8,8 @@
         <div class="row">
             <div class="col-md-4 scrollMenu">
                 <div class="row">
-                    <div class="col-md-8">
-                        <h3>All Sales Orders</h3>
+                    <div class="col-md-7">
+                        <h3>Details Sales Order</h3>
                     </div>
                     <div class="col-md-4">
                         <a href="/addsalesorder">
@@ -61,15 +61,18 @@
                                 Singapore 408564
                             </div>
                             <div class="col-md-6 rightAlign">
-                                <div style="font-size:16px">SALES ORDER</div>
-                                {{$salesorder->salesorder_name}}
+                                <div style="font-size:25px;font-weight:bold">SALES ORDER</div>
+                                <div style="font-size:16px;color:black">
+                                salesorder:  {{$salesorder->salesorder_name}}
+                                </div>
+                               
                             </div>
                         </div>
                         <br>
                         <div class="row">
                             <div class="col-md-6">
-                                <div style="font-size:16px">Bill To</div>
-                                {{$salesorder->customers['name']}}
+                                <div style="font-size:16px">Bill To:</div>
+                               <p style=""> {{$salesorder->customers['name']}}</p>
                             </div>
                             <div class="col-md-6 rightAlign">
                                 Order Date: {{$salesorder->salesorder_date}}<br>
@@ -80,7 +83,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th class="coloredHeader">Item & Description</th>
+                                    <th class="coloredHeader">Item & Serial No.</th>
                                     <th class="coloredHeader">Qty</th>
                                     <th class="coloredHeader">Rate</th>
                                     <th class="coloredHeader">Amount</th>
@@ -89,7 +92,7 @@
                             <tbody>
                                 @foreach ($salesorderlists as $salesorderlist)
                                 <tr>
-                                    <td>{{$salesorderlist->products['product_name']}}</td>
+                                    <td>{{$salesorderlist->products['product_name']}} ({{$salesorderlist->products['serial_no']}})</td>
                                     <td>{{$salesorderlist->quantity}}</td>
                                     <td>{{$salesorderlist->price}}</td>
                                     <td>{{$salesorderlist->amount}}</td>
@@ -97,6 +100,39 @@
                                 @endforeach
                             </tbody>
                         </table>  
+                        
+                        <hr>
+                        <div class="row" style="font-size:16px">
+                            <div class="col-md-9" style="text-align: right;">
+                             Subtotal : 
+                            </div>
+                            <div class="col-md-2" style="text-align: right;">
+                            {{$salesorder->subtotal}}
+                            </div>
+                            <br/>
+                            <div class="col-md-9" style="text-align: right;">
+                             Discount(%) : 
+                            </div>
+                        <div class="col-md-2" style="text-align: right;">
+
+                            {{$salesorder->discount}}%
+                            </div>
+                            </div>
+                              <hr>
+
+
+                                <div class = "row" style="font-size:16px">
+                                <div class="col-md-9" style="text-align: right;">
+                                Grand total(SGD) : 
+                                </div>
+                                <div class="col-md-2" style="text-align: right;">
+                                {{$salesorder->grandtotal}}
+                                </div> 
+                                </div>
+                        
+
+                      
+                        
                     </div>
                     <div class="tab-pane fade" id="quotation" role="tabpanel" aria-labelledby="quotation-tab">
                         Quotation
