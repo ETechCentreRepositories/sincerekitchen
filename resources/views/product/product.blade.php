@@ -31,7 +31,6 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th></th>
                     <th>Product Image</th>
                     <th>Item Name</th>
                     <th>Quantity</th>
@@ -43,19 +42,13 @@
             </thead>
             <tbody>
             @foreach($products as $product)
-                <tr>
-                    <td>
-                        <div class="checkbox">
-                            <label><input type="checkbox" value=""></label>
-                        </div>
-                    </td>
-                  
-          <td> <img src="{{$product->image}}"></td>
+                <tr>            
+          <td> <img style="width:150px; height:150px" src='{{asset("/images/$product->image")}}'></td>
                     <td>{{$product->product_name}}</td>
                     <td>{{$product->quantity}}</td>
                     <td>{{$product->dimension}}</td>
-                    <td>{{$product->serial_no}}</td>
                     <td>{{$product->model_no}}</td>
+                    <td>{{$product->serial_no}}</td>
                     <td>
                     <div class="d-flex flex-row user-buttons">
                         <div class="p-2">

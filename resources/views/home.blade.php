@@ -12,7 +12,7 @@
                 <div class="p-2 card salesCards card1">
                     <div class="salesCardsBody card-body">
                         <div class="salesNumber salesNumber1">
-                            0
+                            {{$salesPack}}
                         </div>
                         Qty
                         <br><br>

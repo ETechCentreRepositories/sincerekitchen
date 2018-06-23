@@ -25,6 +25,10 @@ class PagesController extends Controller
         $title = 'Customer';
         return view('customer.customer')->with('title', $title);
     }
+    public function supplier(){
+        $title = 'Supplier';
+        return view('supplier.index')->with('title',$title);
+    }
 
     public function employee(){
         $title = 'Employee';
@@ -34,6 +38,12 @@ class PagesController extends Controller
     public function salesorder(){
         $title = 'Sales Order';
         return view('salesorder.index')->with('title', $title);
+    }
+    
+    
+    public function purchaseorder(){
+        $title = 'Purchase Order';
+        return view('purchaseorder.index')->with('title',$title);
     }
 
     public function addproduct(){
@@ -90,14 +100,20 @@ class PagesController extends Controller
      return view('salesorder.viewsalesorder')->with('title',$title);
 
      }
+
+     public function addsupplier(){
+         $title = 'Add Supplier';
+         return view('supplier.addsupplier')->with('title',$title);
+     }
+
+     public function addpurchaseorder(){
+        $title = 'Add Purchase Order';
+        return view('purchaseorder.addpurchaseorder')->with('title',$title);
+     }
+
+     public function viewpurchaseorder(){
+         $title = 'View Purchase Order';
+         return view('purchaseorder.viewpurchaseorder')->with('title',$title);
+     }
     
-    
-
-
-
-
-    // public function editemployee(){
-    //     $title = 'Add Employee';
-    //     return view('employee.edit')->with('title', $title);
-    // }
 }

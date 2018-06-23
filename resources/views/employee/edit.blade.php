@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('content')
-@include('inc.navbar')
 
-@include('inc.sidebar')
 
  {!! Form::open(['action' =>['UserController@update',$users->id],'method'=> 'POST'])!!}
 
@@ -41,13 +39,12 @@
                             {{Form::text('username', $users->username, ['class' => 'form-control'])}}
                         </div>
                     </div>
-                 
                     <div class="row">
                         <div class="col-md-3">
                             {{Form::label('phonenumber', 'Phone Number', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('phonenumber', $users-> phone_number, ['class' => 'form-control'])}}
+                            {{Form::text('phonenumber', $users->phone_number, ['class' => 'form-control'])}}
                         </div>
                     </div>
                     <div class="row">
@@ -66,16 +63,22 @@
                             {{Form::text('department',$users->department , ['class' => 'form-control'])}}
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3"></div>
-            </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            {{Form::label('password', 'Password', ['class' => 'formLabel'])}}
+                        </div>
+                        <div class="col-md-9">
+                        <input name="password" type="password" class="form-control">
+                        </div>    
+                        
+                    </div>
 
             {{Form::hidden('_method','PUT')}}
             <div class="centerButton">
                 <button type="submit" class="btn btn-warning btn-lg yellowButton">Saved</button>
             </div>
         </div>
-        
+        </div>
     </div>
 </div>
 {{!! Form:: close()!!}}

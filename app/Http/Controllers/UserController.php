@@ -51,12 +51,21 @@ class UserController extends Controller{
     public function store(Request $request)
     {
         //
-
+        $this->validate($request, [
+            'name' => 'required',
+            'username'=>'required',
+            'password'=>'required',
+            'phonenumber' => 'required|min:8|numeric',
+            'email' => 'required|email',
+         
+        ]);
+       
         $users = new Users;
         $users->name= Input::get('name');
         $users->email = Input::get('email');
         $users->username = Input::get('username');
         $users->password = Hash:: make(Input::get('password'));
+        $users->department = Input::get('department');
         $users->phone_number = Input::get('phonenumber');
         $users->bankdetails = Input::get('bankdetails');
         $users-> save();
@@ -103,7 +112,15 @@ class UserController extends Controller{
     public function update(Request $request, $id)
     {
         //
-
+        $this->validate($request, [
+            'name' => 'required',
+            'username'=>'required',
+            'password'=>'required',
+            'phonenumber' => 'required|min:8|numeric',
+            'email' => 'required|email',
+         
+        ]);
+       
         $users = Users::find($id);
         $users->name = $request-> input('name');
         $users->email = $request-> input('email');

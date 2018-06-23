@@ -3,16 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Customers;
-use App\Models\SalesOrder;
+use App\Models\Supplier;
 use App\User;
 use Illuminate\Support\Facades\Input;
 
-use DB;
-
-class CustomersController extends Controller
+class SupplierController extends Controller
 {
-    /**
+  /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -21,9 +18,9 @@ class CustomersController extends Controller
     {
         $user_id = auth()->user()->id;
         $users_id = User::find($user_id);
-        $customers = Customers::All();
+        $suppliers = Supplier::All();
      
-        return view('customer.customer')->with('users_id',$users_id)->with('customers', $customers);
+        return view('supplier.index')->with('users_id',$users_id)->with('suppliers', $suppliers);
     }
 
     /**
@@ -54,36 +51,16 @@ class CustomersController extends Controller
             'name' => 'required',
             'phone' => 'required|min:8|numeric',
             'email' => 'required|email',
-            'ba' => 'required',
-            'sa' =>'required',      
+            'address' => 'required',      
         ]);
        
-        $customers = new Customers;
-        $customers->name =Input::get('name');;
-        $customers->phone_no = Input::get('phone');;
-        $customers->email = Input::get('email');
-        $customers->ba = Input::get('ba');
-         $customers->sa = Input::get('sa');
-        $customers->save();
-       
-       
-
-        return redirect('/customer');
-
-
-        //
-        //  $product = new Product;
-        // $product->product_name= Input::get('productname');
-        // $product->serial_no = Input::get('sku');
-        // $product->dimension = Input::get('dimension');
-        // $product->model_no = Input::get('modelno');
-        // $product->unit_price = Input::get('sellingprice');
-        // $product-> save();
-
-        // return redirect('/product');
-
-
-
+        $suppliers = new Supplier;
+        $suppliers->name =Input::get('name');;
+        $suppliers->phone_no = Input::get('phone');;
+        $suppliers->email = Input::get('email');
+        $suppliers->address = Input::get('address');
+        $suppliers->save();
+        return redirect('/supplier');
     }
 
     /**
@@ -106,8 +83,8 @@ class CustomersController extends Controller
     public function edit($id)
     {
         
-     $customers =Customers::find($id);
-     return view('customer.edit')->with('customer',$customers);
+     $suppliers =Supplier::find($id);
+     return view('supplier.edit')->with('suppliers',$suppliers);
     }
 
     /**
@@ -124,23 +101,16 @@ class CustomersController extends Controller
             'name' => 'required',
             'phone' => 'required|min:8|numeric',
             'email' => 'required|email',
-            'ba' => 'required',
-            'sa' =>'required',      
+            'address' => 'required',      
         ]);
-         $customers = Customers::find($id);
-     $customers->name = $request-> input('name');
-     $customers->phone_no = $request-> input('phone');
-     $customers->email = $request-> input('email');
-     $customers->ba = $request-> input('ba');
-     $customers->sa = $request-> input('sa');
-     $customers->save();
-     return redirect('/customer');
-    //    $product->dimension = $request -> input('dimension');
-    //    $product->model_no = $request -> input('modelno');
-    //    $product->unit_price = $request -> input('sellingprice');
-    //    $product->save();
-
-    //    return redirect('/product');
+       
+        $suppliers  = Supplier::find($id);
+         $suppliers->name =$request->input('name');;
+         $suppliers->phone_no =$request->input('phone');;
+         $suppliers->email = $request->input('email');
+         $suppliers->address = $request->input('address');
+         $suppliers->save();
+         return redirect('/supplier');
     }
 
     /**
@@ -152,9 +122,12 @@ class CustomersController extends Controller
     public function destroy($id)
     {
         
-        $customers= Customers::find($id);
-         $customers->delete();
-        return redirect('/customer');
+        $suppliers= Supplier::find($id);
+         $suppliers->delete();
+        return redirect('/supplier');
 
     }
+    
+
+
 }

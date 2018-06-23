@@ -1,9 +1,7 @@
     
 @extends('layouts.app')
 @section('content')
-@include('inc.navbar')
 
-@include('inc.sidebar')
 
  {!! Form::open(['action' =>['CustomersController@store'],'method'=> 'POST']) !!}
             {{csrf_field()}}  
@@ -58,32 +56,12 @@
                             {{Form::text('sa', '', ['class' => 'form-control'])}}
                         </div>
                     </div>
-                    <!-- <div class="row">
-                        <div class="col-md-3">
-                            {{Form::label('department', 'Department', ['class' => 'formLabel'])}}
-                        </div>
-                        <div class="col-md-9">
-                            {{Form::select('department', array('Department' => 'Department'), null, ['class' => 'fieldDropDown'])}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            {{Form::label('role', 'Role', ['class' => 'formLabel'])}}
-                        </div>
-                        <div class="col-md-9">
-                            {{Form::select('role', array('Role' => 'Role'), null, ['class' => 'fieldDropDown'])}}
-                        </div>
-                    </div>
-                </div> -->
-                <div class="col-md-3"></div>
-
-                </div>
-            </div> <div class="centerButton">
+            <div class="centerButton">
                 <button type="submit" class="btn btn-warning btn-lg yellowButton">Saved</button>
             </div>
         </div>
        
     </div>
 </div>
-{{!! Form:: close()!!}}
+{!! Form:: close()!!}
 @endsection

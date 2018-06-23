@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\User;
+use Auth;
+use DB;
 
 use Illuminate\Http\Request;
 
@@ -23,6 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $users_id= auth()->user()->id;
+        $salesPack =  DB::table('salesorder')->where('status_id', 1)->count();
+        return view('home')->with($users_id,'users_id')->with('salesPack',$salesPack);
     }
 }

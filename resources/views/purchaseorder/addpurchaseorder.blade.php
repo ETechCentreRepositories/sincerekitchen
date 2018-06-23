@@ -1,29 +1,29 @@
 @extends('layouts.app')
 @section('content')
+@include('inc.navbar')  
 
-       
+
 <div class="container">
-{!!Form::open(['action'=>['SalesOrdersController@store'],'method'=>'POST'])!!}
+{!!Form::open(['action'=>['PurchaseOrdersController@store'],'method'=>'POST'])!!}
 {{csrf_field()}}  
     <div class="pageContent">
      <h3 class="title">New Sales Order</h3>
-
         <hr>
         <div class="SalesDetails">  
        
         <div class="row">
              <div class="col-md-9">
             
-             {!!Form::open(['action'=>'SalesOrdersController@getData','method'=>'GET'])!!}
+             {!!Form::open(['action'=>'PurchaseOrdersController@getData','method'=>'GET'])!!}
                  <div class="row">
                     <div class="col-md-3">
                     
-                    {{Form::label('customername','Customer Name',['class'=>'formLabel','id' =>'customername'])}}
+                    {{Form::label('suppliername','Supplier Name',['class'=>'formLabel','id' =>'customername'])}}
                 </div>
                
                 
                 <div class="col-md-9"> 
-                 {!! Form::select('customername',$valuecust, null, ['class'=>'form-control']) !!}
+                 {!! Form::select('suppliername',$valuesupp, null, ['class'=>'form-control']) !!}
                 
                 </div>
                 </div>
@@ -33,10 +33,10 @@
                 
                 <div class="row">
                     <div class="col-md-3">
-                     {{Form::label('salesorder','Sales Order#',['class'=>'formLabel'])}}
+                     {{Form::label('purchaseorder','Purchase Order#',['class'=>'formLabel'])}}
                 </div>
                 <div class="col-md-5">
-                {{Form::text('salesorder','',['class'=>'form-control'])}}
+                {{Form::text('purchaseorder','',['class'=>'form-control'])}}
                 </div>
                 </div>
 
@@ -51,69 +51,44 @@
 
                 <br/>
                 <br/>
-
-                        <div class="row">
-                            <div class="col-md-2">
-                            {{Form::label('salesorderdate','Sales Order Date',['class'=>'formLabel'])}}
+                <div class="row">
+                 <div class="col-md-3">
+                 {{Form::label('purchaseorderdate','Purchase Order Date',['class'=>'formLabel'])}}
                             </div>
-                            <div class="col-md-4">
-                        {{Form::date('salesorderdate',\Carbon\Carbon::now(),['class'=>'form-control'])}}
-                        </div>
+                <div class="col-md-5">
+                 {{Form::date('purchaseorderdate',\Carbon\Carbon::now(),['class'=>'form-control'])}}
+             </div>
 
-                        <div class="col-md-2">
-                    {{Form::label('expecteddate','Expected Shippment Date',['class'=>'formLabel'])}}
-                        </div>
-                        <div class="col-md-4">
-                        {{Form::date('expecteddate',\Carbon\Carbon::now(),['class'=>'form-control'])}}
-            
-                        </div>
-                        </div>
+        </div>
                         
-
-
+    
          </div>
 
         </div>
 
         <hr>  
-        <div class="row">   
-        <div class="col-md-2">
-        {{Form::label('salesperson','SalesPerson',['class'=>'formLabel'])}}
-        </div>
-
-        <div class="col-md-3">
-        {{Form::select('salesperson',array('Select'),null,['class'=>'fieldDropDown'])}}
-
-        </div>
-        </div>
-    <div class="row">   
-        <div class="col-md-2">
-        {{Form::label('delivery','Delivery Method',['class'=>'formLabel'])}}
-        </div>
-        <div class="col-md-3">
-        {{Form::select('delivery',array('Select'),null,['class'=>'fieldDropDown'])}}
-
-        </div>
-        </div>
 
         <br/>
         <br/>
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-7">
                 {{-- <div class="input-group"> --}}
                 <input type="text" id="itemSearchField" class="form-control" style="background:transparent">
             </div>
             <div class="col-md-2">
-                <button id="addItem" type="button" class="btn btn-warning yellowButton">Add Item</button>
+                <button id="addItem" type="button" class="btn btn-warning yellowButton">Add Existing Product </button>
             </div>
-        </div>
 
+               <div class="col-md-2">
+               <button id="myBtn" type="button" class="btn btn-danger yellowButton">Add New Products </button>
+               </div>
+            </div>
         <br>
 
         <table class="table table-striped" id="createTableItem">
         <thead>
             <tr>
-           <th></th>
+            <th></th>
                 <th>Product Name</th>
                 <th>Price(S$)</th>
                 <th>Quantity</th>
@@ -152,6 +127,17 @@
              </div>
             </div>  
 <hr>
+
+   <div class="row">
+            <div class="col-md-3">
+                {{Form::label('gst','GST %',['class'=>'formLabel'])}}
+            </div>
+        <div class="col-md-9">
+        <input type="text" id="gst" onchange="findgrandtotal()" class="form-control gst" name="gst" >
+
+             </div>
+            </div>  
+            <hr>
              <div class="row">
             <div style="background:black; color: white" class="col-md-3">
                 {{Form::label('grandtotal','Grand Total (SGD) + 7% GST',['class'=>'formLabel'])}}
@@ -165,10 +151,10 @@
 <hr>
 <div class="row">
     <div class="col-md-5">
-    {{Form::label('customernote', 'Customer Note', ['class' => 'formLabel'])}}
+    {{Form::label('note', 'Note : ', ['class' => 'formLabel'])}}
     </div>
     <div class="col-md-12">
-    {{Form::textarea('customernote', '', ['class' => 'field'])}}
+    {{Form::textarea('note', '', ['class' => 'field'])}}
     </div>
 </div>   
 <hr>
@@ -183,21 +169,140 @@
         </div>
         {!!Form::hidden('_token',csrf_token())!!}
         {!! Form::close() !!}
-        {!! Form::close() !!}
+        {!! Form::close() !!} 
             <div class="btncancel">
             <button type="reset" class="btn btn-danger btn-lg">Cancel</button>
-            
             </div>
         </div>
            </div> 
       </div>  
 </div>
 
+<div id="myModal" class="modal">
+
+<!-- Modal content -->
+<div class="modal-content">
+    <div class="modal-header">
+        <span class="close">&times;</span>
+        <div class="container-fluid">
+            <div class="pageContent">
+                <h3 class="title">Add Item</h3>
+                {!! Form::open(['action'=>['ProductsController@AddNewItem'],'method'=>'POST','enctype'=>'multipart/form-data'])!!}
+                {{csrf_field()}}
+                <div class="row">
+
+                    <div class="col-md-3">
+                        {{Form::label('productname', 'Product Name', ['class' => 'formLabel'])}}
+                    </div>
+                    <div class="col-md-9">
+                        {{Form::text('productname','', ['class' => 'form-control'])}}
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        {{Form::label('serialno', 'SerialNo.', ['class' => 'formLabel'])}}
+                    </div>
+                    <div class="col-md-9">
+                        {{Form::text('serialno','', ['class' => 'form-control'])}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        {{Form::label('dimension', 'Dimension(mm)', ['class' => 'formLabel'])}}
+                    </div>
+                    <div class="col-md-9">
+                        {{Form::text('dimension','', ['class' => 'form-control'])}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        {{Form::label('descriptions', 'Product Descriptions', ['class' => 'formLabel'])}}
+                    </div>
+                <div class="col-md-9">
+                    {{Form::text('descriptions','', ['class' => 'form-control'])}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    {{Form::label('images', 'Add Image', ['class' => 'formLabel'])}}
+                </div>
+                <div class="col-md-9">
+                    {!! Form::file('image',array('id'=>'image_add','file'=> true))!!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    {{Form::label('manufacturer', 'Manufacturer', ['class' => 'formLabel'])}}
+                </div>
+                <div class="col-md-9">
+                    {{Form::text('manufacturer','', ['class' => 'form-control'])}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    {{Form::label('brand', 'Brand', ['class' => 'formLabel'])}}
+                </div>
+                <div class="col-md-9">
+                    {{Form::text('brand','', ['class' => 'form-control'])}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    {{Form::label('modelno', 'Model No', ['class' => 'formLabel'])}}
+                </div>
+                <div class="col-md-9">
+                    {{Form::text('modelno','', ['class' => 'form-control'])}}
+                </div>
+            </div>
+
+            <hr>
+            <div class="row">
+                <div class= "col-md-2">
+                    <button  type="submit" class="btn btn-warning btn-lg yellowButton">Add Product</button>
+                </div>
+                    <div class= "col-md-2">
+                        <button type="reset" class="btn btn-danger btn-lg">Cancel</button>
+                    </div>
+                </div>
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
 
 
 <script>
-$(document).ready(function(){    
-    $("#itemSearchField").autocomplete({
+  
+$(document).ready(function(){
+  // Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+$("#itemSearchField").autocomplete({
         source: 'autocomplete-search',
         minLength:1,
         select:function(key,value)
@@ -285,30 +390,34 @@ $(document).on('click','#removeTR',function(){
     $('#grandtotal').val(null);
 
     console.log(id);
+    });
 });
- });
 
 function findgrandtotal(){
      var grandtotal = 0;
     var afterdisc = 0;
-    var gst = 0.07;
 var subtotal = document.getElementById('subtotal').value;
 console.log(subtotal);
 
 var discount = document.getElementById('discount').value;
 console.log(discount);
 
+var gst = document.getElementById('gst').value;
+console.log(gst);
+
 
 afterdisc = subtotal-(subtotal*discount/100);
 console.log(afterdisc);
 
-grandtotal = afterdisc+(afterdisc*gst);
+grandtotal = afterdisc+(afterdisc*gst/100);
 
 document.getElementById('grandtotal').value = grandtotal.toFixed(2);
 
 console.log(grandtotal);
 
 }   
+
+
 
 </script>
 @endsection

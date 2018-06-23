@@ -27,21 +27,37 @@ Route::get('/addcustomer', 'PagesController@addcustomer');
 Route::get('/salesorder', 'PagesController@salesorder');
 Route::get('/addsalesorder','PagesController@addsalesorder');
 Route::get('/addsalesorder','SalesOrdersController@getData');
+Route::get('/supplier','PagesController@supplier');
+Route::get('/addsupplier','PagesController@addsupplier');
 
-Route::post('/salesorder/addtodatabase/{productID}/{quantity}/{price}/{amount}','SalesOrdersController@storetoDatabase');
+Route::get('/purchaseorder','PagesController@purchaseorder');
+Route::get('/addpurchaseorder','PagesController@addpurchaseorder');
+Route::get('/addpurchaseorder','PurchaseOrdersController@getData');
+
+
+
+
+//Route::post('/salesorder/addtodatabase/{productID}/{quantity}/{price}/{amount}','SalesOrdersController@storetoDatabase');
+
 
 
 Route::get('/retrieve-product-by-product-name/{productName}','ProductsController@getProductsbyProductName');
 Route::get('/autocomplete-search', 'InventoryController@search');
 
 
+Route::post('/addpurchaseorder','ProductsController@AddNewItem');
+Route::post('/viewpurchaseorder','PurchaseOrdersController@uploadFile');
 
-// Route::resource('inventorys@index'.'InventoryController');
+
 Route::resource('product', 'ProductsController');
 Route::resource('customer','CustomersController');
 Route::resource('employee','UserController');
 Route::resource('inventory','InventoryController');
 Route::resource('salesorder','SalesOrdersController');
+Route::resource('supplier','SupplierController');
+Route::resource('purchaseorder','PurchaseOrdersController');
+
+
 
 Auth::routes();
 

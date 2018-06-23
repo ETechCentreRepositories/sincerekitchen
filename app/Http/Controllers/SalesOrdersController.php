@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
+use Validator;
 use Illuminate\Http\Request;
 use App\Models\SalesOrder;
 use App\Models\SalesOrderLists;
 use App\Models\Customers;
+use App\Models\Status;
 use App\Models\Product;
 use App\User;
 use Illuminate\Support\Facades\Input;
@@ -25,15 +28,13 @@ class SalesOrdersController extends Controller
     {
         $user_id = auth()->user()->id;
         $users_id = User::find($user_id);
-        $customers = Customers::All();
+        // $customers = Customers::All();
         // $sales = SalesOrder::leftJoin('customers','salesorder.customers_id','=','customers.id')->get();
         $salesorders = SalesOrder::All();
-    return view('salesorder.index')->with('users_id',$users_id)->with('customers',$customers)->with('salesorders',$salesorders);
+    return view('salesorder.index')->with('users_id',$users_id)->with('salesorders',$salesorders);
     
     }
     
-    
-
     /**
      * Show the form for creating a new resource.
      *
@@ -55,9 +56,14 @@ class SalesOrdersController extends Controller
      */
     public function store(Request $request)
     {    
+
+        $this->validate($request, [
+            'rows' => 'required',
         
+         
+        ]);
         $sales = new SalesOrder;
-      $sales->salesorder_name= Input::get('salesorder');
+        $sales->salesorder_name= Input::get('salesorder');
         $sales->references= Input::get('references');
         $sales->salesorder_date= Input::get('salesorderdate');
         $sales->expected_date = Input::get('expecteddate');
@@ -65,16 +71,12 @@ class SalesOrdersController extends Controller
         $sales->subtotal = Input::get('subtotal');
         $sales->discount = Input::get('discount');
         $sales->grandtotal = Input::get('grandtotal');
+        $sales->customers_notes = Input::get('customernote');
+        $sales->status_id = 1;
+       
         $id = $sales->save();
-        
-        
-        //create new task
+
         $rows = $request->input('rows');
-        // $productname = $request->get('#number');
-        // $productId = $request->get('number');
-
-        // $myArray = explode('_', $productname);
-
         foreach($rows as $row){
             $data[]= [
                 'salesorder_id'=> $sales['id'],
@@ -82,9 +84,9 @@ class SalesOrdersController extends Controller
                 'quantity'=> $row['quantity'],
                 'price'=> $row['price'],
                 'amount'=>$row['amount'], 
-            ];
+            ]; 
         }
-     
+
 
         SalesOrderLists::insert($data);
         return redirect('/salesorder');
@@ -135,18 +137,6 @@ class SalesOrdersController extends Controller
         $sales->salesorder_date= $request->input('salesorderdate');
         $sales->expected_date= $request->input('expecteddate');
         $sales->save();
-    //    $product = Product::find($id);
-    //    $product->image = $request->input('image');
-    //    $product->product_name = $request-> input('productname');
-    //    $product->serial_no = $request -> input('sku');
-    //    $product->dimension = $request -> input('dimension');
-    //    $product->model_no = $request -> input('modelno');
-    //    $product->unit_price = $request -> input('sellingprice');
-    //    $product->save();
-    
-
-    //    return redirect('/product');
-
     return redirect('/salesorder');
     }
 
@@ -163,10 +153,8 @@ class SalesOrdersController extends Controller
         return redirect('/salesorder');
 
     }
-
-
     
-    public function getData(){
+public function getData(){
     $customers = Customers::all();
     $valuecust = [];
     foreach($customers as $customer){
@@ -176,26 +164,20 @@ class SalesOrdersController extends Controller
    
     return view('salesorder.addsalesorder',compact('valuecust'));
 }
-// public function getAllProducts(){
-//     $products = Product::All();
-//     $select=[];
-    
-//     foreach($products as $product){
-//         $select[$product->id] = $product->product_name;
-//     }
 
-//     return view('salesorder.addsalesorder',compact('select'));
-// }
-// public function storetoDatabase(Request $request, $id, $quantity, $price, $amount){
-//     $user_id = auth()->user()->id;
-//     $users_id = User::find($user_id);
-//     $product = Product::find($id);
+public function generateSO($salesOrderId){
+    $salesorder = SalesOrder::find($salesOrderId);
+    $salesOrderId = SalesOrder::find($salesOrderId)->id;
+    $datas = json_decode( json_encode($this->dbQuery($salesOrderId)), true);
 
-//     $salesorderlists = new SalesOrderLists;
-//     $salesorderlist->add($product, $product->id,$quantity,$price, $amount);
-
-//     return redirect('/salesorder');
-// }
-
+    $pdf = PDF::loadView('salesorder.so', compact('datas'));
+    return $pdf->download('sales_order.pdf');
 }
-
+public function dbQuery($salesOrderId) {
+    $salesOrder = DB::table('salesorder')
+    ->where('salesorder.id', '=', $salesOrderId)
+    ->get()
+    ->toArray();
+    return $salesOrder;
+}
+}

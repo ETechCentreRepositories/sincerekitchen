@@ -18,7 +18,7 @@
         </div>
         <hr>
         <div class="ProductDetails">
-            {!!Form::open(['action' => ['ProductsController@update',$product->id],'method' => 'POST']) !!}
+            {!!Form::open(['action' => ['ProductsController@update',$product->id],'method' => 'POST','enctype'=>'multipart/form-data']) !!}
             {{csrf_field()}}
             <h3 class="title">Product Details</h3>
             <div class="row">
@@ -76,10 +76,10 @@
                 </div>
                 <div class="centerImage col-md-3">
                
-                <img src = ""  id="addImage" width="300px"/>
+                <img src='{{asset("/images/$product->image")}}'  id="addImage" width="300px"/>
                 <br>
                 
-                {{Form::file('image_add',array('id'=>'image_add'))}}
+              
              
                 </div>
             </div>

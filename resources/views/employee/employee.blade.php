@@ -43,28 +43,28 @@
             @foreach($users as $user)
             <tbody>
                 <tr>
-                    <td>
-                        <div class="checkbox">
-                            <label><input type="checkbox" value=""></label>
-                        </div>
-                    </td>
+                    <td></td>
                     <td>{{$user ->name}}</td>
                     <td>{{$user ->email}}</td>
                     <td>{{$user ->phone_number}}</td>
                     <td>{{$user ->department}}</td>
                     <td>{{$user ->username}}</td>
-                    <td>{{$user-> bankdetails}}</td>    
+                    <td>{{$user -> bankdetails}}</td>    
                     <td>
+                    <div class="d-flex flex-row user-buttons">
+                        <div class="p-2">
                         <a href="/employee/{{$user->id}}/edit">
                             <button type="button" class="btn btn-warning yellowButton">
                                 <label class="addLabel">Edit</label>
                             </button>
-
-                              {!!Form::open(['action' => ['UserController@destroy', $user->id], 'method' => 'POST'])!!}
+                            </div>
+                       <div class="p-2">
+                              {!!Form::open(['action' => ['UserController@destroy', $user->id],'onsubmit' => 'return ConfirmDelete()','method' => 'POST'])!!}
                                     {{Form::hidden('_method', 'DELETE')}}
                                     {{Form::submit('Delete', ['class' => 'btn btn-danger action-buttons'])}}
                                 {!!Form::close()!!} 
                                 </a>
+                                </div>
                     </td>
                    
                 </tr>

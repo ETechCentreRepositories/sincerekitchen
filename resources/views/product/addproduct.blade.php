@@ -18,7 +18,7 @@
         <hr>
         <div class="ProductDetails">
             <h3 class="title">Product Details</h3>
-            {!!Form:: open(['action'=>['ProductsController@store'],'method'=>'POST'])!!}
+            {!!Form:: open(['action'=>['ProductsController@store'],'method'=>'POST','enctype'=>'multipart/form-data'])!!}
                 {{csrf_field()}}
             <div class="row">
                
@@ -79,7 +79,7 @@
                
                 <img src= ""  id="addImage" width="300px"/>
                 <br>
-                {{Form::file('image_add',array('id'=>'image_add'))}}
+                {!!Form::file('image',array('id'=>'image_add','file'=> true))!!}
                 </div>
             </div>
         </div>

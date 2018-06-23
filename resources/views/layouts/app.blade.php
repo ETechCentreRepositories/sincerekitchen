@@ -18,6 +18,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="{{asset('js/jquery-ui.min.js')}}" type="text/javascript"></script>
     <link href="{{asset('css/jquery-ui.min.css')}}" rel="stylesheet" type="text/css"/> 
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -42,6 +43,13 @@ $("#image_add").change(function(){
         readURL(this);
 
     });
+
+
+
+function ConfirmDelete(){
+return confirm('Are you sure?');
+}
+
 </script>
    
 </head>

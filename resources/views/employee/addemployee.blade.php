@@ -1,8 +1,5 @@
 @extends('layouts.app')
 @section('content')
-@include('inc.navbar')
-
-@include('inc.sidebar')
 
 {!! Form::open(['action' =>['UserController@store'],'method'=> 'POST']) !!}
             {{csrf_field()}}  
@@ -44,7 +41,7 @@
                             {{Form::label('password', 'Password', ['class' => 'formLabel'])}}
                         </div>
                         <div class="col-md-9">
-                            {{Form::text('password', '', ['class' => 'form-control'])}}
+                         <input name="password" type="password" class="form-control">
                         </div>
                     </div>
                     <div class="row">
