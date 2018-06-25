@@ -79,8 +79,8 @@
         <div class="p-2">
             <input type="hidden" id="date" name="date" value="{{$purchaseorder->purchaseorder_date}}">
             @foreach ($purchaseorderlists as $purchaseorderlist)
-            <input type="hidden" id="product" name="product" value="{{$purchaseorderlist->products_id}}">
-                <input type="hidden" id="qty" name="qty" value="{{$purchaseorderlist->quantity}}">
+            <input type="hidden" id="product" name="product{{$purchaseorderlist->id}}" value="{{$purchaseorderlist->products_id}}">
+                <input type="hidden" id="qty" name="qty{{$purchaseorderlist->id}}" value="{{$purchaseorderlist->quantity}}">
             @endforeach
             <div class="centerButton">
             {{Form::hidden('_method', 'PUT')}}
