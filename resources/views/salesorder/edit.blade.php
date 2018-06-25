@@ -1,199 +1,143 @@
 @extends('layouts.app')
 @section('content')
-@include('inc.navbar')  
-       
-<div class="container">
-{!!Form::open(['action'=>['SalesOrdersController@update',$sales->id],'method'=>'POST'])!!}
-{{csrf_field()}}  
-    <div class="pageContent">
-     <h3 class="title">New Sales Order</h3>
-
-        <hr>
-        <div class="SalesDetails">  
-       
-        <div class="row">
-             <div class="col-md-9">
+<nav class="navbar navbar-expand-md navbar-light navbar-laravel" style="background-color:#F8F7F7;" >
+    <div class="container">
+        <a class="nav navbar-left" href="{{ url('/') }}">
             
-             {!!Form::open(['action'=>'SalesOrdersController@getData','method'=>'GET'])!!}
-                 <div class="row">
-                    <div class="col-md-3">
-                    
-                    {{Form::label('customername','Customer Name',['class'=>'formLabel','id' =>'customername'])}}
-                </div>
-               
-                
-                <div class="col-md-9"> 
-                 {!! Form::select('customername',$salesorder->$customers_id['name'] ['class'=>'form-control']) !!}
-                
-                </div>
-                </div>
-               
-                <br/>
-                <br/>
-                
-                <div class="row">
-                    <div class="col-md-3">
-                     {{Form::label('salesorder','Sales Order#',['class'=>'formLabel'])}}
-                </div>
-                <div class="col-md-5">
-                {{Form::text('salesorder',$salesorder->salesorder_name,['class'=>'form-control'])}}
-                </div>
-                </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                <div class="row">
-                    <div class="col-md-3">
-                     {{Form::label('references','References#',['class'=>'formLabel'])}}
-                </div>
-                <div class="col-md-5">
-                {{Form::text('references',$salesorder->references,['class'=>'form-control'])}}
-                </div>
-                </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Left Side Of Navbar -->
+            <ul class="navbar-nav mr-auto">
+                <a href="/"><img src="/../../storage/logo/sincerekitchen_logo.png" class="logo"/></a>
+            </ul>
 
-                <br/>
-                <br/>
+            <!-- Right Side Of Navbar -->
+            <ul class="navbar-nav ml-auto">
+                                                                <!-- Authentication Links -->
+                 <!-- @guest
+                <li><a class="nav-link" style="color:#e3b417;" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                 @else -->
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }}<span class="caret"></span>
+                    </a>
 
-                        <div class="row">
-                            <div class="col-md-2">
-                            {{Form::label('salesorderdate','Sales Order Date',['class'=>'formLabel'])}}
-                            </div>
-                            <div class="col-md-4">
-                        {{Form::date('salesorderdate',$salesorder->salesorder_date,['class'=>'form-control'])}}
-                        </div>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
 
-                        <div class="col-md-2">
-                    {{Form::label('expecteddate','Expected Shippment Date',['class'=>'formLabel'])}}
-                        </div>
-                        <div class="col-md-4">
-                        {{Form::date('expecteddate',$salesorder->expected_date,['class'=>'form-control'])}}
-            
-                        </div>
-                        </div>
-                        
-
-
-         </div>
-
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+                <!-- @endguest  -->
+            </ul>
         </div>
+    </div>
+</nav>
 
-        <hr>  
-        <div class="row">   
-        <div class="col-md-2">
-        {{Form::label('salesperson','SalesPerson',['class'=>'formLabel'])}}
-        </div>
 
-        <div class="col-md-3">
-        {{Form::select('salesperson',array('Select'),null,['class'=>'fieldDropDown'])}}
 
-        </div>
-        </div>
-    <div class="row">   
-        <div class="col-md-2">
-        {{Form::label('delivery','Delivery Method',['class'=>'formLabel'])}}
-        </div>
-        <div class="col-md-3">
-        {{Form::select('delivery',array('Select'),null,['class'=>'fieldDropDown'])}}
-
-        </div>
-        </div>
-
-        <br/>
-        <br/>
-        <br>
-
-        <table class="table table-striped" id="createTableItem">
+       
+       <div id="product-content"  class="w3-card-4">
+    <header class="w3-container w3">
+    <h1 style="text-align:center;">Product Item Details</h1>
+    </header>
+    
+<div class="w3-container">
+    <table class="table">
         <thead>
             <tr>
-            <th>Number</th>
-                <th>Product Name</th>
-                <th>Quantity</th>
-                <th>Price(S$)</th>
-                <th>Amount(S$)</th>
-        </tr>
-
+                <th class="coloredHeader">Item & Serial No.</th>
+                <th class="coloredHeader">Qty</th>
+                <th class="coloredHeader">Amount</th>
+            </tr>
         </thead>
-        <tbody id="addTableItemContent">
-        if(count($salesorderlists) >0)
-        @foreach($salesorderlists as $salesorderlist)
-        <tr> 
-
-
+        <tbody>
+        @foreach ($salesorderlists as $salesorderlist)
+             <tr>
+                <td>{{$salesorderlist->products['product_name']}} ({{$salesorderlist->products['serial_no']}})</td>
+                <td>{{$salesorderlist->quantity}}</td>
+                <td>{{$salesorderlist->amount}}</td>
+            </tr>
+        @endforeach
         </tbody>
+    </table>
+    <p style="font-size: 14.5px;color: red;">Note : Click the proceed button below to update status. Otherwise, click cancel to return.</p>
+ </div>   
 
-        </table>
-        <hr>
-     
-            <br/>
-
-        <div class="containerforaddsalesorder">    
-        <div class="row">
-            <div class="col-md-3">
-                {{Form::label('subtotal','Subtotal',['class'=>'formLabel'])}}
-            </div>
-             <div class="col-md-9">
-             <input type="text" id="subtotal" class="form-control subtotal" name="subtotal" >
-             </div>     
-        </div>
-        <hr>
+<footer  class="w3-container w3">
     
-        <div class="row">
-            <div class="col-md-3">
-                {{Form::label('discount','Discount %',['class'=>'formLabel'])}}
-            </div>
-        <div class="col-md-9">
-        <input type="text" id="discount" onchange="findgrandtotal()" class="form-control discount" name="discount" >
-
-             </div>
-            </div>  
-<hr>
-             <div class="row">
-            <div style="background:black; color: white" class="col-md-3">
-                {{Form::label('grandtotal','Grand Total (SGD) + 7% GST',['class'=>'formLabel'])}}
-            </div>
-             <div class="col-md-9">
-             <input type="text" id="grandtotal" onchange="findgrandtotal()" class="form-control grandtotal" name="grandtotal" >
-             </div>
-        </div>
-        </div>
-
-
-
-        </div>
-<hr>
- <div class="row">
-     <div class="col-md-4">
-        {{Form::label('customernote','Customer Notes',['class'=>'formLabel'])}}
-     </div>
-    <div class="col-md-12">
-        {{Form::text('customernote','',['class'=>'form-control'])}}
-    </div>
-</div> 
-                    
-<div class="row">
-    <div class="col-md-5">
-    {{Form::label('termcondition', 'Term and Condition', ['class' => 'formLabel'])}}
-    </div>
-    <div class="col-md-12">
-    {{Form::textarea('termcondition', '', ['class' => 'field'])}}
-    </div>
-</div>   
-<hr>
-
-         <div style="margin-left:auto;margin-right:auto" class="row">
-
-         <div class="col-md-3">
-        <div class="btnsubmit">
-            <button id="btnSave" type="submit" class="btn btn-warning btn-lg">Save and Send </button>
-            
+    <div  class="d-flex flex-row user-buttons">
+        @if ($salesorder->status_id == '1')
+        {!! Form::open(['action' => ['SalesOrdersController@update', $salesorder->id], 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'received']) !!}
+        <div class="p-2">
+            <input type="hidden" id="date" name="date" value="{{$salesorder->salesorder_date}}">
+            @foreach ($salesorderlists as $salesorderlist)
+            <input type="hidden" id="product" name="rows[product{{$salesorderlist->id}}][productId]" value="{{$salesorderlist->products_id}}">
+                <input type="hidden" id="qty" name="rows[product{{$salesorderlist->id}}][quantity]" value="{{$salesorderlist->quantity}}">
+            @endforeach
+            <div class="centerButton">
+            {{Form::hidden('_method', 'PUT')}}
+            <button type="submit" class="btn btn-warning btn-lg yellowButton">Proceed</button>
             </div>
         </div>
-        {!!Form::hidden('_token',csrf_token())!!}
         {!! Form::close() !!}
-        {!! Form::close() !!}
-            <div class="btncancel">
-            <button type="cancel" class="btn btn-danger btn-lg">Cancel</button>
-            
+        @endif
+
+        @if ($salesorder->status_id == '2')
+     {!! Form::open(['action' => ['SalesOrdersController@update', $salesorder->id], 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'received']) !!}
+        
+        <div class="p-2">
+            <div class="centerButton">
+            {{Form::hidden('_method', 'PUT')}}
+            <input type="hidden" id="statusId" name="statusId" value="3">
+            <button type="submit" class="btn btn-success btn-lg">Invoiced</button>
             </div>
         </div>
-           </div> 
-      </div>  
+        {!! Form::close() !!}
+        @endif
+
+          @if ($salesorder->status_id == '3')
+     {!! Form::open(['action' => ['SalesOrdersController@update', $salesorder->id], 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'received']) !!}
+        
+        <div class="p-2">
+            <div class="centerButton">
+            {{Form::hidden('_method', 'PUT')}}
+            <input type="hidden" id="statusId" name="statusId" value="4">
+            <button type="submit" class="btn btn-success btn-lg">Rejected</button>
+            </div>
+        </div>
+        {!! Form::close() !!}
+        @endif
+
+        <div class="p-2">
+            <div class="centerButton">
+            <button onclick = "goBack()" class="btn btn-danger btn-lg yellowButton">Cancel</button>
+            </div>
+        </div>
+
+
+    <div>
+
+</footer>
+
 </div>
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+
+
+@endsection
+
+

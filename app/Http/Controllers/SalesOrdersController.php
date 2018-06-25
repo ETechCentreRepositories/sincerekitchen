@@ -10,6 +10,7 @@ use App\Models\SalesOrderLists;
 use App\Models\Customers;
 use App\Models\Status;
 use App\Models\Product;
+use App\Models\Inventory;
 use App\User;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
@@ -116,9 +117,12 @@ class SalesOrdersController extends Controller
      */
     public function edit($id)
     {
-       $salesorder = SalesOrder::find($id);
-       $salesorderlists = SalesOrderLists::where('salesorder_id','=',$salesorders)->get();
-       return view('salesorder.edit')->with('salesorders',$salesorders)->with('salesorderlists', $salesorderlists);
+        $salesorder = SalesOrder::find($id);
+        $salesOrderId = SalesOrder::find($id)->id;
+        $salesorders = SalesOrder::orderBy('id','desc')->get();
+        $salesorderlists = SalesOrderLists::where('salesorder_id','=',$salesOrderId)->get();
+        $soIds = $this->salesOrderArray($salesOrderId);
+        return view('salesorder.edit')->with('salesorder',$salesorder)->with('salesorders',$salesorders)->with('salesorderlists',$salesorderlists)->with('soIds',$soIds); 
     }
 
     /**
@@ -130,15 +134,73 @@ class SalesOrdersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $sales =SalesOrder::find($id);
-        $sales->customers_id= $request->input('customername');
-        $sales->salesorder_name=$request->input('salesorder');
-        $sales->references= $request->input('references');
-        $sales->salesorder_date= $request->input('salesorderdate');
-        $sales->expected_date= $request->input('expecteddate');
-        $sales->save();
-    return redirect('/salesorder');
+        $salesOrder = SalesOrder::find($id);
+        $salesOrderId = SalesOrder::find($id)->id;
+    
+            $soIds = $this->salesOrderArray($salesOrderId);
+
+            $checkstatus =  $salesOrder->status_id;
+            if($checkstatus == "2"){
+                $salesOrder->status_id="3";
+                $salesOrder->save();
+                return redirect('/salesorder');
+                
+            } else if($checkstatus == "3"){
+                $salesOrder->status_id = "4";
+                $salesOrder->save();
+                return redirect('/salesorder');
+            }    
+            else{
+
+                foreach($soIds as $test){
+                    $check = Inventory::where('products_id','=', $test->products_id)->first();
+                }
+    
+                if($check != null){
+                    $rows = $request->input('rows');
+                    foreach($rows as $row){
+                        $data[] = [
+                            'quantity' => $row['quantity'],
+                        ];
+    
+                        foreach($soIds as $test) {
+                            $inventory = Inventory::where('products_id', '=', $test->products_id)->first();
+                            $currentQuantity = $inventory->quantity;
+                            $inventory->quantity = $currentQuantity - $data[0]['quantity'];
+                          
+                            $salesOrder->status_id = "2";
+                            $inventory->stock_out = $request->input('date');
+                            $inventory->save();
+                            $salesOrder->save();
+                        }
+    
+                        return redirect('/salesorder');
+                    }
+                } else{
+                    $rows = $request->input('rows');
+                    foreach($rows as $row){
+                        $data[]= [
+                            'products_id'=> $row['productId'],
+                            'quantity'=> $row['quantity'],
+                        ]; 
+                    }
+                    Inventory::insert($data);
+        
+                    foreach($soIds as $test) {
+                        $inventory = Inventory::where('products_id', '=', $test->products_id)->first();
+                        $currentQuantity = $inventory->quantity;
+                        $inventory->quantity = $currentQuantity - $request->input('qty');
+                        $salesOrder->status_id = "2";
+                        $inventory->stock_out = $request->input('date');
+                        $inventory->save();
+                        $salesOrder->save();
+                    }
+                return redirect('/salesorder');
+                
+         }
     }
+           
+}
 
     /**
      * Remove the specified resource from storage.
@@ -165,14 +227,16 @@ public function getData(){
     return view('salesorder.addsalesorder',compact('valuecust'));
 }
 
-public function generateSO($salesOrderId){
-    $salesorder = SalesOrder::find($salesOrderId);
-    $salesOrderId = SalesOrder::find($salesOrderId)->id;
-    $datas = json_decode( json_encode($this->dbQuery($salesOrderId)), true);
 
-    $pdf = PDF::loadView('salesorder.so', compact('datas'));
-    return $pdf->download('sales_order.pdf');
+public function salesOrderArray($salesOrderId) {
+    $soId = DB::table('salesorder_list')->where('salesorder_id', '=', $salesOrderId)->select('products_id')->get()->toArray();
+    return $soId;
 }
+
+public function quantityArray($selectedOutlet, $getProductsValue) {
+    $quantity = Inventory::where('products_id', '=', $getProductsValue)->select('stock_level')->get()->toArray();
+    return $quantity;
+ }
 public function dbQuery($salesOrderId) {
     $salesOrder = DB::table('salesorder')
     ->where('salesorder.id', '=', $salesOrderId)

@@ -70,26 +70,58 @@
         </tbody>
     </table>
 
-    <p>Note : If you accept, the product item change status to futher</p>
+    <p style="font-size: 14.5px;color: red;">Note : Click the proceed button below to update status. Otherwise, click cancel to return.</p>
  </div>   
 
 <footer  class="w3-container w3">
+    
     <div  class="d-flex flex-row user-buttons">
+        @if ($purchaseorder->status_id == '1')
         {!! Form::open(['action' => ['PurchaseOrdersController@update', $purchaseorder->id], 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'received']) !!}
         <div class="p-2">
             <input type="hidden" id="date" name="date" value="{{$purchaseorder->purchaseorder_date}}">
             @foreach ($purchaseorderlists as $purchaseorderlist)
-                <input type="hidden" id="qty" name="qty{{$purchaseorderlist->id}}" value="{{$purchaseorderlist->quantity}}">
+            <input type="hidden" id="product" name="rows[product{{$purchaseorderlist->id}}][productId]" value="{{$purchaseorderlist->products_id}}">
+                <input type="hidden" id="qty" name="rows[product{{$purchaseorderlist->id}}][quantity]" value="{{$purchaseorderlist->quantity}}">
             @endforeach
             <div class="centerButton">
             {{Form::hidden('_method', 'PUT')}}
-            <button type="submit" class="btn btn-warning btn-lg yellowButton">Accept</button>
+            <button type="submit" class="btn btn-warning btn-lg yellowButton">Proceed</button>
             </div>
         </div>
         {!! Form::close() !!}
+        @endif
+
+        @if ($purchaseorder->status_id == '2')
+     {!! Form::open(['action' => ['PurchaseOrdersController@update', $purchaseorder->id], 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'received']) !!}
+        
         <div class="p-2">
             <div class="centerButton">
-            <button type="reset" class="btn btn-danger btn-lg yellowButton">Cancel</button>
+            {{Form::hidden('_method', 'PUT')}}
+            <input type="hidden" id="statusId" name="statusId" value="3">
+            <button type="submit" class="btn btn-success btn-lg">Invoiced</button>
+            </div>
+        </div>
+        {!! Form::close() !!}
+        @endif
+
+
+          @if ($purchaseorder->status_id == '3')
+     {!! Form::open(['action' => ['PurchaseOrdersController@update', $purchaseorder->id], 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'received']) !!}
+        
+        <div class="p-2">
+            <div class="centerButton">
+            {{Form::hidden('_method', 'PUT')}}
+            <input type="hidden" id="statusId" name="statusId" value="4">
+            <button type="submit" class="btn btn-success btn-lg">Rejected</button>
+            </div>
+        </div>
+        {!! Form::close() !!}
+        @endif
+
+        <div class="p-2">
+            <div class="centerButton">
+            <button onclick = "goBack()" class="btn btn-danger btn-lg yellowButton">Cancel</button>
             </div>
         </div>
     <div>
@@ -97,13 +129,13 @@
 </footer>
 
 </div>
-
-
 <script>
-
-
+function goBack() {
+    window.history.back();
+}
 </script>
 
 
+@endsection
 
 

@@ -4,8 +4,6 @@
 
 @include('inc.sidebar')
 
-
-  
 <div class="container-fluid">
     <div class="pageContent">
         <div class="d-flex">
@@ -30,19 +28,17 @@
         </div>
         
         </div>
-        <table class="table table-striped"> 
+        <table id = "tablepurchaseorder" class="table table-striped"> 
         @if(count($purchaseorders)>0)
             <thead>
                 <tr>
                     <th></th>
                     <th>Date</th>
-                    <th>Sales Order#</th>
+                    <th>Purchase Order#</th>
                     <th>References#</th>
                     <th>Supplier Name</th>
                     <th>Status</th>
                     <th>Amount</th>
-                    <th>Action</th>
-                    
                 </tr>
             </thead>
             <tbody>
@@ -53,23 +49,50 @@
                             <label><input type="checkbox" value=""></label>
                         </div>
                     </td>
-
                      <td>{{$purchaseorder->purchaseorder_date}}</td>
-                     <td> <a href="{{URL::to('/purchaseorder',$purchaseorder->id)}}/">
+                     <td style="font-weight:bold; color:blue;"> <a href="{{URL::to('/purchaseorder',$purchaseorder->id)}}/">
                       {{$purchaseorder-> purchaseorder_name}}</a> </td>
                      <td>{{$purchaseorder-> references}}</td>
                      <td>{{$purchaseorder-> suppliers['name']}}</td>
-                     <td>{{$purchaseorder->status['name']}}</td>
-                     <td>{{$purchaseorder->grandtotal}}</td>                      
+                     <td style="color:red;">{{$purchaseorder->status['name']}}</td>
+                     <td>S$ {{$purchaseorder->grandtotal}}</td>                      
                     <td>   
+                    </div>
                         <div class="d-flex flex-row user-buttons">
-                         <div class="p-2">
-                         <a href="/purchaseorder/{{$purchaseorder->id}}/edit">
-                            <button type="button" class="btn btn-warning yellowButton">
-                                <label class="addLabel">Edit</label>
-                            </button> 
-                       </div>                       
-                                
+                        @if ($purchaseorder->status_id == '2')
+                        <div class="p-2">
+                             <a href="/purchaseorder/{{$purchaseorder->id}}/edit">
+                                <button type="button" class="btn btn-success yellowButton">
+                                  <label class="addLabel">RE-Finalize Status</label>
+                                </button> 
+                            </div>
+                     @endif 
+                         @if ($purchaseorder->status_id == '3')
+                        <div class="p-2">
+                             <a href="">
+                                <button type="button" class="btn btn-primary yellowButton">
+                                <label class="addLabel">STATUS : DONE</label>
+                                </button> 
+                            </div>
+
+                        <div class="p-2">
+                             <a href="/purchaseorder/{{$purchaseorder->id}}/edit">
+                                <button type="button" class="btn btn-warning yellowButton">
+                                <label class="addLabel">Rejected</label>
+                                </button> 
+                            </div>
+                            
+                         @endif 
+
+
+                        @if ($purchaseorder->status_id != '3' && $purchaseorder->status_id == '1' )
+                            <div class="p-2">
+                             <a href="/purchaseorder/{{$purchaseorder->id}}/edit">
+                                <button type="button" class="btn btn-warning yellowButton">
+                                    <label class="addLabel">Update Status</label>
+                                </button> 
+                            </div>
+                            @endif
                             <div class="p-2">
                                 {!!Form::open(['action' => ['PurchaseOrdersController@destroy', $purchaseorder->id], 'method' => 'POST'])!!}
                                     {{Form::hidden('_method', 'DELETE')}}
@@ -82,9 +105,13 @@
                 </tr>
             @endforeach
             </tbody>
-           
         </table>
         @endif
     </div>
 </div>
+
+
+
 @endsection
+
+

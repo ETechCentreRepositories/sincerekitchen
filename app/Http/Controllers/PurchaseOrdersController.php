@@ -130,25 +130,70 @@ class PurchaseOrdersController extends Controller
     {
         $purchaseOrder = PurchaseOrder::find($id);
         $purchaseOrderId = PurchaseOrder::find($id)->id;
-
-        
-
+    
             $poIds = $this->purchaseOrderArray($purchaseOrderId);
 
-
-            foreach($poIds as $test) {
-
-                $inventory = Inventory::where('products_id', '=', $test->products_id)->first();
-                $currentQuantity = $inventory->quantity;
-                $inventory->quantity = $currentQuantity + $request->input('qty');
-            
-                $purchaseOrder->status_id = "2";
-                $inventory->stock_in = $request->input('date');
-                $inventory->save();
+            $checkstatus =  $purchaseOrder->status_id;
+            if($checkstatus == "2"){
+                $purchaseOrder->status_id="3";
                 $purchaseOrder->save();
-            }
-        return redirect('/purchaseorder');
-    }
+                return redirect('/purchaseorder');
+                
+            } else if($checkstatus == "3"){
+                $purchaseOrder->status_id = "4";
+                $purchaseOrder->save();
+                return redirect('/purchaseorder');
+            }    
+            else{
+
+                foreach($poIds as $test){
+                    $check = Inventory::where('products_id','=', $test->products_id)->first();
+                }
+    
+                if($check != null){
+                    $rows = $request->input('rows');
+                    foreach($rows as $row){
+                        $data[] = [
+                            'quantity' => $row['quantity'],
+                        ];
+    
+                        foreach($poIds as $test) {
+                            $inventory = Inventory::where('products_id', '=', $test->products_id)->first();
+                            $currentQuantity = $inventory->quantity;
+                            $inventory->quantity = $currentQuantity + $data[0]['quantity'];
+                          
+                            $purchaseOrder->status_id = "2";
+                            $inventory->stock_in = $request->input('date');
+                            $inventory->save();
+                            $purchaseOrder->save();
+                        }
+    
+                        return redirect('/purchaseorder');
+                    }
+                } else{
+                    $rows = $request->input('rows');
+                    foreach($rows as $row){
+                        $data[]= [
+                            'products_id'=> $row['productId'],
+                            'quantity'=> $row['quantity'],
+                        ]; 
+                    }
+                    Inventory::insert($data);
+        
+                    foreach($poIds as $test) {
+                        $inventory = Inventory::where('products_id', '=', $test->products_id)->first();
+                        $currentQuantity = $inventory->quantity;
+                        $inventory->quantity = $currentQuantity + $request->input('qty');
+                        $purchaseOrder->status_id = "2";
+                        $inventory->stock_in = $request->input('date');
+                        $inventory->save();
+                        $purchaseOrder->save();
+                    }
+                return redirect('/purchaseorder');
+         }
+
+    } 
+}
 
     /**
      * Remove the specified resource from storage.
@@ -158,7 +203,9 @@ class PurchaseOrdersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $purchaseorder= PurchaseOrder::find($id);
+        $purchaseorder->delete();
+        return redirect('/purchaseorder');
     }
 
     public function getData(){

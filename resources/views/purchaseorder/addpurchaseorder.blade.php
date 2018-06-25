@@ -140,7 +140,7 @@
             <hr>
              <div class="row">
             <div style="background:black; color: white" class="col-md-3">
-                {{Form::label('grandtotal','Grand Total (SGD) + 7% GST',['class'=>'formLabel'])}}
+                {{Form::label('grandtotal','Grand Total (SGD)',['class'=>'formLabel'])}}
             </div>
              <div class="col-md-9">
              <input type="text" id="grandtotal" onchange="findgrandtotal()" class="form-control grandtotal" name="grandtotal" >
