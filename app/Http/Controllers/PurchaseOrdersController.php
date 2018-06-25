@@ -139,7 +139,6 @@ class PurchaseOrdersController extends Controller
                     $newInventory->quantity = $request->input('qty');
                     $newInventory->save();
                 }
-                
 
                 $inventory = Inventory::where('products_id', '=', $test->products_id)->first();
                 $currentQuantity = $inventory->quantity;
