@@ -79,7 +79,6 @@
         <div class="p-2">
         <input type="hidden" id="date" name="date" value="{{$purchaseorder->purchaseorder_date}}">
             @foreach ($purchaseorderlists as $purchaseorderlist)
-            
                 <input type="hidden" id="qty" name="qty" value="{{$purchaseorderlist->quantity}}">
             @endforeach
             <div class="centerButton">

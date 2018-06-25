@@ -134,16 +134,15 @@ class PurchaseOrdersController extends Controller
         $getPurchaseOrderArray = array_get($poIds, 0);
         $convertPurchaseOrderArray = (array) $getPurchaseOrderArray;
         $getPurchaseOrderValue = array_get($convertPurchaseOrderArray, "products_id");
-
-        $inventory = Inventory::where('products_id', '=', $getPurchaseOrderValue)->first();
-
+        //get the product id 
+        // dd($getPurchaseOrderValue);
+        $inventory = Inventory::where('products_id', '=', $getPurchaseOrderValue);
+        dd($inventory);
         $inventory->quantity = $request->input('qty');
         $purchaseOrder->status_id = "2";
         $inventory->stock_in = $request->input('date');
-
         $inventory->save();
         $purchaseOrder->save();
-
         return redirect('/purchaseorder');
     }
 
