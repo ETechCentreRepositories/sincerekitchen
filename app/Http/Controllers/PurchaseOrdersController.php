@@ -115,7 +115,8 @@ class PurchaseOrdersController extends Controller
      $purchaseOrderId = PurchaseOrder::find($id)->id;
      $purchaseorders = PurchaseOrder::orderBy('id','desc')->get();
      $purchaseorderlists = PurchaseOrderLists::where('purchaseorder_id','=',$purchaseOrderId)->get();
-     return view('purchaseorder.edit')->with('purchaseorder',$purchaseorder)->with('purchaseorders',$purchaseorders)->with('purchaseorderlists',$purchaseorderlists); 
+     $poIds = $this->purchaseOrderArray($purchaseOrderId);
+     return view('purchaseorder.edit')->with('purchaseorder',$purchaseorder)->with('purchaseorders',$purchaseorders)->with('purchaseorderlists',$purchaseorderlists)->with('poIds',$poIds); 
     }
 
     /**
@@ -130,20 +131,18 @@ class PurchaseOrdersController extends Controller
         $purchaseOrder = PurchaseOrder::find($id);
         $purchaseOrderId = PurchaseOrder::find($id)->id;
 
-        $poIds = $this->purchaseOrderArray($purchaseOrderId);
-        $getPurchaseOrderArray = array_get($poIds, 0);
-        $convertPurchaseOrderArray = (array) $getPurchaseOrderArray;
-        $getPurchaseOrderValue = array_get($convertPurchaseOrderArray, "products_id");
-
-        $inventory = Inventory::where('products_id', '=', $getPurchaseOrderValue)->first();
-
-        $inventory->quantity = $request->input('qty');
-        $purchaseOrder->status_id = "2";
-        $inventory->stock_in = $request->input('date');
-
-        $inventory->save();
-        $purchaseOrder->save();
-
+        
+            $poIds = $this->purchaseOrderArray($purchaseOrderId);
+            foreach($poIds as $test) {
+                $inventory = Inventory::where('products_id', '=', $test->products_id)->first();
+                $currentQuantity = $inventory->quantity;
+                $inventory->quantity = $currentQuantity + $request->input('qty');
+            
+                $purchaseOrder->status_id = "2";
+                $inventory->stock_in = $request->input('date');
+                $inventory->save();
+                $purchaseOrder->save();
+            }
         return redirect('/purchaseorder');
     }
 
@@ -189,4 +188,9 @@ class PurchaseOrdersController extends Controller
         $poId = DB::table('purchaseorder_list')->where('purchaseorder_id', '=', $purchaseOrderId)->select('products_id')->get()->toArray();
         return $poId;
     }
+
+    public function quantityArray($selectedOutlet, $getProductsValue) {
+        $quantity = Inventory::where('products_id', '=', $getProductsValue)->select('stock_level')->get()->toArray();
+        return $quantity;
+     }
 }
