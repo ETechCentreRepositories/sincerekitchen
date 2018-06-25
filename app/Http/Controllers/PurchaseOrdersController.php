@@ -130,10 +130,14 @@ class PurchaseOrdersController extends Controller
     {
         $purchaseOrder = PurchaseOrder::find($id);
         $purchaseOrderId = PurchaseOrder::find($id)->id;
-
         
             $poIds = $this->purchaseOrderArray($purchaseOrderId);
             foreach($poIds as $test) {
+                $newInventory  = new Inventory;
+                $newInventory->products_id = $request->input('product');
+                $newInventory->quantity = $request->input('qty');
+                $newInventory->save();
+
                 $inventory = Inventory::where('products_id', '=', $test->products_id)->first();
                 $currentQuantity = $inventory->quantity;
                 $inventory->quantity = $currentQuantity + $request->input('qty');
