@@ -57,7 +57,7 @@
                        </div>
                        <div class="p-2">
 
-                    {!!Form::open(['action' => ['SupplierController@destroy', $supplier->id], 'method' => 'POST'])!!}
+                    {!!Form::open(['action' => ['SupplierController@destroy', $supplier->id],'onsubmit' => 'return ConfirmDelete()' ,'method' => 'POST'])!!}
                                     {{Form::hidden('_method', 'DELETE')}}
                                     {{Form::submit('Delete', ['class' => 'btn btn-danger action-buttons'])}}
                                 {!!Form::close()!!}

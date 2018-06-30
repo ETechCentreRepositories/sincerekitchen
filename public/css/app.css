@@ -10140,5 +10140,14 @@ table#salesorertable td {
   padding: 150px;
 }
 
+.ui-autocomplete {
+  max-height: 200px;
+  overflow-y: auto;
+  /* prevent horizontal scrollbar */
+  overflow-x: hidden;
+  /* add padding to account for vertical scrollbar */
+  padding-right: 20px;
+}
+
 © 2018 GitHub,
 Inc. Terms Privacy Security Status Help Contact GitHub API Training Shop Blog About Press h to open a hovercard with more details.

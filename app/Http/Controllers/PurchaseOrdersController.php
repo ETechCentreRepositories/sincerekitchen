@@ -28,7 +28,7 @@ class PurchaseOrdersController extends Controller
         $user_id = auth()->user()->id;
         $users_id = User::find($user_id);
         // $suppliers = Supplier::All();
-        $purchaseorders = PurchaseOrder::All();
+        $purchaseorders = PurchaseOrder::All()->sortByDesc('id');
         return view('purchaseorder.index')->with('users_id',$users_id)->with('purchaseorders',$purchaseorders);
 
     }
@@ -131,7 +131,7 @@ class PurchaseOrdersController extends Controller
         $purchaseOrder = PurchaseOrder::find($id);
         $purchaseOrderId = PurchaseOrder::find($id)->id;
     
-            $poIds = $this->purchaseOrderArray($purchaseOrderId);
+   
 
             $checkstatus =  $purchaseOrder->status_id;
             if($checkstatus == "2"){
@@ -145,7 +145,7 @@ class PurchaseOrdersController extends Controller
                 return redirect('/purchaseorder');
             }    
             else{
-
+                $poIds = $this->purchaseOrderArray($purchaseOrderId);
                 foreach($poIds as $test){
                     $check = Inventory::where('products_id','=', $test->products_id)->first();
                 }
@@ -156,7 +156,7 @@ class PurchaseOrdersController extends Controller
                         $data[] = [
                             'quantity' => $row['quantity'],
                         ];
-    
+                        
                         foreach($poIds as $test) {
                             $inventory = Inventory::where('products_id', '=', $test->products_id)->first();
                             $currentQuantity = $inventory->quantity;
@@ -214,7 +214,36 @@ class PurchaseOrdersController extends Controller
         foreach($suppliers as $supplier){
             $valuesupp[$supplier->id] = $supplier->name;
         }
-        return view('purchaseorder.addpurchaseorder',compact('valuesupp'));
+          
+     $check0 = DB::table('purchaseorder')->count();
+
+     if($check0 == 0){
+         $totalnewid = 1;
+         $total = strlen($totalnewid);
+         $diff = 3-$total;
+         $stringnewId = (string)$totalnewid;
+ 
+         for($i=0;$i<$diff;$i++){
+             $stringnewId = "0" . $stringnewId;
+         }
+       
+     } else{
+         $totalnewid = 0;
+         $checkid = DB::table('salesorder')->latest('id')->first()->id;
+         $totalnewid = $checkid+1;
+         
+         $total = strlen($totalnewid);
+         $diff = 3-$total;
+         $stringnewId = (string)$totalnewid;
+     
+         for($i=0;$i<$diff;$i++){
+             $stringnewId = "0" . $stringnewId;
+         }
+     
+     }
+
+         
+         return view('purchaseorder.addpurchaseorder',compact('valuesupp'))->with('stringnewId',$stringnewId);
     }
 
     public function uploadFile(Request $request, $id){
@@ -225,8 +254,6 @@ class PurchaseOrdersController extends Controller
             $name = $file->getClientOriginalName();
             $destinationPath = public_path('/document');
             $file->move($destinationPath,$name);
-
-            
             $purchaseorder->quatation = $name;
             $purchaseorder->save();
             $boat_update = $request->all();

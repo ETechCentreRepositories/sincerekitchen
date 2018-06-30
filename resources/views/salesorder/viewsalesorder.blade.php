@@ -173,10 +173,18 @@
                             <div class="col-md-9" style="text-align: right;">
                              Discount(%) : 
                             </div>
-                        <div class="col-md-2" style="text-align: right;">
-
-                            {{$salesorder->discount}}%
+                            <div class="col-md-2" style="text-align: right;">
+                             {{$salesorder->discount}}%
                             </div>
+                            
+                            <div class="col-md-9" style="text-align: right;">
+                             GST (7%) : 
+                            </div>
+                            <div class="col-md-2" style="text-align: right;">
+                             {{$salesorder->gst}}
+                            </div>
+                            <br/>
+
                             </div>
                               <hr>
 

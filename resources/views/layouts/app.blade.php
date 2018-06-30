@@ -47,7 +47,7 @@ $("#image_add").change(function(){
 
 
 function ConfirmDelete(){
-return confirm('Are you sure?');
+return confirm('THIS ACTION WILL DELETE IT!\n\nAre you sure?');
 }
 
 </script>

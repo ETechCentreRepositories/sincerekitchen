@@ -13,7 +13,9 @@ use App\Models\Status;
 
 class PurchaseOrder extends Model
 {
+
     protected $table = 'purchaseorder';
+    protected $fillable = ['products_id','quantity'];
 
     public $timestamps = false;
 

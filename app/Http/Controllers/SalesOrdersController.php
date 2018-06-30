@@ -29,9 +29,10 @@ class SalesOrdersController extends Controller
     {
         $user_id = auth()->user()->id;
         $users_id = User::find($user_id);
+     
         // $customers = Customers::All();
         // $sales = SalesOrder::leftJoin('customers','salesorder.customers_id','=','customers.id')->get();
-        $salesorders = SalesOrder::All();
+        $salesorders = SalesOrder::All()->sortByDesc('id');
     return view('salesorder.index')->with('users_id',$users_id)->with('salesorders',$salesorders);
     
     }
@@ -63,6 +64,10 @@ class SalesOrdersController extends Controller
         
          
         ]);
+   
+
+        $checklastid = SalesOrder::select('id')->get()->last();
+    
         $sales = new SalesOrder;
         $sales->salesorder_name= Input::get('salesorder');
         $sales->references= Input::get('references');
@@ -162,7 +167,7 @@ class SalesOrdersController extends Controller
                         $data[] = [
                             'quantity' => $row['quantity'],
                         ];
-    
+                      
                         foreach($soIds as $test) {
                             $inventory = Inventory::where('products_id', '=', $test->products_id)->first();
                             $currentQuantity = $inventory->quantity;
@@ -222,9 +227,37 @@ public function getData(){
     foreach($customers as $customer){
         $valuecust[$customer->id] = $customer->name;
     }
+    
+    $check0 = DB::table('salesorder')->count();
 
+    if($check0 == 0){
+        $totalnewid = 1;
+        $total = strlen($totalnewid);
+        $diff = 3-$total;
+        $stringnewId = (string)$totalnewid;
+
+        for($i=0;$i<$diff;$i++){
+            $stringnewId = "0" . $stringnewId;
+        }
+      
+    } else{
+        $totalnewid = 0;
+        $checkid = DB::table('salesorder')->latest('id')->first()->id;
+        $totalnewid = $checkid+1;
+        
+        $total = strlen($totalnewid);
+        $diff = 3-$total;
+        $stringnewId = (string)$totalnewid;
+    
+        for($i=0;$i<$diff;$i++){
+            $stringnewId = "0" . $stringnewId;
+        }
+    
+    }
+
+    //  dd($checkid);
    
-    return view('salesorder.addsalesorder',compact('valuecust'));
+    return view('salesorder.addsalesorder',compact('valuecust'))->with('stringnewId',$stringnewId);
 }
 
 

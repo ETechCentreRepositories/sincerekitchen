@@ -17,7 +17,7 @@
              {!!Form::open(['action'=>'SalesOrdersController@getData','method'=>'GET'])!!}
                  <div class="row">
                     <div class="col-md-3">
-                    
+
                     {{Form::label('customername','Customer Name',['class'=>'formLabel','id' =>'customername'])}}
                 </div>
                
@@ -36,7 +36,8 @@
                      {{Form::label('salesorder','Sales Order#',['class'=>'formLabel'])}}
                 </div>
                 <div class="col-md-5">
-                {{Form::text('salesorder','',['class'=>'form-control'])}}
+
+                <input type ="text" id="salesorder" name="salesorder" class="form-control" value="SO<?php echo date("Y");?>{{$stringnewId}}">
                 </div>
                 </div>
 
@@ -151,10 +152,19 @@
 
              </div>
             </div>  
-<hr>
+            <hr>
+         <div class="row">
+            <div class="col-md-3">
+                {{Form::label('gst','GST 7 %',['class'=>'formLabel'])}}
+            </div>
+        <div class="col-md-3" >
+        {{Form::select('gst', array('Y' => 'Yes', 'N' => 'No'),null,['class'=>'form-control','id'=>'gst','onchange'=>'findgrandtotal()'])}}
+             </div>
+            </div>  
+            <hr>
              <div class="row">
             <div style="background:black; color: white" class="col-md-3">
-                {{Form::label('grandtotal','Grand Total (SGD) + 7% GST',['class'=>'formLabel'])}}
+                {{Form::label('grandtotal','Grand Total (SGD)',['class'=>'formLabel'])}}
             </div>
              <div class="col-md-9">
              <input type="text" id="grandtotal" onchange="findgrandtotal()" class="form-control grandtotal" name="grandtotal" >
@@ -196,16 +206,24 @@
 
 
 <script>
+
 $(document).ready(function(){    
+    
     $("#itemSearchField").autocomplete({
-        source: 'autocomplete-search',
-        minLength:1,
-        select:function(key,value)
-        {
-            console.log("testing");
-            console.log(value);
-        }
+       source: 'autocomplete-search',
+        }).keyup(function(){
+           
+            var isValid = false;
+            for(i in 'autocomplete-search'){
+                if('autocomplete-search'[i].toLowerCase().match(this.value.toLowerCase())){
+                    isValid =true;
+                }
+            }
+           if(!isValid){
+               alert('No Found');
+           }
     });
+
 
     var trProducts=[];
         $("#addItem").click(function(){
@@ -292,22 +310,28 @@ function findgrandtotal(){
      var grandtotal = 0;
     var afterdisc = 0;
     var gst = 0.07;
+
+
+var addgst = document.getElementById('gst');
+var gstvalue = addgst.value;
+
 var subtotal = document.getElementById('subtotal').value;
 console.log(subtotal);
 
 var discount = document.getElementById('discount').value;
 console.log(discount);
-
-
 afterdisc = subtotal-(subtotal*discount/100);
+grandtotal = afterdisc+(afterdisc*gst);
 console.log(afterdisc);
 
-grandtotal = afterdisc+(afterdisc*gst);
+if(gstvalue == "Y"){
+    document.getElementById('grandtotal').value = grandtotal.toFixed(2);
+    console.log(grandtotal);
 
-document.getElementById('grandtotal').value = grandtotal.toFixed(2);
-
-console.log(grandtotal);
-
+} else {
+    document.getElementById('grandtotal').value = afterdisc.toFixed(2);
+    console.log(grandtotal);
+}
 }   
 
 </script>

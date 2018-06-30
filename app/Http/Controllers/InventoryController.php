@@ -26,7 +26,7 @@ class InventoryController extends Controller{
         $user_id = auth()->user()->id;
         $users_id = User::find($user_id);
          $products = Product::All();
-        $inventory= Inventory::leftJoin('products','inventory.products_id','=','products.id')->get();
+        $inventory= Inventory::All();
         return view('inventory.index')->with('users_id',$users_id)->with('products',$products)-> with('inventorys',$inventory);
     }
 
@@ -140,6 +140,7 @@ public function getInventoryByProductId($product_id){
 }
 
 public function search(Request $request){
+    dd($request);
     $search = $request->keyword;
     $products = Product::all();
     $data = [];
@@ -147,6 +148,7 @@ public function search(Request $request){
     foreach($products as $key => $value){
         $data [] = ['id' => $value->id, 'value'=>$value->product_name];
     }
+    
     return response($data);    
 }
 

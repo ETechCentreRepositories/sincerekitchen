@@ -7,12 +7,12 @@
 <div class="container-fluid">
     <div class="yellowBackground">
         <div class="salesActivity d-flex flex-column">
-            <label class="label">Sales Activity</label>
+        <a href="{{URL::to('/salesorder')}}"> <label class="label">Sales Order Status</label></a>
             <div class="d-flex flex-row">
                 <div class="p-2 card salesCards card1">
                     <div class="salesCardsBody card-body">
                         <div class="salesNumber salesNumber1">
-                            {{$salesPack}}
+                        {{$salesid1}}
                         </div>
                         Qty
                         <br><br>
@@ -24,8 +24,8 @@
                 <br>
                 <div class="p-2 card salesCards card2">
                     <div class="salesCardsBody card-body">
-                        <div class="salesNumber salesNumber2">
-                            0
+                        <div class="salesNumber salesNumber3">
+                    {{$salesid2}}
                         </div>
                         Qty
                         <br><br>
@@ -34,70 +34,88 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="p-2 card salesCards card3">
                     <div class="salesCardsBody card-body">
                         <div class="salesNumber salesNumber3">
-                            0
+                    {{$salesid3}}
                         </div>
                         Qty
                         <br><br>
                         <div class="salesProcess">
-                            TO BE DELIVERED
+                            TO BE SHIPPED
                         </div>
                     </div>
                 </div>
                 <div class="p-2 card salesCards card4">
                     <div class="salesCardsBody card-body">
                         <div class="salesNumber salesNumber4">
-                            0
+                        {{$salesid4}}
                         </div>
                         Qty
                         <br><br>
                         <div class="salesProcess">
-                            TO BE INVOICED
+                            TO BE REJECTED
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="whiteBackground">
-        <div class="purchaseOrder row">
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-body">
-                        PURCHASE ORDER
+    <div class="yellowBackground">
+        <div class="salesActivity d-flex flex-column">
+        <a href="{{URL::to('/purchaseorder')}}"> <label class="label">Purchase Order Status</label></a>
+            <div class="d-flex flex-row">
+                <div class="p-2 card salesCards card1">
+                    <div class="salesCardsBody card-body">
+                        <div class="salesNumber salesNumber1">
+                        {{$purchaseid1}}
+                        </div>
+                        Qty
+                        <br><br>
+                        <div class="salesProcess">
+                            TO BE PACKED
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-7">
-                <div class="card">
-                    <div class="card-body">
-                        SALES ORDER
+                <br>
+                <div class="p-2 card salesCards card2">
+                    <div class="salesCardsBody card-body">
+                        <div class="salesNumber salesNumber3">
+                        {{$purchaseid2}}
+                        </div>
+                        Qty
+                        <br><br>
+                        <div class="salesProcess">
+                            TO BE SHIPPED
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <br>
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-8">
-                        STATISTICS
-                    </div>
-                    <div class="col-md-1">
-                        <div style="border-left:1px solid rgba(0, 0, 0, 0.125);height:200px"></div>
-                    </div>
-                    <div class="col-md-3">
-                        TOTAL SALES
+
+                <div class="p-2 card salesCards card3">
+                    <div class="salesCardsBody card-body">
+                        <div class="salesNumber salesNumber3">
+                        {{$purchaseid3}}
+                        </div>
+                        Qty
+                        <br><br>
+                        <div class="salesProcess">
+                            TO BE SHIPPED
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <br>
-        <div class="card">
-            <div class="card-body">
-                AUDIT TRAILS
+                <div class="p-2 card salesCards card4">
+                    <div class="salesCardsBody card-body">
+                        <div class="salesNumber salesNumber4">
+                        {{$purchaseid4}}
+                        </div>
+                        Qty
+                        <br><br>
+                        <div class="salesProcess">
+                            TO BE REJECTED
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

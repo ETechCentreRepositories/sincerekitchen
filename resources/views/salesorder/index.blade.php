@@ -58,8 +58,7 @@
                      <td>{{$salesorder-> references}}</td>
                      <td>{{$salesorder-> customers['name']}}</td>
                      <td style="color:red;">{{$salesorder->status['name']}}</td>
-                     <td>S$ {{$salesorder->grandtotal}}</td>                        
-                
+                     <td>S$ {{$salesorder->grandtotal}}</td>                       
                     <td>   
                         <div class="d-flex flex-row user-buttons">
                         @if ($salesorder->status_id == '2')
@@ -99,7 +98,7 @@
 
 
                             <div class="p-2">
-                                {!!Form::open(['action' => ['SalesOrdersController@destroy', $salesorder->id], 'method' => 'POST'])!!}
+                                {!!Form::open(['action' => ['SalesOrdersController@destroy', $salesorder->id], 'onsubmit' => 'return ConfirmDelete()','method' => 'POST'])!!}
                                     {{Form::hidden('_method', 'DELETE')}}
                                     {{Form::submit('Delete', ['class' => 'btn btn-danger action-buttons'])}}
                                 {!!Form::close()!!}                          

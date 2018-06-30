@@ -7,7 +7,7 @@
 {!!Form::open(['action'=>['PurchaseOrdersController@store'],'method'=>'POST'])!!}
 {{csrf_field()}}  
     <div class="pageContent">
-     <h3 class="title">New Sales Order</h3>
+     <h3 class="title">New Purchase Order</h3>
         <hr>
         <div class="SalesDetails">  
        
@@ -36,7 +36,7 @@
                      {{Form::label('purchaseorder','Purchase Order#',['class'=>'formLabel'])}}
                 </div>
                 <div class="col-md-5">
-                {{Form::text('purchaseorder','',['class'=>'form-control'])}}
+                <input type ="text" id="purchaseorder" name="purchaseorder" class="form-control" value="PO<?php echo date("Y");?>{{$stringnewId}}">
                 </div>
                 </div>
 
@@ -133,7 +133,7 @@
                 {{Form::label('gst','GST %',['class'=>'formLabel'])}}
             </div>
         <div class="col-md-9">
-        <input type="text" id="gst" onchange="findgrandtotal()" class="form-control gst" name="gst" >
+        <input type="text" id="gst" onchange="findgrandtotal()" class="form-control gst" name="gst" value="0" >
 
              </div>
             </div>  

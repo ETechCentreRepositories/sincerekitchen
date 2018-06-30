@@ -59,7 +59,7 @@
                             </a>
                         </div>
                         <div class="p-2">
-                        {!!Form::open(['action' => ['ProductsController@destroy', $product->id], 'method' => 'POST'])!!}
+                        {!!Form::open(['action' => ['ProductsController@destroy', $product->id],'onsubmit' => 'return ConfirmDelete()', 'method' => 'POST'])!!}
                                     {{Form::hidden('_method', 'DELETE')}}
                                     {{Form::submit('Delete', ['class' => 'btn btn-danger action-buttons'])}}
                                 {!!Form::close()!!}

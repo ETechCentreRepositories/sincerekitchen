@@ -43,9 +43,6 @@
         </div>
     </div>
 </nav>
-
-
-
        
        <div id="product-content"  class="w3-card-4">
     <header class="w3-container w3">

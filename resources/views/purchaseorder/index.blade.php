@@ -94,7 +94,7 @@
                             </div>
                             @endif
                             <div class="p-2">
-                                {!!Form::open(['action' => ['PurchaseOrdersController@destroy', $purchaseorder->id], 'method' => 'POST'])!!}
+                                {!!Form::open(['action' => ['PurchaseOrdersController@destroy', $purchaseorder->id],'onsubmit' => 'return ConfirmDelete()','method' => 'POST'])!!}
                                     {{Form::hidden('_method', 'DELETE')}}
                                     {{Form::submit('Delete', ['class' => 'btn btn-danger action-buttons'])}}
                                 {!!Form::close()!!}                          
