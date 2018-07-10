@@ -28,30 +28,35 @@
                 </a>
              </div>
         </div>
-        
-        </div>
-        <table class="table table-striped"> 
+       
+
+
+
+       
+            <input id="dateInput" type="text"  onkeyup="myDate()" class="fontawesome" name="searchDate" placeholder="Search Date"></th>
+             <input id="salesInput" type="text" onkeyup="searchSales()"  class="fontawesome" name="searchSales" placeholder="Search Sales"></th>
+             <input id="refInput" type="text" onkeyup="myRef()"  class="fontawesome" name="searchReferences" placeholder="Search ref"></th>
+            <input id="custInput"  type="text"onkeyup="myCust()" class="fontawesome" name="searchcust" placeholder="Search CustName "></th>
+        <input id="statusInput" type="text"  onkeyup="myStatus()" class="fontawesome" name="searchStatus" placeholder="Search Status"></th>
+    
+            
+        <table class="table table-striped" id="myTable"> 
         @if(count($salesorders)>0)
-            <thead>
+            <thead>   
                 <tr>
-                    <th></th>
-                    <th>Date</th>
+                    <th>Date </th>
                     <th>Sales Order#</th>
                     <th>References#</th>
                     <th>Customer Name</th>
                     <th>Status</th>
                     <th>Amount</th>
+                   
                 </tr>
+              
             </thead>
             <tbody>
            @foreach($salesorders as $salesorder)
                 <tr>
-                    <td>
-                        <div class="checkbox">
-                            <label><input type="checkbox" value=""></label>
-                        </div>
-                    </td>
-
                      <td>{{$salesorder-> salesorder_date}}</td>
                      <td style="font-weight:bold; color:blue;"> <a href="{{URL::to('/salesorder',$salesorder->id)}}/">
                       {{$salesorder-> salesorder_name}}</a> </td>
@@ -106,8 +111,10 @@
                              </div>
                         </div>
                     </td>
+                    <td></td>
                 </tr>
             @endforeach
+            <tr></tr>
             </tbody>
            
         </table>
@@ -115,3 +122,104 @@
     </div>
 </div>
 @endsection
+
+
+
+<script>
+
+function myDate() {
+ var input, filter, table, tr, td,tds,i;
+  input = document.getElementById("dateInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  tds = table.getElementsByTagName("td");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+function searchSales() {
+ var input, filter, table, tr, td,tds,i;
+  input = document.getElementById("salesInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  tds = table.getElementsByTagName("td");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+function myRef() {
+ var input, filter, table, tr, td,tds,i;
+  input = document.getElementById("refInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  tds = table.getElementsByTagName("td");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+function myCust() {
+ var input, filter, table, tr, td,tds,i;
+  input = document.getElementById("custInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  tds = table.getElementsByTagName("td");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[3];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+function myStatus() {
+ var input, filter, table, tr, td,tds,i;
+  input = document.getElementById("statusInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  tds = table.getElementsByTagName("td");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[4];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+
+
+
+
+</script>

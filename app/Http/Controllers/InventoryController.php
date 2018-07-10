@@ -140,7 +140,6 @@ public function getInventoryByProductId($product_id){
 }
 
 public function search(Request $request){
-    dd($request);
     $search = $request->keyword;
     $products = Product::all();
     $data = [];
@@ -148,7 +147,6 @@ public function search(Request $request){
     foreach($products as $key => $value){
         $data [] = ['id' => $value->id, 'value'=>$value->product_name];
     }
-    
     return response($data);    
 }
 

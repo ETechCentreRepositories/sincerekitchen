@@ -18,9 +18,10 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="{{asset('js/jquery-ui.min.js')}}" type="text/javascript"></script>
     <link href="{{asset('css/jquery-ui.min.css')}}" rel="stylesheet" type="text/css"/> 
+   
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    
-    <!-- Fonts -->
+   
+  
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

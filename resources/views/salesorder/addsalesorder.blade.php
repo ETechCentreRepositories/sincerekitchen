@@ -77,32 +77,14 @@
         </div>
 
         <hr>  
-        <div class="row">   
-        <div class="col-md-2">
-        {{Form::label('salesperson','SalesPerson',['class'=>'formLabel'])}}
-        </div>
-
-        <div class="col-md-3">
-        {{Form::select('salesperson',array('Select'),null,['class'=>'fieldDropDown'])}}
-
-        </div>
-        </div>
-    <div class="row">   
-        <div class="col-md-2">
-        {{Form::label('delivery','Delivery Method',['class'=>'formLabel'])}}
-        </div>
-        <div class="col-md-3">
-        {{Form::select('delivery',array('Select'),null,['class'=>'fieldDropDown'])}}
-
-        </div>
-        </div>
+       
 
         <br/>
         <br/>
         <div class="row">
             <div class="col-md-10">
                 {{-- <div class="input-group"> --}}
-                <input type="text" id="itemSearchField" class="form-control" style="background:transparent">
+                <input type="text" id="itemSearchField" class="form-control awesomplete" style="background:transparent">
             </div>
             <div class="col-md-2">
                 <button id="addItem" type="button" class="btn btn-warning yellowButton">Add Item</button>
@@ -158,8 +140,11 @@
                 {{Form::label('gst','GST 7 %',['class'=>'formLabel'])}}
             </div>
         <div class="col-md-3" >
-        {{Form::select('gst', array('Y' => 'Yes', 'N' => 'No'),null,['class'=>'form-control','id'=>'gst','onchange'=>'findgrandtotal()'])}}
-             </div>
+        {{Form::select('gst', array('0.07' => 'Yes', '0' => 'No'),null,['class'=>'form-control','id'=>'gst','onchange'=>'findgrandtotal()'])}}
+         <input type="hidden" id="gstresult" onchange="findgrandtotal()" name="gstresult">
+         </div>
+
+         
             </div>  
             <hr>
              <div class="row">
@@ -208,22 +193,15 @@
 <script>
 
 $(document).ready(function(){    
-    
-    $("#itemSearchField").autocomplete({
-       source: 'autocomplete-search',
-        }).keyup(function(){
-           
-            var isValid = false;
-            for(i in 'autocomplete-search'){
-                if('autocomplete-search'[i].toLowerCase().match(this.value.toLowerCase())){
-                    isValid =true;
-                }
-            }
-           if(!isValid){
-               alert('No Found');
-           }
-    });
 
+    $("#itemSearchField").autocomplete({
+        source: 'autocomplete-search',
+        autoFocus: true,
+        minLength:2,
+        select:function(key,value)
+        { 
+        }
+    });  
 
     var trProducts=[];
         $("#addItem").click(function(){
@@ -304,7 +282,7 @@ $(document).on('click','#removeTR',function(){
 
     console.log(id);
 });
- });
+});
 
 function findgrandtotal(){
      var grandtotal = 0;
@@ -324,12 +302,14 @@ afterdisc = subtotal-(subtotal*discount/100);
 grandtotal = afterdisc+(afterdisc*gst);
 console.log(afterdisc);
 
-if(gstvalue == "Y"){
+if(gstvalue == "0.07"){
     document.getElementById('grandtotal').value = grandtotal.toFixed(2);
+    document.getElementById('gstresult').value = (afterdisc*gst).toFixed(2);
     console.log(grandtotal);
 
 } else {
     document.getElementById('grandtotal').value = afterdisc.toFixed(2);
+    document.getElementById('gstresult').value = 0.00.toFixed(2);
     console.log(grandtotal);
 }
 }   

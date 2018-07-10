@@ -312,6 +312,7 @@ $("#itemSearchField").autocomplete({
         }
     });
 
+
     var trProducts=[];
         $("#addItem").click(function(){
             console.log("distinct");

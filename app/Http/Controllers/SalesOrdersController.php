@@ -76,6 +76,7 @@ class SalesOrdersController extends Controller
         $sales->customers_id = Input::get('customername');    
         $sales->subtotal = Input::get('subtotal');
         $sales->discount = Input::get('discount');
+        $sales->gstresult= Input::get('gstresult');
         $sales->grandtotal = Input::get('grandtotal');
         $sales->customers_notes = Input::get('customernote');
         $sales->status_id = 1;

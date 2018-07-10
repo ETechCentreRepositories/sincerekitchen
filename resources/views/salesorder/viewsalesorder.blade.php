@@ -181,14 +181,12 @@
                              GST (7%) : 
                             </div>
                             <div class="col-md-2" style="text-align: right;">
-                             {{$salesorder->gst}}
+                             {{$salesorder->gstresult}}
                             </div>
                             <br/>
 
                             </div>
                               <hr>
-
-
                                 <div class = "row" style="font-size:16px">
                                 <div class="col-md-9" style="text-align: right;">
                                 Grand total(SGD) : 
@@ -197,10 +195,6 @@
                                 {{$salesorder->grandtotal}}
                                 </div> 
                                 </div>
-                        
-
-                      
-                        
                     </div>
                     <div class="tab-pane fade" id="quotation" role="tabpanel" aria-labelledby="quotation-tab">
                         <div class="row">
@@ -208,7 +202,7 @@
                                 <img src="http://localhost:8000/storage/logo/singapore_brands.png" style="width: 70%;">
                             </div>
                             <div class="col-md-6" style="text-align:center;">
-                                <img src="http://localhost:8000/storage/logo/sincerekitchen_logo.png" style="width: 30%;"><br>
+                                <img src="http://localhost:8000/storage/logo/logo.png" style="width: 100%;"><br>
                                 10 Ubi Crescent<br>
                                 #03-07 Ubi Techpark, Singapore 408564<br>
                                 Tel: (65) 6280 8893   Fax: (65) 6280 9093<br>
@@ -232,7 +226,11 @@
                         <br>
                         <div class="row">
                             <div class="col-md-9">
+                            {{$salesorder->customers['name']}}
+                            <br/>
                                 {{$salesorder->customers['ba']}}
+                                 <br/>
+                                 {{$salesorder->customers['email']}}
                             </div>
                             <div class="col-md-3">
                                 Date: {{$salesorder->salesorder_date}}
@@ -283,7 +281,15 @@
                             <div class="col-md-2" style="text-align: right;">
                                 {{$salesorder->discount}}%
                             </div>
+                            <br/>
+                            <div class="col-md-9" style="text-align: right;">
+                             GST (7%) : 
+                            </div>
+                            <div class="col-md-2" style="text-align: right;">
+                             {{$salesorder->gstresult}}
+                            </div>
                         </div>
+                            
                         <div class = "row" style="font-size:16px">
                             <div class="col-md-9" style="text-align: right;">
                                 Grand total(SGD) : 
