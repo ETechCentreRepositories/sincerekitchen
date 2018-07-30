@@ -59,12 +59,14 @@ class SalesOrdersController extends Controller
     public function store(Request $request)
     {    
 
+
         $this->validate($request, [
             'rows' => 'required',
         
          
         ]);
-   
+        
+
 
         $checklastid = SalesOrder::select('id')->get()->last();
     
@@ -223,12 +225,13 @@ class SalesOrdersController extends Controller
     }
     
 public function getData(){
+    $products = Product::all();
     $customers = Customers::all();
     $valuecust = [];
     foreach($customers as $customer){
         $valuecust[$customer->id] = $customer->name;
     }
-    
+   
     $check0 = DB::table('salesorder')->count();
 
     if($check0 == 0){
@@ -258,7 +261,7 @@ public function getData(){
 
     //  dd($checkid);
    
-    return view('salesorder.addsalesorder',compact('valuecust'))->with('stringnewId',$stringnewId);
+    return view('salesorder.addsalesorder',compact('valuecust'))->with('stringnewId',$stringnewId)->with('products',$products);
 }
 
 
@@ -277,5 +280,16 @@ public function dbQuery($salesOrderId) {
     ->get()
     ->toArray();
     return $salesOrder;
+}
+
+public function autocomplete(Request $request){
+    $term= $request->term;
+    $products = Product::where('product_name','LIKE','%'.$term.'%')->get();
+    $data = [];
+
+    foreach($products as $key => $value){
+        $data [] = ['id' => $value->id, 'value'=>$value->product_name];
+    }
+    return response()->json($data);    
 }
 }

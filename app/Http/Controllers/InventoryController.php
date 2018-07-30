@@ -140,8 +140,8 @@ public function getInventoryByProductId($product_id){
 }
 
 public function search(Request $request){
-    $search = $request->keyword;
-    $products = Product::all();
+    $term= $request->term;
+    $products = Product::where('product_name','LIKE','%'.$term.'%')->get();
     $data = [];
 
     foreach($products as $key => $value){

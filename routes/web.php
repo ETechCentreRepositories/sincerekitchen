@@ -42,7 +42,7 @@ Route::get('/addpurchaseorder','PurchaseOrdersController@getData');
 
 
 Route::get('/retrieve-product-by-product-name/{productName}','ProductsController@getProductsbyProductName');
-Route::get('/autocomplete-search', 'InventoryController@search');
+Route::get('/autocomplete-search', array('as'=>'autocomplete','uses'=>'SalesOrdersController@autocomplete'));
 
 
 Route::post('/addpurchaseorder','ProductsController@AddNewItem');

@@ -18,8 +18,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="{{asset('js/jquery-ui.min.js')}}" type="text/javascript"></script>
     <link href="{{asset('css/jquery-ui.min.css')}}" rel="stylesheet" type="text/css"/> 
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
    
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="icon" type="image/png" href="{{ asset('storage/logo/sincerekitchen_logo.png') }}">
    
   
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -63,3 +66,4 @@ return confirm('THIS ACTION WILL DELETE IT!\n\nAre you sure?');
     </div>
 </body>
 </html>
+    

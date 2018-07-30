@@ -11,3 +11,7 @@ class Status extends Model
     public $timestamps = false;
 
 }
+
+
+
+

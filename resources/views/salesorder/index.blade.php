@@ -28,10 +28,7 @@
                 </a>
              </div>
         </div>
-       
-
-
-
+    
        
             <input id="dateInput" type="text"  onkeyup="myDate()" class="fontawesome" name="searchDate" placeholder="Search Date"></th>
              <input id="salesInput" type="text" onkeyup="searchSales()"  class="fontawesome" name="searchSales" placeholder="Search Sales"></th>

@@ -82,10 +82,12 @@
         <br/>
         <br/>
         <div class="row">
-            <div class="col-md-10">
-                {{-- <div class="input-group"> --}}
-                <input type="text" id="itemSearchField" class="form-control awesomplete" style="background:transparent">
-            </div>
+         <div class="col-md-10">
+           
+          <input name="itemSearchField" type="text" id="itemSearchField"  placeholder="Search.."  class="form-control" style="background:transparent">
+
+           </div> 
+
             <div class="col-md-2">
                 <button id="addItem" type="button" class="btn btn-warning yellowButton">Add Item</button>
             </div>
@@ -192,17 +194,17 @@
 
 <script>
 
-$(document).ready(function(){    
-
-    $("#itemSearchField").autocomplete({
-        source: 'autocomplete-search',
+$(document).ready(function(){
+ $("#itemSearchField").autocomplete({
+        source: '{!!URL:: route('autocomplete')!!}',
+        minLength:1,
         autoFocus: true,
-        minLength:2,
-        select:function(key,value)
-        { 
-        }
-    });  
 
+        select:function(e,ui)
+        {
+         
+        }
+    });
     var trProducts=[];
         $("#addItem").click(function(){
             console.log("distinct");
@@ -312,9 +314,63 @@ if(gstvalue == "0.07"){
     document.getElementById('gstresult').value = 0.00.toFixed(2);
     console.log(grandtotal);
 }
-}   
+} 
+  
 
 </script>
+<style>
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+
+#myInput {
+    border-box: box-sizing;
+    background-image: url('searchicon.png');
+    background-position: 14px 12px;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    padding: 14px 20px 12px 45px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+
+#myInput:focus {outline: 3px solid #ddd;}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f6f6f6;
+    min-width: 230px;
+    overflow: auto;
+    border: 1px solid #ddd;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+</style>
 @endsection
   
 
