@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+
+
+
 Route::get('/', 'PagesController@dashboard');
 Route::get('/inventory', 'PagesController@inventory');
 Route::get('/product', 'PagesController@product');
@@ -24,7 +27,10 @@ Route::get('/customer', 'PagesController@customer');
 Route::get('/employee', 'PagesController@employee');
 Route::get('/addemployee', 'PagesController@addemployee');
 Route::get('/addcustomer', 'PagesController@addcustomer'); 
-Route::get('/salesorder', 'PagesController@salesorder');
+Route::get('/salesorder', 'PagesController@salesorder');{    
+}
+
+
 Route::get('/addsalesorder','PagesController@addsalesorder');
 Route::get('/addsalesorder','SalesOrdersController@getData');
 Route::get('/supplier','PagesController@supplier');
@@ -33,6 +39,7 @@ Route::get('/addsupplier','PagesController@addsupplier');
 Route::get('/purchaseorder','PagesController@purchaseorder');
 Route::get('/addpurchaseorder','PagesController@addpurchaseorder');
 Route::get('/addpurchaseorder','PurchaseOrdersController@getData');
+
 
 
 

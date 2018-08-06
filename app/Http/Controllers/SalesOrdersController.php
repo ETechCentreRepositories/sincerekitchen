@@ -108,11 +108,14 @@ class SalesOrdersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    { 
+        
         $salesorder =SalesOrder::find($id);
         $salesOrderId = SalesOrder::find($id)->id;
         $salesorders = SalesOrder::orderBy('id','desc')->get();
+       
         $salesorderlists = SalesOrderLists::where('salesorder_id','=',$salesOrderId)->get();
+    
         return view('salesorder.viewsalesorder')->with('salesorder',$salesorder)->with('salesorders',$salesorders)->with('salesorderlists',$salesorderlists); 
         //
     }   
@@ -229,7 +232,7 @@ public function getData(){
     $customers = Customers::all();
     $valuecust = [];
     foreach($customers as $customer){
-        $valuecust[$customer->id] = $customer->name;
+        $valuecust[$customer->id] = $customer->companyname;
     }
    
     $check0 = DB::table('salesorder')->count();
