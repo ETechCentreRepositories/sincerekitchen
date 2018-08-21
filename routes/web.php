@@ -27,8 +27,10 @@ Route::get('/customer', 'PagesController@customer');
 Route::get('/employee', 'PagesController@employee');
 Route::get('/addemployee', 'PagesController@addemployee');
 Route::get('/addcustomer', 'PagesController@addcustomer'); 
-Route::get('/salesorder', 'PagesController@salesorder');{    
-}
+Route::get('/salesorder', 'PagesController@salesorder');   
+
+Route::get('/viewsalesorder','PagesController@viewsalesorder');
+
 
 
 Route::get('/addsalesorder','PagesController@addsalesorder');

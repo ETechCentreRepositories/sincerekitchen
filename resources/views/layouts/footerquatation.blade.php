@@ -1,4 +1,4 @@
-<div class="row" style="font-size:16px">
+ <div class="row" style="font-size:16px">
                             <div class="col-md-9" style="text-align: right;">
                                 Subtotal : 
                             </div>
@@ -30,6 +30,7 @@
                             </div> 
                         </div>
                         <br>
+                        
                         <div style="font-size: 14px;">
                             <div style="text-decoration: underline;">NOTE:</div><br>
                             - Owner to provide all necessary M&E utilities points not more than 1m away from equipment location<br>
@@ -58,4 +59,3 @@
                                 _________________<br>
                             </div>
                         </div>
-                    </div>

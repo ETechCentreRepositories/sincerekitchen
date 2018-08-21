@@ -3,7 +3,7 @@
 
        
 <div class="container">
-{!!Form::open(['action'=>['SalesOrdersController@store'],'method'=>'POST'])!!}
+{!!Form::open(['action'=>['SalesOrdersController@store'],'method'=>'POST','onsubmit' => 'return ConfirmSubmit()'])!!}
 {{csrf_field()}}  
     <div class="pageContent">
      <h3 class="title">New Sales Order</h3>
@@ -174,7 +174,7 @@
 
          <div class="col-md-3">
         <div class="btnsubmit">
-            <button id="btnSave" type="submit" class="btn btn-warning btn-lg">Save and Send </button>
+            <button id="btnSave" type="submit" class="btn btn-warning btn-lg" >Save and Send </button>
             
             </div>
         </div>
@@ -193,6 +193,8 @@
 
 
 <script>
+
+
 
 $(document).ready(function(){
  $("#itemSearchField").autocomplete({
@@ -235,9 +237,9 @@ $(document).ready(function(){
                 
                 },
                 error: function (obj, testStatus, errorThrown) {
-                console.log("failure");
-            }
-            });
+                    console.log("failure");
+                 }   
+            }); 
         });
 
 
@@ -285,6 +287,9 @@ $(document).on('click','#removeTR',function(){
     console.log(id);
 });
 });
+
+
+
 
 function findgrandtotal(){
      var grandtotal = 0;

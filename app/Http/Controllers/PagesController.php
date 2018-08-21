@@ -97,7 +97,7 @@ class PagesController extends Controller
        
      public function viewsalesorder(){
         $title = 'View Sales Order';
-     return view('salesorder.viewsalesorder')->with('title',$title);
+     return view('salesorder.quotation')->with('title',$title);
 
      }
 
